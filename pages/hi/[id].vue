@@ -10,7 +10,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div m-3>
+  <div>
     <h3>Hi, {{ name }}!</h3>
 
     <template v-if="user.otherNames.length">

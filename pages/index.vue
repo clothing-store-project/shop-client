@@ -1,15 +1,15 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div class="page-index">
-<!--    <Logos />-->
-    <Examples />
+    <Examples/>
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .page-index {
   padding-top: 60px;
   text-align: center;
 }
 </style>
-<script setup lang="ts">
-</script>

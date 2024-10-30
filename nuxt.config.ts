@@ -42,7 +42,6 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    // Temporary workaround for prerender regression. see https://github.com/nuxt/nuxt/issues/27490
     '/': { prerender: true }
   },
 
@@ -58,18 +57,19 @@ export default defineNuxtConfig({
       scale: 1.2,
     },
   },
+
   vite: {
     css: {
       preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
-        },
-      },
+        scss: { api: 'modern-compiler' },
+      }
     },
   },
+
   elementPlus: {
     icon: 'ElIcon',
-    importStyle: 'scss',
     themes: ['dark'],
   },
+
+  compatibilityDate: '2024-10-30',
 })
