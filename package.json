@@ -1,12 +1,10 @@
 {
   "name": "shop-ecommerce",
-  "packageManager": "pnpm@8.12.1",
   "version": "0.1.0",
   "description": "Shop Ecommerce is a starter template for building a shop website with Element Plus and Nuxt.js.",
   "author": "Made with ❤️ by Mr Binh <",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
@@ -37,14 +35,5 @@
   },
   "peerDependencies": {
     "pinia": "^2.1.6"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "webpack",
-        "vite",
-        "vue"
-      ]
-    }
   }
 }
