@@ -1,43 +1,62 @@
 <script setup lang="ts">
-import("~/assets/js/jquery.min.js")
-import("~/assets/vendor/wow/wow.min.js")
-import("~/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js")
-import("~/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js")
-import("~/assets/vendor/bootstrap-touchspin/bootstrap-touchspin.js")
-import("~/assets/vendor/swiper/swiper-bundle.min.js")
-import("~/assets/vendor/magnific-popup/magnific-popup.js")
-import("~/assets/vendor/imagesloaded/imagesloaded.js")
-import("~/assets/vendor/masonry/masonry-4.2.2.js")
-import("~/assets/vendor/masonry/isotope.pkgd.min.js")
-import("~/assets/vendor/countdown/jquery.countdown.js")
-import("~/assets/vendor/wnumb/wNumb.js")
-import("~/assets/vendor/nouislider/nouislider.min.js")
-import("~/assets/js/dz.carousel.js")
-import("~/assets/vendor/lightgallery/dist/lightgallery.min.js")
-import("~/assets/vendor/lightgallery/dist/plugins/thumbnail/lg-thumbnail.min.js")
-import("~/assets/vendor/lightgallery/dist/plugins/zoom/lg-zoom.min.js")
-import("~/assets/js/dz.ajax.js")
-import("~/assets/js/custom.js")
+import 'animate.css'
+import {ref} from 'vue'
+
+const loading = ref(false)
 </script>
 
 <template>
-  <LayoutsClientAppHeader/>
-  <slot/>
-  <LayoutsClientAppFooter/>
+  <div class="wrapper" v-if="loading">
+    <div class="loader"/>
+  </div>
+  <el-container
+      v-if="!loading"
+      direction="vertical"
+  >
+    <LayoutsClientAppHeader/>
+    <slot/>
+    <LayoutsClientAppFooter/>
+  </el-container>
 </template>
 
-<style>
-@import url("~/assets/css/style.css");
-@import url("~/assets/icons/iconly/index.min.css");
-@import url("~/assets/vendor/magnific-popup/magnific-popup.min.css");
-@import url("~/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css");
-@import url("~/assets/vendor/swiper/swiper-bundle.min.css");
-@import url("~/assets/vendor/nouislider/nouislider.min.css");
-@import url("~/assets/vendor/animate/animate.css");
-@import url("~/assets/vendor/lightgallery/dist/css/lightgallery.css");
-@import url("~/assets/vendor/lightgallery/dist/css/lg-thumbnail.css");
-@import url("~/assets/vendor/lightgallery/dist/css/lg-zoom.css");
-@import url("~/assets/css/skin/skin-1.css");
+<style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+
+  .loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    background: radial-gradient(circle closest-side, #000 94%, #0000) right/calc(200% - 1em) 100%;
+    animation: l24 1s infinite alternate linear;
+  }
+
+  .loader::before {
+    content: "Loading...";
+    line-height: 1em;
+    color: #0000;
+    background: inherit;
+    background-image: radial-gradient(circle closest-side, #fff 94%, #000);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.el-container{
+  width: 100%;
+}
+
+@keyframes l24 {
+  100% {
+    background-position: left
+  }
+}
 </style>
 
 

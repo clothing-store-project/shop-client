@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.10",
-    "@nuxtjs/color-mode": "^3.5.2",
     "@pinia/nuxt": "^0.6.0",
     "@unocss/nuxt": "^0.63.6",
     "@vueuse/nuxt": "^11.1.0",

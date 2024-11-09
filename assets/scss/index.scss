@@ -3,14 +3,10 @@ body,
 #app {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html.dark {
   background: #222;
   color: white;
-}
-
-a {
-  font-weight: 400;
-  color: var(--el-color-primary);
 }
