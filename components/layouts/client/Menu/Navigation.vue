@@ -4,8 +4,55 @@ import NavItem from './NavItem.vue'
 import MegaMenu from './MegaMenu.vue'
 import {mainNavItems} from '~/data/navigationData'
 import {Bars3Icon} from '@heroicons/vue/24/outline'
+import type {CartItem} from "~/types/cart";
 
 const isMobileMenuOpen = ref(false)
+const isCartVisible = ref(false)
+const isSearchVisible = ref(false)
+
+const toggleCart = () => {
+  isCartVisible.value = !isCartVisible.value
+}
+
+const items = ref<CartItem[]>([
+  {
+    id: 1,
+    name: 'Sophisticated Swagger Suit',
+    price: 50.00,
+    quantity: 1,
+    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
+    color: 'Black',
+    size: 'M'
+  },
+  {
+    id: 2,
+    name: 'Cozy Knit Cardigan Sweater',
+    price: 40.00,
+    quantity: 1,
+    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
+    color: 'Black',
+    size: 'M'
+  },
+  {
+    id: 3,
+    name: 'Athletic Mesh Sports Leggings',
+    price: 65.00,
+    quantity: 1,
+    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
+    color: 'Black',
+    size: 'M'
+  }
+])
+
+
+const removeItem = (id:number) => {
+  items.value = items.value.filter(item => item.id !== id)
+}
+
+const subtotal = computed(() => {
+  return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
+})
+
 </script>
 
 <template>
@@ -30,7 +77,10 @@ const isMobileMenuOpen = ref(false)
           <a class="hidden md:block text-gray-700 hover:text-pink-500" href="#">
             Login / Register
           </a>
-          <button class="text-gray-700 hover:text-pink-500">
+          <button
+              class="hidden md:block text-gray-700 hover:text-pink-500"
+              @click="isSearchVisible = true"
+          >
             <span class="sr-only">Search</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                  xmlns="http://www.w3.org/2000/svg">
@@ -38,15 +88,7 @@ const isMobileMenuOpen = ref(false)
                     stroke-width="2"/>
             </svg>
           </button>
-          <button class="text-gray-700 hover:text-pink-500 relative">
-            <span class="sr-only">Favorites</span>
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2"/>
-            </svg>
-          </button>
-          <button class="text-gray-700 hover:text-pink-500 relative">
+          <button class="text-gray-700 hover:text-pink-500 relative" @click="toggleCart">
             <span class="sr-only">Cart</span>
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                  xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +96,7 @@ const isMobileMenuOpen = ref(false)
                     stroke-width="2"/>
             </svg>
             <span
-                class="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-pink-500 rounded-full">10</span>
+                class="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-pink-500 rounded-full">{{ items.length }}</span>
           </button>
           <button
               class="md:hidden p-2 text-gray-700 hover:text-pink-500"
@@ -67,6 +109,18 @@ const isMobileMenuOpen = ref(false)
     </div>
   </nav>
 
+  <SearchPreview
+      :isOpen="isSearchVisible"
+      @close="isSearchVisible = false"
+  />
+
+  <CartPreview
+      :isOpen="isCartVisible"
+      :items="items"
+      :subtotal="subtotal"
+      @close="toggleCart"
+      @removeItem="removeItem"
+  />
   <LayoutsClientMenuMobileMenu
       :is-open="isMobileMenuOpen"
       @close="isMobileMenuOpen = false"
