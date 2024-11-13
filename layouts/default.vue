@@ -13,7 +13,7 @@ const loading = ref(false)
       v-if="!loading"
       direction="vertical"
   >
-    <Navigation />
+    <LayoutsClientAppHeader />
     <slot/>
     <LayoutsClientAppFooter/>
   </el-container>

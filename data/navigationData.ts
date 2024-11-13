@@ -1,7 +1,7 @@
 export const mainNavItems = [
     { name: 'Home', href: '#' },
-    { name: 'Shop', href: '#', hasMega: true },
-    { name: 'Blog', href: '#' },
+    { name: 'Shop', href: '', hasMega: true },
+    { name: 'Blog', href: '' },
     { name: 'Portfolio', href: '#' },
     { name: 'Pages', href: '#' },
     { name: 'My Account', href: '#', isNew: true }
