@@ -22,7 +22,7 @@ defineEmits<{
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
   >
-    <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50" @click="$emit('close')"></div>
+    <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 z-100" @click="$emit('close')"></div>
   </Transition>
 
   <Transition
@@ -33,7 +33,7 @@ defineEmits<{
       leave-from-class="opacity-100 translate-x-0"
       leave-to-class="opacity-0 translate-x-full"
   >
-    <div v-if="isOpen" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-lg p-6 overflow-y-auto">
+    <div v-if="isOpen" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-lg p-6 overflow-y-auto z-100">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold">Shopping Cart</h2>
         <button aria-label="Close cart" class="text-gray-500 hover:text-black focus:outline-none"
