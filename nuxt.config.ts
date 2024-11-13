@@ -26,14 +26,15 @@ export default defineNuxtConfig({
   },
 
   // css
-  css: ['~/assets/scss/index.scss', 'animate.css'],
+  css: ['~/assets/scss/index.scss', 'animate.css','~/assets/index.css'],
 
   // build modules
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
+    '@nuxtjs/tailwindcss'
   ],
 
   // vueuse
@@ -41,13 +42,15 @@ export default defineNuxtConfig({
     ssrHandlers: true,
   },
 
-  routeRules: {
-    '/': {prerender: true}
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
 
-  // colorMode
-  colorMode: {
-    classSuffix: '',
+  routeRules: {
+    '/': {prerender: true}
   },
 
   vite: {
