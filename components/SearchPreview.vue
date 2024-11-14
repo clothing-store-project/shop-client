@@ -9,7 +9,7 @@
       name="fade"
   >
     <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto border-x-blue-400">
-      <div class="max-w-7xl mx-auto px-4 py-6 bg-red-50">
+      <div class="mx-auto px-4 py-6 bg-red-50">
         <!-- Header with close button -->
         <div class="flex justify-end mb-6">
           <button class="p-2 hover:bg-gray-100 rounded-full" @click="$emit('close')">
@@ -59,25 +59,25 @@
           <h3 class="text-xl font-medium mb-6">You May Also Like</h3>
           <swiper
               :autoplay="{
-            delay: 3000,
-            disableOnInteraction: false,
-          }"
+              delay: 1000,
+              disableOnInteraction: true,
+            }"
               :breakpoints="{
-            '640': {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-            '768': {
-              slidesPerView: 4,
-              spaceBetween: 24,
-            },
-            '1024': {
-              slidesPerView: 6,
-              spaceBetween: 24,
-            },
-          }"
+              '640': {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              '768': {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
+              '1024': {
+                slidesPerView: 6,
+                spaceBetween: 24,
+              },
+            }"
               :loop="true"
-              :navigation="false"
+              :modules="modules"
               :slides-per-view="2"
               :space-between="16"
           >
@@ -114,6 +114,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import {Autoplay, Pagination} from 'swiper/modules';
 
 defineProps({
   isOpen: Boolean,
@@ -123,6 +124,7 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
+const modules = ref([Autoplay, Pagination])
 
 const searchQuery = ref('')
 
