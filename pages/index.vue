@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
+import ProductList from "~/components/ProductList.vue";
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline text-red-700 animate__backInUp">
-    Hello world!
-  </h1>
+  <ProductList/>
 </template>
 
 <style lang="scss" scoped>
