@@ -19,24 +19,14 @@
 
         <!-- Search Header -->
         <div class="flex gap-4 mb-6">
-          <div class="relative flex-1">
-            <select
-                class="appearance-none bg-transparent border-b w-48 pb-2 pr-8 focus:outline-none focus:border-black">
-              <option>All Categories</option>
-              <option>Dresses</option>
-              <option>Pants</option>
-              <option>Tops</option>
-            </select>
-            <ChevronDownIcon class="w-5 h-5 absolute right-2 top-1"/>
-          </div>
-          <div class="relative flex-[2]">
+          <div class="relative flex-[2] pb-2 flex items-center w-full">
             <input
                 v-model="searchQuery"
-                class="w-full border-b pb-2 focus:outline-none focus:border-black"
+                class="w-full border-b focus:outline-none focus:border-black rounded-2xl py-2 px-2"
                 placeholder="Search Product"
                 type="text"
             />
-            <SearchIcon class="w-5 h-5 absolute right-2 top-1"/>
+            <SearchIcon class="my-auto w-6 h-6 absolute right-3"/>
           </div>
         </div>
 
