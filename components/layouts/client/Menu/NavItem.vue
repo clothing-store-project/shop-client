@@ -15,16 +15,6 @@ defineProps<{
       :is="hasMega ? MenuButton : 'a'"
       :href="!hasMega ? href : undefined"
       class="group inline-flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-pink-500"
-      @mouseover="
-        $el.setAttribute('data-headlessui-state', 'open');
-        $el.setAttribute('aria-expanded', 'true');
-        $el.setAttribute('aria-controls', 'headlessui-menu-items-v-0-1');
-      "
-      @mouseleave="
-        $el.setAttribute('data-headlessui-state', '');
-        $el.setAttribute('aria-expanded', 'false');
-        $el.setAttribute('aria-controls', '');
-      "
   >
     <span>{{ name }}</span>
     <span v-if="isNew"
