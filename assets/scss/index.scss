@@ -10,3 +10,17 @@ html.dark {
   background: #222;
   color: white;
 }
+
+.el-popper.is-pure.is-light.mega-menu{
+  inset: 3.5rem auto auto 11% !important;
+  border-radius: 0.5rem;
+  .el-menu{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    padding: 1rem 2rem;
+    max-width: 80rem;
+    border-radius: 0.5rem;
+  }
+}
+

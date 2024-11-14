@@ -27,7 +27,7 @@
       <div
           v-for="product in filteredProducts"
           :key="product.id"
-          class="group relative rounded-3xl transition-transform"
+          class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
       >
         <ProductCard
             :product="product"
@@ -47,7 +47,8 @@ const products = [
     name: 'Cozy Knit Cardigan Sweater',
     price: '80',
     category: 'Tops',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 2,
@@ -61,42 +62,48 @@ const products = [
     name: 'Classic Denim Skinny Jeans',
     price: '80',
     category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 4,
     name: 'Athletic Mesh Sports Leggings',
     price: '80',
     category: 'Tops',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 5,
     name: 'Urban Style Jacket',
     price: '80',
     category: 'Jacket',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 6,
     name: 'Elegant Evening Dress',
     price: '80',
     category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 7,
     name: 'Casual Denim Jacket',
     price: '80',
     category: 'Jacket',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   },
   {
     id: 8,
     name: 'Summer Floral Dress',
     price: '80',
     category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
+    tag: 'GET 20 % OFF'
   }
 ]
 
