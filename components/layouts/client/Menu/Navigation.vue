@@ -65,7 +65,14 @@ const subtotal = computed(() => {
           </div>
           <div class="hidden md:ml-6 md:flex md:space-x-2">
             <template v-for="item in mainNavItems" :key="item.name">
-              <Menu v-if="item.hasMega" as="div" class="relative">
+              <Menu v-if="item.hasMega" as="div" class="relative"
+                    @mouseover="
+                      $el.setAttribute('data-headlessui-state', 'open');
+                    "
+                    @mouseleave="
+                      $el.setAttribute('data-headlessui-state', '');
+                    "
+              >
                 <NavItem v-bind="item"/>
                 <MegaMenu/>
               </Menu>

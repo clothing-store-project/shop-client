@@ -27,7 +27,7 @@
       <div
           v-for="product in filteredProducts"
           :key="product.id"
-          class="group relative rounded-3xl transition-transform "
+          class="group relative rounded-3xl transition-transform"
       >
         <ProductCard
             :product="product"
