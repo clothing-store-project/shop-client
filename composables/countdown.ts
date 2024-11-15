@@ -4,7 +4,7 @@
  * @param {Date} endDate - The end date to count down to.
  * @returns {Object} An object containing the remaining days and hours.
  */
-export const countdown = (endDate: Date): object => {
+export const countdown = (endDate: Date): { days: number; hours: number } => {
     const now = new Date().getTime();
     const distance = endDate.getTime() - now;
 

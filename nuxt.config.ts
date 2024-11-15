@@ -35,7 +35,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@element-plus/nuxt',
         '@nuxtjs/tailwindcss',
-        '@nuxtjs/color-mode'
+        '@nuxtjs/color-mode',
+        '@nuxtjs/i18n',
     ],
 
     // vueuse
@@ -65,6 +66,24 @@ export default defineNuxtConfig({
     elementPlus: {
         icon: 'ElIcon',
         themes: ['dark'],
+    },
+
+    i18n: {
+        lazy: true,
+        langDir: "locales",
+        strategy: "prefix_except_default",
+        defaultLocale: "vi",
+        locales: [
+            {
+                code: 'en',
+                file: 'en.json'
+            },
+            {
+                code: 'vi',
+                file: 'vi.json'
+            }
+        ],
+
     },
 
     compatibilityDate: '2024-10-30',
