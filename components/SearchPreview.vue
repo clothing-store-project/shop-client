@@ -20,77 +20,56 @@
         <!-- Search Header -->
         <div class="flex gap-4 mb-6">
           <div class="relative flex-[2] pb-2 flex items-center w-full">
+            <CircleX
+                class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
+                @click="searchQuery = ''"
+            />
             <input
                 v-model="searchQuery"
-                class="w-full border-b focus:outline-none focus:border-black rounded-2xl py-2 px-2"
+                class="w-full border-b focus:outline-none rounded-2xl py-2 px-2 pl-10"
                 placeholder="Search Product"
-                type="text"
+                @input="filterSearch"
             />
-            <SearchIcon class="my-auto w-6 h-6 absolute right-3"/>
+            <SearchIcon class="my-auto w-6 h-6 absolute right-3 cursor-pointer"/>
           </div>
         </div>
 
-        <!-- Quick Search Tags -->
-        <div class="mb-8">
-          <p class="text-sm text-gray-600 mb-2">Quick Search:</p>
-          <div class="flex gap-4 flex-wrap">
-            <button
-                v-for="tag in quickSearchTags"
-                :key="tag"
-                class="px-4 py-1 rounded-full border hover:bg-gray-50"
+        <!-- Search Results -->
+        <div v-if="searchResults.length > 0 && searchQuery !== ''" class="mb-8">
+          <div class="flex flex-col gap-4 w-auto mb-2">
+            <div
+                v-for="name in searchResultNames"
+                :key="name"
+                class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
             >
-              {{ tag }}
-            </button>
-          </div>
-        </div>
+              <div class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp cursor-pointer">
+                <span class="font-normal">{{ name }}</span>
+              </div>
+            </div>
 
-        <!-- Recommended Products Carousel -->
-        <div class="mb-8">
-          <h3 class="text-xl font-medium mb-6">You May Also Like</h3>
-          <swiper
-              :autoplay="{
-      delay: 1500,
-      disableOnInteraction: false,
-              } as any"
-              :breakpoints="{
-              '640': {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              '768': {
-                slidesPerView: 4,
-                spaceBetween: 24,
-              },
-              '1024': {
-                slidesPerView: 6,
-                spaceBetween: 24,
-              },
-            }"
-              :loop="true"
-              :modules="modules"
-              :slides-per-view="2"
-              :space-between="16"
-          >
-            <swiper-slide v-for="product in products" :key="product.id">
-              <div class="group cursor-pointer">
-                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3">
-                  <img
-                      :alt="product.name"
-                      :src="product.image"
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform"
+            <!-- Result search -->
+            <h3 class="text-xl font-medium mb-6">{{ $t('general.search_result') }}</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 md:grid-cols-5 gap-4 w-auto">
+              <div
+                  v-for="product in searchResults.slice(0, 6)"
+                  :key="product.id"
+                  class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
+              >
+                <div
+                    class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp cursor-pointer">
+                  <ProductCard
+                      :product="product"
                   />
                 </div>
-                <h4 class="font-medium">{{ product.name }}</h4>
-                <div class="flex justify-between items-center">
-                  <p class="text-sm">${{ product.price.toFixed(2) }}</p>
-                  <button
-                      class="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded-full transition-opacity">
-                    <PlusIcon class="w-4 h-4"/>
-                  </button>
-                </div>
               </div>
-            </swiper-slide>
-          </swiper>
+            </div>
+            <div class="flex justify-center items-center w-full pt-2">
+              <button class="w-60 h-10 px-8 py-2 bg-black text-white rounded-full hover:bg-pink-500" @click="viewAll">{{ $t('general.view_all') }}</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="searchResults.length === 0 && searchQuery" class="mb-8 flex justify-center align-center">
+          <p class="text-lg text-gray-600">{{ $t('general.no_result') }}</p>
         </div>
       </div>
     </div>
@@ -98,13 +77,7 @@
 </template>
 
 <script lang="ts" setup>
-import {PlusIcon, SearchIcon, XIcon} from 'lucide-vue-next'
-import {Swiper, SwiperSlide} from 'swiper/vue'
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import {Autoplay, Pagination} from 'swiper/modules';
+import {PlusIcon, SearchIcon, XIcon,CircleX} from 'lucide-vue-next'
 
 defineProps({
   isOpen: Boolean,
@@ -114,22 +87,44 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
-const modules = ref([Autoplay, Pagination])
-
 const searchQuery = ref('')
+
+type Product = {
+  id: number
+  name: string
+  price: number
+  image: string
+}
+
+const searchResults = ref<Product[]>([])
+const searchResultNames = ref(new Set<string>())
+
+const getData = () => {
+  const results = products.filter(product => product.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
+  searchResults.value = results
+  searchResultNames.value = new Set(results.map(product => product.name))
+
+  return results
+}
+
+const viewAll = () => {
+  // route to search page
+};
+
+const filterSearch = debounce(getData, 500)
 
 const quickSearchTags = ['Clothes', 'UrbanSkirt', 'VelvetGown', 'LushShorts']
 
-const products = [
+const products:Product[] = [
   {
     id: 1,
-    name: 'SilkBliss Dress',
+    name: 'SilkBliss Dress 1',
     price: 60.00,
     image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
   },
   {
     id: 2,
-    name: 'SilkBliss Dress',
+    name: 'SilkBliss Dress 2',
     price: 40.00,
     image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
   },
@@ -168,7 +163,43 @@ const products = [
     name: 'DapperCoat',
     price: 70.00,
     image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  }
+  },
+  {
+    id: 9,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
+  {
+    id: 10,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
+  {
+    id: 11,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
+  {
+    id: 12,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
+  {
+    id: 13,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
+  {
+    id: 14,
+    name: 'SilkBliss Dress',
+    price: 40.00,
+    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+  },
 ]
 
 </script>
