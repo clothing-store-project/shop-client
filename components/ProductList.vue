@@ -37,9 +37,9 @@
   </div>
 </template>
 
-<script setup>
-const categories = ['ALL', 'Dresses', 'Tops', 'Outerwear', 'Jacket']
-const activeCategory = ref('ALL')
+<script lang="ts" setup>
+const categories: string[] = ['ALL', 'Dresses', 'Tops', 'Outerwear', 'Jacket']
+const activeCategory = ref<string>('ALL')
 
 const products = [
   {

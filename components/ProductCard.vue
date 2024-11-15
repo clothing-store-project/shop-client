@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {Eye, Heart, ShoppingCart} from 'lucide-vue-next'
+import {ShoppingCart} from 'lucide-vue-next'
 
 defineProps({
   product: Object,
@@ -22,7 +22,7 @@ defineProps({
     />
     <div class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity">
       <button class="bg-black text-white px-8 py-2 rounded-full hover:bg-black/90 hidden md:block">
-          ADD TO CART
+        ADD TO CART
       </button>
       <button class="bg-white text-black px-8 py-1.5 rounded-full group-hover:bg-slate-900 block md:hidden">
         <ShoppingCart class="group-hover:text-white"/>
@@ -30,7 +30,7 @@ defineProps({
     </div>
   </div>
   <!-- Product Info -->
-  <NuxtLink to="#" class="flex gap-2 justify-items-center items-center m-0 cursor-pointer">
+  <NuxtLink class="flex gap-2 justify-items-center items-center m-0 cursor-pointer" to="#">
     <h3 class="font-medium flex-1 text-sm md:text-xl">{{ product.name }}</h3>
     <p class="text-sm md:text-xl font-bold">${{ product.price }}</p>
   </NuxtLink>
