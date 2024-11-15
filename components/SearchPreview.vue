@@ -49,9 +49,9 @@
           <h3 class="text-xl font-medium mb-6">You May Also Like</h3>
           <swiper
               :autoplay="{
-              delay: 1000,
-              disableOnInteraction: true,
-            }"
+      delay: 1500,
+      disableOnInteraction: false,
+              } as any"
               :breakpoints="{
               '640': {
                 slidesPerView: 3,
@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import {ChevronDownIcon, PlusIcon, SearchIcon, XIcon} from 'lucide-vue-next'
+import {PlusIcon, SearchIcon, XIcon} from 'lucide-vue-next'
 import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css';
 import 'swiper/css/navigation';

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {mainNavItems, productStructure, shopPages, shopStructure} from '~/data/navigationData'
+import {mainNavItems, megaMenu} from '~/data/navigationData'
 import {Bars3Icon} from '@heroicons/vue/24/outline'
 import type {CartItem} from "~/types/cart";
 import {CircleUser} from 'lucide-vue-next';
@@ -7,9 +7,9 @@ import {countdown} from "~/composables/countdown";
 
 const {days, hours} = countdown(new Date('2024-12-31T23:59:59'));
 
-const isMobileMenuOpen = ref(false)
-const isCartVisible = ref(false)
-const isSearchVisible = ref(false)
+const isMobileMenuOpen = ref<boolean>(false)
+const isCartVisible = ref<boolean>(false)
+const isSearchVisible = ref<boolean>(false)
 
 const toggleCart = () => {
   isCartVisible.value = !isCartVisible.value
@@ -85,10 +85,10 @@ const subtotal = computed(() => {
                 </span>
                 </template>
                 <template #default>
-                  <el-menu-item-group>
-                    <h3 class="text-base font-medium text-gray-900">Shop Structure</h3>
+                  <el-menu-item-group v-for="(data,index) in megaMenu" :key="index">
+                    <h3 class="text-base font-medium text-gray-900">{{ data.sectionName }}</h3>
                     <ul class="mt-4 space-y-3">
-                      <li v-for="item in shopStructure" :key="item.name">
+                      <li v-for="item in data.data" :key="item.name">
                         <NuxtLink :href="item.href" class="text-sm text-gray-500 hover:text-pink-500">
                           {{ item.name }}
                         </NuxtLink>
@@ -96,31 +96,6 @@ const subtotal = computed(() => {
                     </ul>
                   </el-menu-item-group>
 
-                  <el-menu-item-group>
-                    <h3 class="text-base font-medium text-gray-900">Product Structure</h3>
-                    <ul class="mt-4 space-y-3">
-                      <li v-for="item in productStructure" :key="item.name">
-                        <NuxtLink :href="item.href" class="text-sm text-gray-500 hover:text-pink-500">
-                          {{ item.name }}
-                        </NuxtLink>
-                      </li>
-                    </ul>
-                  </el-menu-item-group>
-
-                  <el-menu-item-group>
-                    <h3 class="text-base font-medium text-gray-900">Shop Pages</h3>
-                    <ul class="mt-4 space-y-3">
-                      <li v-for="item in shopPages" :key="item.name" class="flex">
-                        <NuxtLink :to="item.href" class="text-sm text-gray-500 hover:text-pink-500">
-                          {{ item.name }}
-                        </NuxtLink>
-                        <span v-if="item.isNew"
-                              class="ml-2 inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
-                  NEW
-                </span>
-                      </li>
-                    </ul>
-                  </el-menu-item-group>
                   <el-menu-item-group class="bg-gray-50 p-6 rounded-lg">
                     <div class="text-base font-medium text-gray-900">Deal of the month</div>
                     <p class="mt-3 text-sm text-gray-500">
@@ -149,6 +124,7 @@ const subtotal = computed(() => {
                   v-else
                   :index="index+'m'"
                   class="group inline-flex items-center rounded-md p-0 text-base font-medium text-gray-700 !hover:text-pink-500 !hover:bg-transparent"
+
               >
                 <span>{{ item.name }}</span>
                 <span v-if="item.isNew"
@@ -239,6 +215,17 @@ const subtotal = computed(() => {
 <style lang="scss" scoped>
 .el-menu {
   border-bottom: 0;
+}
+
+:deep(.el-menu-item) {
+  transition: none;
+  &.is-active{
+    border: none;
+    background-color: transparent;
+  }
+  &:not(.is-disabled):focus {
+    background-color: transparent;
+  }
 }
 
 :deep(.el-menu--popup) {

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {Transition} from 'vue'
 import {ChevronRightIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import {mainNavItems} from '~/data/navigationData'
 
