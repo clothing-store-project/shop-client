@@ -86,19 +86,19 @@ const {t} = useI18n()
 
 const rules = reactive<FormRules<Rating>>({
   author: [
-    {required: true, message: t('name_validate_required'), trigger: 'blur'},
-    {min: 3, message: t('name_validate_min', {value: 3}), trigger: 'blur'},
-    {max: 255, message: t('name_validate_max', {value: 255}), trigger: 'blur'}
+    {required: true, message: t('validate.name.required'), trigger: 'blur'},
+    {min: 3, message: t('validate.name.min', {value: 3}), trigger: 'blur'},
+    {max: 255, message: t('validate.name.max', {value: 255}), trigger: 'blur'}
   ],
   email: [
-    {required: true, message: t('email_validate_required'), trigger: 'blur'},
-    {type: 'email', message: t('email_validate_email'), trigger: 'blur'},
-    {max: 255, message: t('email_validate_max', {value: 255}), trigger: 'blur'}
+    {required: true, message: t('validate.email.required'), trigger: 'blur'},
+    {type: 'email', message: t('validate.email.email'), trigger: 'blur'},
+    {max: 255, message: t('validate.email.max', {value: 255}), trigger: 'blur'}
   ],
   comment: [
-    {required: true, message: t('comment_validate_required'), trigger: 'blur'},
-    {min: 10, message: t('comment_validate_min',{value:10}), trigger: 'blur'},
-    {max: 500, message: t('comment_validate_max',{value:500}), trigger: 'blur'}
+    {required: true, message: t('validate.comment.required'), trigger: 'blur'},
+    {min: 10, message: t('validate.comment.min',{value:10}), trigger: 'blur'},
+    {max: 500, message: t('validate.comment.max',{value:500}), trigger: 'blur'}
   ]
 })
 
@@ -146,7 +146,7 @@ watch(() => rating.value, () => {
   <!-- Breadcrumb -->
   <div class="container mx-auto px-4 py-4">
     <div class="flex items-center space-x-2 text-sm">
-      <NuxtLinkLocale class="text-gray-500 hover:text-black" to="/">{{ $t('home') }}</NuxtLinkLocale>
+      <NuxtLinkLocale class="text-gray-500 hover:text-black" to="/">{{ $t('general.home') }}</NuxtLinkLocale>
       <span class="text-gray-400">/</span>
       <NuxtLinkLocale class="text-gray-500 hover:text-black" to="#">{{ product.categories }}</NuxtLinkLocale>
       <span class="text-gray-400">/</span>
@@ -190,7 +190,7 @@ watch(() => rating.value, () => {
           <div class="flex">
             <el-rate
                 v-model="product.rating"
-                :score-template="$t('rate_count', { value:product.rating,count: product.rate_count })"
+                :score-template="$t('general.rate_count', { value:product.rating,count: product.rate_count })"
                 disabled
                 show-score
                 size="large"
@@ -208,7 +208,7 @@ watch(() => rating.value, () => {
 
         <!-- Size Selector -->
         <div class="space-y-2">
-          <label class="block text-sm font-medium">{{ $t('size') }}: {{ selectedSize }}</label>
+          <label class="block text-sm font-medium">{{ $t('general.size') }}: {{ selectedSize }}</label>
           <div class="flex space-x-2">
             <button
                 v-for="size in product.sizes"
@@ -224,7 +224,7 @@ watch(() => rating.value, () => {
 
         <!-- Color Selector -->
         <div class="space-y-2">
-          <label class="block text-sm font-medium">{{ $t('color') }}: {{ selectedColor.name }}</label>
+          <label class="block text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.name }}</label>
           <div class="flex space-x-2">
             <button
                 v-for="color in product.colors"
@@ -246,7 +246,7 @@ watch(() => rating.value, () => {
 
         <!-- Quantity Selector -->
         <div class="space-y-2">
-          <label class="text-sm font-medium">{{ $t('quantity') }}</label>
+          <label class="text-sm font-medium">{{ $t('general.quantity') }}</label>
           <div class="flex items-center border rounded-full w-36">
             <button
                 class="w-8 h-8 flex items-center justify-center"
@@ -270,18 +270,18 @@ watch(() => rating.value, () => {
               class="flex w-44 text-center justify-center bg-black text-white py-3 rounded-full hover:bg-gray-800 transition-colors"
               @click="addToCart"
           >
-            {{ $t('add_to_cart') }}
+            {{ $t('general.add_to_cart') }}
           </button>
         </div>
 
         <!-- Product Info -->
         <div class="space-y-4 pt-6 border-t">
           <div class="flex">
-            <span class="font-medium w-30">{{ $t('sku') }}:</span>
+            <span class="font-medium w-30">{{ $t('general.sku') }}:</span>
             <span class="text-gray-600">{{ product.sku }}</span>
           </div>
           <div class="flex">
-            <span class="font-medium w-30">{{ $t('categories') }}:</span>
+            <span class="font-medium w-30">{{ $t('general.categories') }}:</span>
             <div class="flex-1 flex-wrap gap-2">
               <NuxtLink
                   class="text-gray-600 hover:text-black"
@@ -298,11 +298,11 @@ watch(() => rating.value, () => {
     <!-- Tabs -->
     <div class="mt-16">
       <el-tabs v-model="activeTab" class="demo-tabs">
-        <el-tab-pane :label="$t('description')" class="prose max-w-none" name="description">
+        <el-tab-pane :label="$t('general.description')" class="prose max-w-none" name="description">
           <div v-html="product.description"/>
         </el-tab-pane>
-        <el-tab-pane :label="$t('reviews')" class="space-y-8" name="reviews">
-          <h2 class="text-2xl font-bold">{{ $t('customer_reviews') }}</h2>
+        <el-tab-pane :label="$t('general.reviews')" class="space-y-8" name="reviews">
+          <h2 class="text-2xl font-bold">{{ $t('general.customer_reviews') }}</h2>
 
           <!-- Review List -->
           <div v-if="reviews.length > 0" class="space-y-6">
@@ -322,11 +322,11 @@ watch(() => rating.value, () => {
               <p class="text-gray-700">{{ review.comment }}</p>
             </div>
           </div>
-          <p v-else class="text-gray-600">{{ $t('no_reviews') }}</p>
+          <p v-else class="text-gray-600">{{ $t('general.no_reviews') }}</p>
 
           <!-- Review Form -->
           <div class=" mx-auto p-6">
-            <h2 class="text-2xl font-bold mb-4">{{ $t('comments') }}</h2>
+            <h2 class="text-2xl font-bold mb-4">{{ $t('general.comments') }}</h2>
 
             <el-form
                 ref="ruleFormRef"
@@ -338,41 +338,41 @@ watch(() => rating.value, () => {
             >
               <!-- Rating Section -->
               <div class="space-y-2">
-                <el-form-item :label="$t('rating')" label-position="left" required class="flex space-x-1">
+                <el-form-item :label="$t('general.rating')" label-position="left" required class="flex space-x-1">
                   <el-rate v-model="rating"/>
                   <div
                       v-if="ratingError"
                       class="el-form-item__error"
                   >
-                    {{ $t('rating_validate_required') }}
+                    {{ $t('validate.rating.required') }}
                   </div>
                 </el-form-item>
               </div>
 
               <!-- Author and Email Fields -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <el-form-item :label="$t('name')" prop="author">
+                <el-form-item :label="$t('general.name')" prop="author">
                   <el-input
                       v-model="ruleForm.author"
-                      :placeholder="$t('name')"
+                      :placeholder="$t('general.name')"
                       type="text"
                   />
                 </el-form-item>
 
-                <el-form-item :label="$t('email')" prop="email">
+                <el-form-item :label="$t('general.email')" prop="email">
                   <el-input
                       v-model="ruleForm.email"
-                      :placeholder="$t('email')"
+                      :placeholder="$t('general.email')"
                       type="email"
                   />
                 </el-form-item>
               </div>
 
               <!-- Comment Textarea -->
-              <el-form-item :label="$t('comment')" prop="comment">
+              <el-form-item :label="$t('general.comment')" prop="comment">
                 <el-input
                     v-model="ruleForm.comment"
-                    :placeholder="$t('comments')"
+                    :placeholder="$t('general.comments')"
                     :rows="6"
                     type="textarea"
                 />
@@ -384,7 +384,7 @@ watch(() => rating.value, () => {
                   type="button"
                   @click="submitForm(ruleFormRef)"
               >
-                {{ $t('submit') }}
+                {{ $t('general.submit') }}
               </button>
             </el-form>
           </div>
