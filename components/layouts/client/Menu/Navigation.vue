@@ -3,9 +3,9 @@ import {mainNavItems, megaMenu} from '~/data/navigationData'
 import {Bars3Icon} from '@heroicons/vue/24/outline'
 import type {CartItem} from "~/types/cart";
 import {CircleUser} from 'lucide-vue-next';
-import {countdown} from "~/composables/countdown";
+import {useCountdown} from "~/composables/useCountdown";
 
-const {days, hours} = countdown(new Date('2024-12-31T23:59:59'));
+const {days, hours} = useCountdown(new Date('2024-12-31T23:59:59'));
 
 const isMobileMenuOpen = ref<boolean>(false)
 const isCartVisible = ref<boolean>(false)
