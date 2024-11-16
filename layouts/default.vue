@@ -13,7 +13,7 @@ const loading = ref(false)
       v-if="!loading"
       direction="vertical"
   >
-    <LayoutsClientAppHeader />
+    <LayoutsClientAppHeader/>
     <slot/>
     <LayoutsClientAppFooter/>
   </el-container>
@@ -48,7 +48,7 @@ const loading = ref(false)
   }
 }
 
-.el-container{
+.el-container {
   width: 100%;
 }
 

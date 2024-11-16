@@ -64,7 +64,9 @@
               </div>
             </div>
             <div class="flex justify-center items-center w-full pt-2">
-              <button class="w-60 h-10 px-8 py-2 bg-black text-white rounded-full hover:bg-pink-500" @click="viewAll">{{ $t('general.view_all') }}</button>
+              <button class="w-60 h-10 px-8 py-2 bg-black text-white rounded-full hover:bg-pink-500" @click="viewAll">
+                {{ $t('general.view_all') }}
+              </button>
             </div>
           </div>
         </div>
@@ -77,7 +79,7 @@
 </template>
 
 <script lang="ts" setup>
-import {PlusIcon, SearchIcon, XIcon,CircleX} from 'lucide-vue-next'
+import {PlusIcon, SearchIcon, XIcon, CircleX} from 'lucide-vue-next'
 
 defineProps({
   isOpen: Boolean,
@@ -111,11 +113,11 @@ const viewAll = () => {
   // route to search page
 };
 
-const filterSearch = debounce(getData, 500)
+const filterSearch = useDebounce(getData, 500)
 
 const quickSearchTags = ['Clothes', 'UrbanSkirt', 'VelvetGown', 'LushShorts']
 
-const products:Product[] = [
+const products: Product[] = [
   {
     id: 1,
     name: 'SilkBliss Dress 1',
