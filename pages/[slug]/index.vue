@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 import {MinusIcon, PlusIcon} from 'lucide-vue-next'
-import type {FormInstance, FormRules} from "element-plus";
-import type {Rating} from "~/types/rating";
-
-const route = useRoute()
 
 const product = ref({
   id: 1,
@@ -20,6 +16,12 @@ const product = ref({
   rate_count: 5,
   reviews: 5,
   images: [
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png',
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
+    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png'
@@ -48,7 +50,7 @@ const selectedImage = ref(product.value.images[0])
 const quantity = ref(1)
 // Selectors
 const selectedSize = ref('M')
-const ratingError = ref<boolean>(false)
+
 const selectedColor = ref(product.value.colors[0])
 
 const activeTab = ref('description')
@@ -73,59 +75,8 @@ const reviews = ref([
   }
 ])
 
-const rating = ref<number>(0)
-const ruleFormRef = ref<FormInstance>()
-
-const ruleForm = reactive<Rating>({
-  author: '',
-  email: '',
-  comment: ''
-})
 
 const {t} = useI18n()
-
-const rules = reactive<FormRules<Rating>>({
-  author: [
-    {required: true, message: t('validate.name.required'), trigger: 'blur'},
-    {min: 3, message: t('validate.name.min', {value: 3}), trigger: 'blur'},
-    {max: 255, message: t('validate.name.max', {value: 255}), trigger: 'blur'}
-  ],
-  email: [
-    {required: true, message: t('validate.email.required'), trigger: 'blur'},
-    {type: 'email', message: t('validate.email.email'), trigger: 'blur'},
-    {max: 255, message: t('validate.email.max', {value: 255}), trigger: 'blur'}
-  ],
-  comment: [
-    {required: true, message: t('validate.comment.required'), trigger: 'blur'},
-    {min: 10, message: t('validate.comment.min',{value:10}), trigger: 'blur'},
-    {max: 500, message: t('validate.comment.max',{value:500}), trigger: 'blur'}
-  ]
-})
-
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-
-  await formEl.validate(async (valid: boolean) => {
-    if (rating.value === 0) {
-      ratingError.value = true
-      return
-    }
-
-    if (!valid) return
-    reviews.value.push({
-      id: reviews.value.length + 1,
-      name: ruleForm.author,
-      avatar: 'https://pet-project-shop.github.io/template/images/profile2.jpg',
-      date: new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}),
-      rating: rating.value,
-      comment: ruleForm.comment
-    })
-
-    formEl.resetFields()
-    rating.value = 0
-    ratingError.value = false
-  })
-}
 
 // Methods
 const addToCart = () => {
@@ -135,16 +86,11 @@ const addToCart = () => {
     color: selectedColor.value
   })
 }
-
-watch(() => rating.value, () => {
-  ratingError.value = false
-})
-
 </script>
 
 <template>
   <!-- Breadcrumb -->
-  <div class="container mx-auto px-4 py-4">
+  <div class="container mx-auto px-4 py-4 max-w-7xl">
     <div class="flex items-center space-x-2 text-sm">
       <NuxtLinkLocale class="text-gray-500 hover:text-black" to="/">{{ $t('general.home') }}</NuxtLinkLocale>
       <span class="text-gray-400">/</span>
@@ -155,21 +101,11 @@ watch(() => rating.value, () => {
   </div>
 
   <!-- Product Section -->
-  <main class="container mx-auto px-4 py-8">
+  <main class="container mx-auto px-4 py-8 max-w-7xl ">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Product Images -->
-      <div class="space-y-4">
-        <div class="relative">
-          <img
-              :src="selectedImage"
-              alt="Product Image"
-              class="w-full rounded-lg"
-          />
-          <span class="absolute top-4 right-4 bg-black text-white px-3 py-1 text-sm">
-              {{ product.tag }}
-          </span>
-        </div>
-        <div class="flex space-x-4">
+      <div class="md:flex md:flex-row flex gap-2 flex-col-reverse">
+        <div class="flex gap-4  md:flex-col flex-row">
           <button
               v-for="(image, index) in product.images"
               :key="index"
@@ -179,6 +115,16 @@ watch(() => rating.value, () => {
           >
             <img :src="image" alt="Thumbnail" class="w-full h-full object-cover"/>
           </button>
+        </div>
+        <div class="relative">
+          <img
+              :src="selectedImage"
+              alt="Product Image"
+              class="w-full rounded-lg"
+          />
+          <span class="absolute top-4 right-4 bg-black text-white px-3 py-1 text-sm">
+              {{ product.tag }}
+          </span>
         </div>
       </div>
 
@@ -302,92 +248,9 @@ watch(() => rating.value, () => {
           <div v-html="product.description"/>
         </el-tab-pane>
         <el-tab-pane :label="$t('general.reviews')" class="space-y-8" name="reviews">
-          <h2 class="text-2xl font-bold">{{ $t('general.customer_reviews') }}</h2>
-
-          <!-- Review List -->
-          <div v-if="reviews.length > 0" class="space-y-6">
-            <div v-for="review in reviews" :key="review.id" class="border-b pb-6">
-              <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center space-x-2">
-                  <img :alt="review.name" :src="review.avatar" class="w-10 h-10 rounded-full"/>
-                  <div>
-                    <h3 class="font-medium">{{ review.name }}</h3>
-                    <p class="text-sm text-gray-500">{{ review.date }}</p>
-                  </div>
-                </div>
-                <div class="flex">
-                  <el-rate v-model="review.rating" disabled/>
-                </div>
-              </div>
-              <p class="text-gray-700">{{ review.comment }}</p>
-            </div>
-          </div>
-          <p v-else class="text-gray-600">{{ $t('general.no_reviews') }}</p>
-
+          <ReviewList :reviews="reviews"/>
           <!-- Review Form -->
-          <div class=" mx-auto p-6">
-            <h2 class="text-2xl font-bold mb-4">{{ $t('general.comments') }}</h2>
-
-            <el-form
-                ref="ruleFormRef"
-                :model="ruleForm"
-                :rules="rules"
-                class="space-y-6"
-                label-position="top"
-                require-asterisk-position="right"
-            >
-              <!-- Rating Section -->
-              <div class="space-y-2">
-                <el-form-item :label="$t('general.rating')" label-position="left" required class="flex space-x-1">
-                  <el-rate v-model="rating"/>
-                  <div
-                      v-if="ratingError"
-                      class="el-form-item__error"
-                  >
-                    {{ $t('validate.rating.required') }}
-                  </div>
-                </el-form-item>
-              </div>
-
-              <!-- Author and Email Fields -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <el-form-item :label="$t('general.name')" prop="author">
-                  <el-input
-                      v-model="ruleForm.author"
-                      :placeholder="$t('general.name')"
-                      type="text"
-                  />
-                </el-form-item>
-
-                <el-form-item :label="$t('general.email')" prop="email">
-                  <el-input
-                      v-model="ruleForm.email"
-                      :placeholder="$t('general.email')"
-                      type="email"
-                  />
-                </el-form-item>
-              </div>
-
-              <!-- Comment Textarea -->
-              <el-form-item :label="$t('general.comment')" prop="comment">
-                <el-input
-                    v-model="ruleForm.comment"
-                    :placeholder="$t('general.comments')"
-                    :rows="6"
-                    type="textarea"
-                />
-              </el-form-item>
-
-              <!-- Submit Button -->
-              <button
-                  class="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-                  type="button"
-                  @click="submitForm(ruleFormRef)"
-              >
-                {{ $t('general.submit') }}
-              </button>
-            </el-form>
-          </div>
+          <ReviewForm/>
         </el-tab-pane>
       </el-tabs>
     </div>
