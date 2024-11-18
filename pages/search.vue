@@ -160,11 +160,11 @@
                   v-model="selectedFilter"
                   class="px-3 py-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
               >
-                <option>{{ $t('filter.latest') }}</option>
-                <option>{{ $t('filter.popularity') }}</option>
-                <option>{{ $t('filter.average_setting') }}</option>
-                <option>{{ $t('filter.price_low_to_high') }}</option>
-                <option>{{ $t('filter.price_high_to_low') }}</option>
+                <option value="latest">{{ $t('filter.latest') }}</option>
+                <option value="popularity">{{ $t('filter.popularity') }}</option>
+                <option value="avarage_rating">{{ $t('filter.average_rating') }}</option>
+                <option value="price_low_to_high">{{ $t('filter.price_low_to_high') }}</option>
+                <option value="price_high_to_low">{{ $t('filter.price_high_to_low') }}</option>
               </select>
             </div>
           </div>
@@ -230,6 +230,16 @@ const selectedSize = ref<number | null>(route.query.size ? Number(route.query.si
 const selectedFilter = ref('latest')
 const selectedCategories = ref<number[]>([])
 const layout = ref('grid')
+
+const payload = computed(() => ({
+  q: searchQuery.value,
+  min: price.value[0],
+  max: price.value[1],
+  color: selectedColor.value,
+  size: selectedSize.value,
+  filter: selectedFilter.value,
+  categories: selectedCategories.value
+}))
 
 const categories = [
   {id: 1, name: 'All', quantity: 100},
