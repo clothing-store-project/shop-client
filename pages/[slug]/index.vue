@@ -21,9 +21,6 @@ const product = ref({
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
     'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png'
   ],
   colors: [
@@ -49,7 +46,7 @@ const product = ref({
 const selectedImage = ref(product.value.images[0])
 const quantity = ref(1)
 // Selectors
-const selectedSize = ref('M')
+const selectedSize = ref(product.value.sizes[0])
 
 const selectedColor = ref(product.value.colors[0])
 
@@ -74,9 +71,6 @@ const reviews = ref([
     comment: 'Nice jacket, but the color is slightly different from what I expected. Still, it\'s comfortable and stylish.'
   }
 ])
-
-
-const {t} = useI18n()
 
 // Methods
 const addToCart = () => {
@@ -105,17 +99,19 @@ const addToCart = () => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Product Images -->
       <div class="md:flex md:flex-row flex gap-2 flex-col-reverse">
-        <div class="flex gap-4  md:flex-col flex-row">
+        <div
+            class="overflow-x-auto md:overflow-y-auto md:max-h-[480px] flex md:flex-col flex-row gap-4 md:w-50 scroll-smooth focus:scroll-auto">
           <button
               v-for="(image, index) in product.images"
               :key="index"
-              :class="{ 'border-black': selectedImage === image }"
-              class="w-20 h-20 rounded-lg border overflow-hidden"
+              :class="selectedImage === image ? 'border-black' : 'border-gray-300'"
+              class="flex-shrink-0 w-20 h-20 rounded-lg border overflow-hidden snap-start"
               @click="selectedImage = image"
           >
             <img :src="image" alt="Thumbnail" class="w-full h-full object-cover"/>
           </button>
         </div>
+        <!-- Main Image -->
         <div class="relative">
           <img
               :src="selectedImage"
@@ -151,48 +147,48 @@ const addToCart = () => {
           <span class="text-2xl font-bold">${{ product.price.toFixed(2) }}</span>
           <span class="text-gray-500 line-through">${{ product.originalPrice.toFixed(2) }}</span>
         </div>
-
-        <!-- Size Selector -->
-        <div class="space-y-2">
-          <label class="block text-sm font-medium">{{ $t('general.size') }}: {{ selectedSize }}</label>
-          <div class="flex space-x-2">
-            <button
-                v-for="size in product.sizes"
-                :key="size"
-                :class="selectedSize === size ? 'border-black bg-black text-white' : 'border-gray-300'"
-                class="w-10 h-10 rounded-full border flex items-center justify-center"
-                @click="selectedSize = size"
-            >
-              {{ size }}
-            </button>
+        <div class="flex md:gap-6 flex-col gap-4 md:flex-row  ">
+          <!-- Size Selector -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium">{{ $t('general.size') }}: {{ selectedSize }}</label>
+            <div class="flex space-x-2">
+              <button
+                  v-for="size in product.sizes"
+                  :key="size"
+                  :class="selectedSize === size ? 'border-black bg-black text-white' : 'border-gray-300'"
+                  class="w-10 h-10 rounded-full border flex items-center justify-center"
+                  @click="selectedSize = size"
+              >
+                {{ size }}
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Color Selector -->
-        <div class="space-y-2">
-          <label class="block text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.name }}</label>
-          <div class="flex space-x-2">
-            <button
-                v-for="color in product.colors"
-                :key="color.name"
-                :class="{
+          <!-- Color Selector -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.name }}</label>
+            <div class="flex space-x-2">
+              <div
+                  v-for="color in product.colors"
+                  :key="color.name"
+                  :class="{
                   'border-black': selectedColor.name === color.name,
                   'border-transparent': selectedColor.name !== color.name
                 }"
-                class="w-10 h-10 rounded-full border-2"
-                @click="selectedColor = color"
-            >
+                  class="w-10 h-10 rounded-full border-2"
+                  @click="selectedColor = color"
+              >
                 <span
                     :style="{ backgroundColor: color.value }"
                     class="block w-full h-full rounded-full border-2"
                 ></span>
-            </button>
+              </div>
+            </div>
           </div>
         </div>
-
         <!-- Quantity Selector -->
         <div class="space-y-2">
-          <label class="text-sm font-medium">{{ $t('general.quantity') }}</label>
+          <label class="text-sm font-medium">{{ $t('general.quantity') }}: </label>
           <div class="flex items-center border rounded-full w-36">
             <button
                 class="w-8 h-8 flex items-center justify-center"
