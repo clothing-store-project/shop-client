@@ -35,6 +35,16 @@
     "view_all": "View all",
     "filter": "Filter",
     "tags": "Tags",
+    "dashboard": {
+      "dashboard": "Dashboard",
+      "account_setting": "Account setting",
+      "orders": "Orders",
+      "profile": "Profile",
+      "address": "Address",
+      "total_orders": "Total orders",
+      "total_pending_orders": "Total pending orders",
+      "total_cart_items": "Total cart items"
+    }
   },
   "validate": {
     "name": {

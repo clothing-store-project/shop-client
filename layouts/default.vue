@@ -13,8 +13,10 @@ const loading = ref(false)
       v-if="!loading"
       direction="vertical"
   >
-    <LayoutsClientAppHeader />
-    <slot/>
+    <LayoutsClientAppHeader/>
+    <div class="page-content">
+      <slot />
+    </div>
     <LayoutsClientAppFooter/>
   </el-container>
 </template>
@@ -48,8 +50,12 @@ const loading = ref(false)
   }
 }
 
-.el-container{
+.el-container {
   width: 100%;
+}
+
+.page-content {
+  min-height: 100vh;
 }
 
 @keyframes l24 {

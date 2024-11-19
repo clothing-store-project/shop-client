@@ -34,7 +34,17 @@
     "no_result": "Không có kết quả",
     "view_all": "Xem tất cả",
     "filter": "Lọc",
-    "tag": "Tags"
+    "tag": "Tags",
+    "dashboard": {
+      "dashboard": "Bảng điều khiển",
+      "account_setting": "Tài khoản",
+      "orders": "Đơn hàng",
+      "profile": "Hồ sơ",
+      "address": "Địa chỉ",
+      "total_orders": "Đơn hàng",
+      "total_pending_orders": "Đơn hàng chờ xử lý",
+      "total_cart_items": "Sản phẩm trong giỏ hàng"
+    }
   },
   "validate": {
     "name": {

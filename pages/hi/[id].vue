@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useUserStore} from '~/stores/user'
-import useApiFetch from "~/composables/useApiFetch";
 
 const route = useRoute()
 const user = useUserStore()
@@ -22,7 +21,7 @@ const test = async () => {
 <template>
   <div>
     <h3>Hi, {{ name }}!</h3>
-  <p>{{ data1}}</p>
+    <p>{{ data1 }}</p>
     <button type="button" @click="test">Test</button>
   </div>
 </template>
