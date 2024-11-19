@@ -6,7 +6,6 @@ export const mainNavItems: NavItem[] = [
     {name: 'Blog', href: '#'},
     {name: 'Portfolio', href: '#'},
     {name: 'Pages', href: '#'},
-    {name: 'My Account', href: '#', isNew: true}
 ]
 
 

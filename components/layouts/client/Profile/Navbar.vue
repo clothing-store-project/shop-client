@@ -12,7 +12,7 @@ const settingsItems = [
 </script>
 
 <template>
-  <aside class="md:sticky w-full md:w-1/4 top-2 mb-8 px-4 sm:px-6 lg:px-8 bg-white shadow-lg">
+  <aside class="hidden md:block md:sticky w-full md:w-1/4 top-2 mb-8 px-4 sm:px-6 lg:px-8 bg-white shadow-lg">
     <!-- Profile Section -->
     <div class="text-center mb-8">
       <img
