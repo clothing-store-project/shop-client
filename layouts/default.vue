@@ -14,7 +14,9 @@ const loading = ref(false)
       direction="vertical"
   >
     <LayoutsClientAppHeader/>
-    <slot/>
+    <div class="page-content">
+      <slot />
+    </div>
     <LayoutsClientAppFooter/>
   </el-container>
 </template>
@@ -50,6 +52,10 @@ const loading = ref(false)
 
 .el-container {
   width: 100%;
+}
+
+.page-content {
+  min-height: 100vh;
 }
 
 @keyframes l24 {
