@@ -6,17 +6,23 @@ export default defineNuxtConfig({
         head: {
             title: 'Shop Ecommerce',
             meta: [
-                {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' },
                 {
                     hid: 'description',
                     name: 'description',
                     content: 'Shop Ecommerce',
                 },
             ],
-            link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         }
     },
-    
+
+
+    nitro: {
+        preset: "cloudflare-pages"
+    },
+
+
     runtimeConfig: {
         public: {
             apiBase: import.meta.env.API_BASE_URL,
@@ -43,6 +49,7 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@nuxtjs/color-mode',
         '@nuxtjs/i18n',
+        "nitro-cloudflare-dev"
     ],
 
     // vueuse
@@ -58,13 +65,13 @@ export default defineNuxtConfig({
     },
 
     routeRules: {
-        '/': {prerender: true}
+        '/': { prerender: true }
     },
 
     vite: {
         css: {
             preprocessorOptions: {
-                scss: {api: 'modern-compiler'},
+                scss: { api: 'modern-compiler' },
             }
         },
     },
