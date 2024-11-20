@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: "20.18.0"
       - run: npx nypm install
-      - run: npx run typecheck
+      - run: nypm typecheck
