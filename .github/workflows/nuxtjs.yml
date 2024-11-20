@@ -26,6 +26,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./.output/public
+          name: github-pages
 
   #  # Deployment job
   #  deploy:
