@@ -72,5 +72,15 @@
     "average_rating": "Average rating",
     "price_low_to_high": "Price low to high",
     "price_high_to_low": "Price high to low"
+  },
+  "page": {
+    "order": {
+      "order": "ORDER #",
+      "date": "DATE PURCHASED",
+      "status": "STATUS",
+      "total": "TOTAL",
+      "action": "ACTION",
+      "view": "View"
+    }
   }
 }

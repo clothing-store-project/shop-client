@@ -66,11 +66,21 @@
       "required": "Đánh giá không được để trống"
     }
   },
-    "filter": {
-      "latest": "Mới nhất",
-      "popularity": "Phổ biến",
-      "average_rating": "Đánh giá trung bình",
-      "price_low_to_high": "Giá thấp đến cao",
-      "price_high_to_low": "Giá cao đến thấp"
+  "filter": {
+    "latest": "Mới nhất",
+    "popularity": "Phổ biến",
+    "average_rating": "Đánh giá trung bình",
+    "price_low_to_high": "Giá thấp đến cao",
+    "price_high_to_low": "Giá cao đến thấp"
+  },
+  "page": {
+    "order": {
+      "order": "Hóa đơn #",
+      "date": "Ngày mua",
+      "status": "Trạng thái",
+      "total": "Tổng tiền",
+      "action": "Hành động",
+      "view": "Xem chi tiết"
     }
+  }
 }
