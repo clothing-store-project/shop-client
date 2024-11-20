@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {ChevronRightIcon, XMarkIcon} from '@heroicons/vue/24/outline'
-import {mainNavItems} from '~/data/navigationData'
+import {mainNavItems} from '../../../../data/navigationData'
 
 defineProps<{
   isOpen: boolean

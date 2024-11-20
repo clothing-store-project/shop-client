@@ -1,6 +1,7 @@
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
     ssr: true,
+    srcDir: 'src/',
     app: {
         // head
         head: {
@@ -25,7 +26,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            apiBase: import.meta.env.API_BASE_URL,
+            apiBase: import.meta.env.VITE_API_BASE_URL,
         }
     },
 
@@ -95,18 +96,7 @@ export default defineNuxtConfig({
                 file: 'vi.json'
             }
         ],
-
     },
     
-    build: {
-        extractCSS: true,
-        postcss: {
-            plugins: {
-                tailwindcss: {},
-                autoprefixer: {},
-            },
-        },
-    },
-
     compatibilityDate: '2024-10-30',
 })

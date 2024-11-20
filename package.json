@@ -11,7 +11,7 @@
     "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxi typecheck --noEmit --skipLibCheck src"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
