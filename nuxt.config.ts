@@ -48,8 +48,7 @@ export default defineNuxtConfig({
         '@element-plus/nuxt',
         '@nuxtjs/tailwindcss',
         '@nuxtjs/color-mode',
-        '@nuxtjs/i18n',
-        "nitro-cloudflare-dev"
+        '@nuxtjs/i18n'
     ],
 
     // vueuse
@@ -97,6 +96,16 @@ export default defineNuxtConfig({
             }
         ],
 
+    },
+    
+    build: {
+        extractCSS: true,
+        postcss: {
+            plugins: {
+                tailwindcss: {},
+                autoprefixer: {},
+            },
+        },
     },
 
     compatibilityDate: '2024-10-30',

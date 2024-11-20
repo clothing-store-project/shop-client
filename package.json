@@ -7,13 +7,11 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "preview": "pnpm run build && wrangler pages dev",
+    "preview": "pnpm run build && npx serve .output/public",
     "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck",
-    "deploy": "pnpm run build && wrangler pages deploy",
-    "cf-typegen": "wrangler types"
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -35,7 +33,6 @@
     "vue-tsc": "^2.1.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241112.0",
     "@element-plus/nuxt": "^1.0.10",
     "@nuxtjs/i18n": "9.0.0-rc.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
@@ -43,13 +40,10 @@
     "@unocss/nuxt": "^0.63.6",
     "@vueuse/nuxt": "^11.1.0",
     "consola": "^3.2.3",
-    "h3": "^1.13.0",
-    "nitro-cloudflare-dev": "^0.2.1",
     "nuxt": "^3.13.2",
     "sass": "^1.80.5",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.5",
-    "wrangler": "^3.87.0"
+    "vitest": "^2.1.5"
   },
   "peerDependencies": {
     "pinia": "^2.1.6"
