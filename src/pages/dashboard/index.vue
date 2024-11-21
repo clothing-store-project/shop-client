@@ -2,6 +2,17 @@
 import {Clock, Heart, ShoppingCart} from 'lucide-vue-next'
 const {t} = useI18n()
 
+useSeoMeta({
+  title: t('page.dashboard.title'),
+  description: t('page.dashboard.description')
+})
+
+useHead({
+  htmlAttrs: {
+    lang: 'vn'
+  }
+})
+
 const stats = [
   {name: t('general.dashboard.total_orders'), value: '3658', icon: ShoppingCart},
   {name: t('general.dashboard.total_pending_orders'), value: '215', icon: Clock},

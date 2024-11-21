@@ -75,6 +75,8 @@
   },
   "page": {
     "order": {
+      "title": "Quản lý đơn hàng",
+      "description": "Quản lý đơn hàng của bạn",
       "order": "Hóa đơn #",
       "date": "Ngày mua",
       "status": "Trạng thái",
@@ -86,6 +88,14 @@
       "detail": "Chi tiết đơn hàng",
       "shipping": "Vận chuyển",
       "start_time": "Thời gian mua"
+    },
+    "search": {
+      "title": "Tìm kiếm sản phẩm",
+      "description": "Tìm kiếm sản phẩm"
+    },
+    "dashboard": {
+      "title": "Thông tin cá nhân",
+      "description": "Trang thông tin cá nhân"
     }
   }
 }

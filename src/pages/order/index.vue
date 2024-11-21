@@ -1,6 +1,18 @@
 <script lang="ts" setup>
 import type { Order } from '~/types/order';
 
+const { t } = useI18n()
+useSeoMeta({
+  title: t('page.order.title'),
+  description: t('page.order.description')
+})
+
+useHead({
+  htmlAttrs: {
+    lang: 'vn'
+  }
+})
+
 const orders = ref<Order[]>([
   {
     id: '1',

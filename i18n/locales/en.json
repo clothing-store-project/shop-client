@@ -75,6 +75,8 @@
   },
   "page": {
     "order": {
+      "title": "Order Page",
+      "description": "Manage your orders",
       "order": "ORDER #",
       "date": "DATE PURCHASED",
       "status": "STATUS",
@@ -86,6 +88,14 @@
       "detail": "Order Detail",
       "shipping": "Shipping",
       "start_time": "Start time"
+    },
+    "search": {
+      "title": "Search Page",
+      "description": "Search for products"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Manage your account"
     }
   }
 }
