@@ -149,7 +149,19 @@ onMounted(() => {
           </div>
           <div class="mb-4 md:mb-0">
             <h3 class="text-gray-500 mb-1">{{ $t('page.order.start_time') }}</h3>
-            <p class="font-medium">{{ order.created_at }}</p>
+            <p class="font-medium">
+              {{
+                new Date(order.created_at).toLocaleString('en-GB', {
+                  timeZone: 'Asia/Ho_Chi_Minh',
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit'
+                })
+              }}
+            </p>
           </div>
           <div class="mb-4 md:mb-0">
             <h3 class="text-gray-500 mb-1">{{ $t('general.dashboard.address') }}</h3>
@@ -162,7 +174,7 @@ onMounted(() => {
           <el-button class="!bg-black mb-2 md:mb-0" type="primary">
             Export Details
           </el-button>
-          <el-button plain class="mb-2 ml-0 md:mb-0">
+          <el-button class="mb-2 ml-0 md:mb-0" plain>
             Request Confirmation
           </el-button>
           <el-button plain type="danger">
@@ -340,6 +352,7 @@ onMounted(() => {
 @media (max-width: 640px) {
   .list-button {
     flex-direction: column;
+
     .el-button {
       margin-left: 0;
     }
