@@ -3,6 +3,18 @@ import {CircleX, LayoutGrid, List, SearchIcon, SlidersHorizontal, X} from 'lucid
 import {colors} from "~/data/colorData"
 import {sizes} from "~/data/sizeData"
 
+const { t } = useI18n()
+useSeoMeta({
+  title: t('page.search.title'),
+  description: t('page.search.description')
+})
+
+useHead({
+  htmlAttrs: {
+    lang: 'vn'
+  }
+})
+
 const router = useRouter()
 const route = useRoute()
 
