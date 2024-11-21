@@ -80,7 +80,12 @@
       "status": "Trạng thái",
       "total": "Tổng tiền",
       "action": "Hành động",
-      "view": "Xem chi tiết"
+      "item": "Sản phẩm",
+      "view": "Xem chi tiết",
+      "history": "Lịch sử đơn hàng",
+      "detail": "Chi tiết đơn hàng",
+      "shipping": "Vận chuyển",
+      "start_time": "Thời gian mua"
     }
   }
 }

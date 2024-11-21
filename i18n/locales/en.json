@@ -38,7 +38,7 @@
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
-      "orders": "Orders",
+      "orders": "Order",
       "profile": "Profile",
       "address": "Address",
       "total_orders": "Total orders",
@@ -80,7 +80,12 @@
       "status": "STATUS",
       "total": "TOTAL",
       "action": "ACTION",
-      "view": "View"
+      "item": "Item",
+      "view": "View",
+      "history": "Order History",
+      "detail": "Order Detail",
+      "shipping": "Shipping",
+      "start_time": "Start time"
     }
   }
 }

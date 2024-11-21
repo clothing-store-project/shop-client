@@ -30,7 +30,6 @@ const orders = ref<Order[]>([
     payment_status: 'Paid',
     reference_code: '#34VB5540K83',
     created_at: '2024-05-21T10:00:00Z',
-    total: 358.75
   },
   {
     id: '2',
@@ -60,7 +59,6 @@ const orders = ref<Order[]>([
     payment_status: 'Refunded',
     reference_code: '#78A643CD409',
     created_at: '2024-12-09T12:00:00Z',
-    total: 760.50
   },
   {
     id: '3',
@@ -90,7 +88,6 @@ const orders = ref<Order[]>([
     payment_status: 'Pending',
     reference_code: '#112P45A90V2',
     created_at: '2024-10-15T14:00:00Z',
-    total: 1264.00
   },
   {
     id: '4',
@@ -120,7 +117,6 @@ const orders = ref<Order[]>([
     payment_status: 'Paid',
     reference_code: '#28BA67U0981',
     created_at: '2024-07-19T16:00:00Z',
-    total: 198.35
   },
   {
     id: '5',
@@ -150,7 +146,6 @@ const orders = ref<Order[]>([
     payment_status: 'Paid',
     reference_code: '#502TR872W2',
     created_at: '2024-04-04T18:00:00Z',
-    total: 2133.90
   },
   {
     id: '6',
@@ -180,7 +175,6 @@ const orders = ref<Order[]>([
     payment_status: 'Paid',
     reference_code: '#47H76G09F33',
     created_at: '2024-03-30T20:00:00Z',
-    total: 86.40
   },
   {
     id: '7',
@@ -210,7 +204,6 @@ const orders = ref<Order[]>([
     payment_status: 'Paid',
     reference_code: '#53U76G09E38',
     created_at: '2024-04-21T22:00:00Z',
-    total: 86.40
   },
 ])
 
