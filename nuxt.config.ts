@@ -1,6 +1,7 @@
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
     ssr: true,
+    srcDir: 'src/',
     app: {
         // head
         head: {
@@ -19,13 +20,13 @@ export default defineNuxtConfig({
 
 
     nitro: {
-        preset: "cloudflare-pages"
+        preset: "github_pages"
     },
 
 
     runtimeConfig: {
         public: {
-            apiBase: import.meta.env.API_BASE_URL,
+            apiBase: import.meta.env.VITE_API_BASE_URL,
         }
     },
 
@@ -48,8 +49,7 @@ export default defineNuxtConfig({
         '@element-plus/nuxt',
         '@nuxtjs/tailwindcss',
         '@nuxtjs/color-mode',
-        '@nuxtjs/i18n',
-        "nitro-cloudflare-dev"
+        '@nuxtjs/i18n'
     ],
 
     // vueuse
@@ -96,8 +96,7 @@ export default defineNuxtConfig({
                 file: 'vi.json'
             }
         ],
-
     },
-
+    
     compatibilityDate: '2024-10-30',
 })

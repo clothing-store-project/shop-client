@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import {mainNavItems, megaMenu} from '~/data/navigationData'
+import {mainNavItems, megaMenu} from '../../../../data/navigationData'
 import {Bars3Icon} from '@heroicons/vue/24/outline'
-import type {CartItem} from "~/types/cart";
+import type {CartItem} from "../../../../types/cart";
 import {CircleUser} from 'lucide-vue-next';
-import {useCountdown} from "~/composables/useCountdown";
+import {useCountdown} from "../../../../composables/useCountdown";
 
 const {days, hours} = useCountdown(new Date('2024-12-31T23:59:59'));
 
@@ -62,7 +62,7 @@ const subtotal = computed(() => {
       <div class="flex h-16 justify-between items-center">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
+            <img alt="Pixio" class="h-8 w-auto" src="../../../../assets/images/logo.svg"/>
           </div>
           <el-menu
               :default-active="'1'"
