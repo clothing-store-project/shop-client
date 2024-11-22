@@ -4,7 +4,11 @@ import type {Order} from "~/types/order"
 const {t} = useI18n()
 useSeoMeta({
   title: t('page.order.detail'),
-  description: t('page.order.detail')
+  ogTitle: t('page.order.detail'),
+  description: t('page.order.detail'),
+  ogDescription: t('page.order.detail'),
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
 })
 
 useHead({
@@ -87,18 +91,18 @@ const order = ref<Order>({
   ]
 })
 
-function getStatusClass(status: string): string {
+function getStatusClass(status: string): 'primary' | 'danger' | 'warning' | 'success' | 'info' {
   switch (status) {
     case 'IN PROGRESS':
-      return 'bg-blue-500';
+      return 'primary';
     case 'CANCELED':
-      return 'bg-red-500';
+      return 'danger';
     case 'DELAYED':
-      return 'bg-yellow-500';
+      return 'warning';
     case 'DELIVERED':
-      return 'bg-green-500';
+      return 'success';
     default:
-      return '';
+      return 'info';
   }
 }
 
@@ -128,12 +132,9 @@ onMounted(() => {
           </div>
           <div class="flex-1">
             <div class="items-center gap-3 mb-2">
-              <span
-                  :class="getStatusClass(order.status)"
-                  class="text-white p-2 rounded-md"
-              >
+              <el-tag :type="getStatusClass(order.status)" effect="dark">
                 {{ order.status }}
-              </span>
+              </el-tag>
               <h2 class="text-xl font-semibold mt-3">{{ $t('general.dashboard.orders') }} {{
                   order.reference_code
                 }}</h2>

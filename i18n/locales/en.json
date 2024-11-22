@@ -87,7 +87,11 @@
       "history": "Order History",
       "detail": "Order Detail",
       "shipping": "Shipping",
-      "start_time": "Start time"
+      "start_time": "Start time",
+      "address": "Address",
+      "phone": "Phone",
+      "quantity": "Quantity",
+      "payment": "Payment"
     },
     "search": {
       "title": "Search Page",

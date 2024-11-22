@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import type { Order } from '~/types/order';
+import type {Order} from '~/types/order';
 
-const { t } = useI18n()
+const {t} = useI18n()
 useSeoMeta({
   title: t('page.order.title'),
-  description: t('page.order.description')
+  ogTitle: t('page.order.title'),
+  description: t('page.order.description'),
+  ogDescription: t('page.order.description'),
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
 })
 
 useHead({
@@ -232,18 +236,18 @@ const handleCurrentChange = (val: number) => {
   currentPage.value = val
 }
 
-function getStatusClass(status: string): string {
+function getStatusClass(status: string): 'primary' | 'danger' | 'warning' | 'success' | 'info' {
   switch (status) {
     case 'IN PROGRESS':
-      return 'bg-blue-500';
+      return 'primary';
     case 'CANCELED':
-      return 'bg-red-500';
+      return 'danger';
     case 'DELAYED':
-      return 'bg-yellow-500';
+      return 'warning';
     case 'DELIVERED':
-      return 'bg-green-500';
+      return 'success';
     default:
-      return '';
+      return 'info';
   }
 }
 
@@ -256,34 +260,38 @@ onMounted(() => {
   <div class="mx-auto px-4 py-12 lg:w-9/12 w-full flex flex-col md:flex-row">
     <LazyLayoutsClientProfileNavbar/>
     <!-- Main Content -->
-    <main class="w-full md:w-3/4 top-2 mb-8 px-4 sm:px-6 lg:px-8">
+    <main class="w-full md:w-3/4 top-2 mb-8 px-1 sm:px-6 lg:px-8 bg-white shadow-lg">
       <div class="md:p-8">
         <el-card class="box-card">
           <el-table :data="currentPageOrders" style="width: 100%">
-            <el-table-column prop="reference_code" :label="$t('page.order.order')" width="180" />
-            <el-table-column prop="created_at" :label="$t('page.order.date')" width="180">
+            <el-table-column type="expand">
               <template #default="scope">
-                {{ new Date(scope.row.created_at).toLocaleDateString() }}
+                <div class="m-4">
+                  <p class="m-2">{{ $t('page.order.date') }}: {{
+                      new Date(scope.row.created_at).toLocaleDateString()
+                    }}</p>
+                  <p class="m-2">{{ $t('page.order.phone') }}: {{ scope.row.phone }}</p>
+                  <p class="m-2">{{ $t('page.order.quantity') }}: {{ scope.row.total_quantity }}</p>
+                  <p class="m-2">{{ $t('page.order.address') }}: {{ scope.row.address }}, {{ scope.row.commune.name }},
+                    {{ scope.row.district.name }}, {{ scope.row.province.name }}</p>
+                  <p class="m-2">{{ $t('page.order.total') }}: ${{ scope.row.total_amount.toFixed(2) }}</p>
+                  <p class="m-2">{{ $t('page.order.shipping') }}: ${{ scope.row.shipping_fee.toFixed(2) }}</p>
+                  <p class="m-2">{{ $t('page.order.payment') }}: {{ scope.row.payment_method }}</p>
+                  <p class="m-2">
+                    <NuxtLink :to="`order/${scope.row.id}`"
+                                    class="text-rose-500 underline hover:text-rose-600 cursor-pointer">
+                      {{ $t('page.order.view') }}
+                    </NuxtLink>
+                  </p>
+                </div>
               </template>
             </el-table-column>
-            <el-table-column prop="status" :label="$t('page.order.status')" width="150" >
+            <el-table-column prop="reference_code" :label="$t('page.order.order')"/>
+            <el-table-column prop="status" :label="$t('page.order.status')">
               <template #default="scope">
-                <div class="text-white text-center" :class="getStatusClass(scope.row.status)">{{ scope.row.status }}</div>
-              </template>
-            </el-table-column>
-            <el-table-column prop="total_amount" :label="$t('page.order.total')" width="120">
-              <template #default="scope">
-                ${{ scope.row.total_amount.toFixed(2) }}
-              </template>
-            </el-table-column>
-            <el-table-column :label="$t('page.order.action')" width="100" align="right">
-              <template #default="scope">
-                <nuxt-link
-                    :to="`order/${scope.row.id}`"
-                    class="text-rose-500 underline hover:text-rose-600"
-                >
-                  {{ $t('page.order.view') }}
-                </nuxt-link>
+                <el-tag :type="getStatusClass(scope.row.status)" effect="dark">
+                  {{ scope.row.status }}
+                </el-tag>
               </template>
             </el-table-column>
           </el-table>

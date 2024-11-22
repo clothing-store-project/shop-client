@@ -87,7 +87,11 @@
       "history": "Lịch sử đơn hàng",
       "detail": "Chi tiết đơn hàng",
       "shipping": "Vận chuyển",
-      "start_time": "Thời gian mua"
+      "start_time": "Thời gian mua",
+      "address": "Địa chỉ",
+      "phone": "Điện thoại",
+      "quantity": "Số lượng",
+      "payment": "Thanh toán"
     },
     "search": {
       "title": "Tìm kiếm sản phẩm",
