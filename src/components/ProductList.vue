@@ -1,36 +1,15 @@
 <template>
-  <div class="mx-auto px-4 py-12 lg:w-9/12 w-full">
-    <!-- Header and Category Filters -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 w-full lg:w-auto">
-      <h2 class="text-3xl font-bold">Most Popular Products</h2>
-      <div class="bg-gray-100 rounded-full p-1 w-full lg:w-auto">
-        <div class="flex overflow-x-auto space-x-2">
-          <button
-              v-for="category in categories"
-              :key="category"
-              @click="activeCategory = category"
-              :class="[
-              'px-6 py-2 rounded-full transition-colors',
-              activeCategory === category
-                ? 'bg-black text-white'
-                : 'hover:bg-gray-200'
-            ]"
-          >
-            {{ category }}
-          </button>
-        </div>
-      </div>
-    </div>
-
+  <div class="mx-auto px-4 py-12 xl:w-10/12 w-full">
     <!-- Product Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-2 gap-6 w-auto">
       <div
-          v-for="product in filteredProducts"
+          v-for="product in products"
           :key="product.id"
           class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
       >
-        <ProductCard
+        <ProductItem
             :product="product"
+            @add-to-cart="addToCart"
         />
       </div>
     </div>
@@ -38,79 +17,181 @@
 </template>
 
 <script lang="ts" setup>
-const categories: string[] = ['ALL', 'Dresses', 'Tops', 'Outerwear', 'Jacket']
-const activeCategory = ref<string>('ALL')
 
-const products = [
+import type {Product} from "~/types/product";
+
+const products = ref<Product[]>([
   {
     id: 1,
-    name: 'Cozy Knit Cardigan Sweater',
-    price: '80',
-    category: 'Tops',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-1',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 2,
-    name: 'Sophisticated Swagger Suit',
-    price: '80',
-    category: 'Outerwear',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-2',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 3,
-    name: 'Classic Denim Skinny Jeans',
-    price: '80',
-    category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-3',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 4,
-    name: 'Athletic Mesh Sports Leggings',
-    price: '80',
-    category: 'Tops',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-4',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 5,
-    name: 'Urban Style Jacket',
-    price: '80',
-    category: 'Jacket',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-5',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 6,
-    name: 'Elegant Evening Dress',
-    price: '80',
-    category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-6',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 7,
-    name: 'Casual Denim Jacket',
-    price: '80',
-    category: 'Jacket',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-7',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 8,
-    name: 'Summer Floral Dress',
-    price: '80',
-    category: 'Dresses',
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/1.png',
-    tag: 'GET 20 % OFF'
-  }
-]
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-8',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+])
 
-const filteredProducts = computed(() => {
-  if (activeCategory.value === 'ALL') {
-    return products
-  }
-  return products.filter(product => product.category === activeCategory.value)
-})
+const addToCart = (product: Product) => {
+  console.log('Add to cart', product)
+}
 </script>
