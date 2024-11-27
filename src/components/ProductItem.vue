@@ -16,6 +16,7 @@
       />
       <!-- Add to Cart Button -->
       <div
+          v-if="!isMobile"
           class="absolute inset-0 flex items-end justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t">
         <div
             class="py-3 flex-col gap-2 w-full  bg-[rgba(250,250,250,0.85)] text-[#333f48] text-xs font-semibold rounded-sm flex items-center justify-center invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200"
@@ -84,6 +85,7 @@ import type {Product} from "~/types/product";
 
 const props = defineProps<{
   product: Product;
+  isMobile: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -93,6 +95,7 @@ const emit = defineEmits<{
 const showSizeDialog = ref(false);
 const selectedSize = ref(0);
 const selectColor = ref(props.product.colors[0].id);
+
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat('vi-VN', {

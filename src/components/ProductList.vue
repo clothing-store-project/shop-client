@@ -10,6 +10,7 @@
         <ProductItem
             :product="product"
             @add-to-cart="addToCart"
+            :is-mobile="isMobile"
         />
       </div>
     </div>
@@ -17,8 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-
 import type {Product} from "~/types/product";
+
+const isMobile = useCheckDeviceIsMobile();
 
 const products = ref<Product[]>([
   {
