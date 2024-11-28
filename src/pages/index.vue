@@ -1,10 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
-import ProductList from "~/components/ProductList.vue";
 </script>
 
 <template>
-  <ProductList/>
+    <UiProductList/>
 </template>
 
 <style lang="scss" scoped>

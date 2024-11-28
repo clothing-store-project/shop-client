@@ -34,7 +34,8 @@
     "no_result": "No result",
     "view_all": "View all",
     "filter": "Filter",
-    "tag": "Tags",
+    "tags": "Tags",
+    "password": "Password",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",

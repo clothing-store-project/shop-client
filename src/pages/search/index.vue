@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import {CircleX, LayoutGrid, List, SearchIcon, SlidersHorizontal, X} from 'lucide-vue-next'
+import {CircleX, List, SearchIcon, SlidersHorizontal} from 'lucide-vue-next'
 import {colors} from "~/data/colorData"
 import {sizes} from "~/data/sizeData"
 
-const { t } = useI18n()
+const {t} = useI18n()
 useSeoMeta({
   title: t('page.search.title'),
-  description: t('page.search.description')
+  description: t('page.search.description'),
+  ogImage: 'https://example.com/image.png',
+  ogTitle: t('page.search.title'),
+  ogType: 'website',
 })
 
 useHead({
@@ -28,59 +31,57 @@ const price = ref<number[]>([
 const minPrice = computed(() => price.value[0])
 const maxPrice = computed(() => price.value[1])
 
-const selectedColor = ref<number>(route.query.color ? Number(route.query.color) : 1)
-const selectedSize = ref<number>(route.query.size ? Number(route.query.size) : 1)
-const selectedFilter = ref('latest')
-const selectedCategories = ref<number[]>([1,2])
+const selectedColors = ref<number[]>(route.query.color ? JSON.parse(route.query.color as string) : [1])
+const selectedSizes = ref<number[]>(route.query.sizes ? JSON.parse(route.query.sizes as string) : [1])
+const selectedFilter = ref(t('filter.latest'))
 const layout = ref('grid')
 
-const payload = computed(() => ({
+const payload = ref({
   q: searchQuery.value,
   min: price.value[0],
   max: price.value[1],
-  color: selectedColor.value,
-  size: selectedSize.value,
+  colors: selectedColors.value,
+  sizes: selectedSizes.value,
   filter: selectedFilter.value,
-  categories: selectedCategories.value
-}))
+})
 
-const categories = [
-  {id: 1, name: 'All', quantity: 100},
-  {id: 2, name: 'Dresses', quantity: 20},
-  {id: 3, name: 'Tops', quantity: 30},
-  {id: 4, name: 'Outerwear', quantity: 10},
-  {id: 5, name: 'Jacket', quantity: 40},
-]
+const activeNames = ref(['1', '2', '3'])
 
-const tags = [
-  {id: 1, name: 'All'},
-  {id: 2, name: 'Dresses'},
-  {id: 3, name: 'Tops'},
-  {id: 4, name: 'Outerwear'},
-  {id: 5, name: 'Jacket'},
-]
-
-const toggleCategorySelection = (categoryId: number) => {
-  const index = selectedCategories.value.indexOf(categoryId)
+const toggleColorSelection = (colorId: number) => {
+  const index = selectedColors.value.indexOf(colorId);
   if (index === -1) {
-    selectedCategories.value.push(categoryId)
+    selectedColors.value.push(colorId);
   } else {
-    selectedCategories.value.splice(index, 1)
+    selectedColors.value.splice(index, 1);
+  }
+}
+
+const toggleSizeSelection = (sizeId: number) => {
+  const index = selectedSizes.value.indexOf(sizeId);
+  if (index === -1) {
+    selectedSizes.value.push(sizeId);
+  } else {
+    selectedSizes.value.splice(index, 1);
   }
 }
 
 const updateQueryParams = (newQueryParams = {}) => {
-  router.push({
-    query: {
-      q: searchQuery.value,
-      min: price.value[0],
-      max: price.value[1],
-      color: selectedColor.value,
-      size: selectedSize.value,
-      ...newQueryParams,
-    },
-    ...newQueryParams,
-  })
+  const query = {
+    q: searchQuery.value,
+    min: price.value[0],
+    max: price.value[1],
+    colors: JSON.stringify(selectedColors.value),
+    sizes: JSON.stringify(selectedSizes.value),
+    ...newQueryParams
+  };
+
+  router.push({query});
+  payload.value = {
+    ...query,
+    filter: selectedFilter.value,
+    colors: selectedColors.value,
+    sizes: selectedSizes.value
+  };
 }
 
 const toggleFilter = () => {
@@ -92,13 +93,13 @@ const toggleFilter = () => {
 const resetFilters = () => {
   searchQuery.value = ''
   price.value = [0, 500]
-  selectedColor.value = 1
-  selectedSize.value = 1
+  selectedColors.value = [1]
+  selectedSizes.value = [1]
   updateQueryParams({
     searchQuery: '',
     price: [0, 500],
-    selectedColor: 1,
-    selectedSize: 1
+    selectedColors: [1],
+    selectedSizes: [1]
   })
 }
 
@@ -164,20 +165,26 @@ const checkScreenSize = () => {
 onMounted(() => {
   checkScreenSize()
   window.addEventListener('resize', checkScreenSize)
+  console.log('route.query', route.query)
+  // use fetch to get products
+})
+
+watch(() => route.query, (newParams) => {
+  console.log('newParams', newParams)
 })
 </script>
 
 <template>
   <div class="px-4 py-12 flex flex-col md:flex-row w-full">
     <!-- Filter aside -->
-    <div class="w-full md:w-1/5 md:sticky top-2 mb-8 px-4 sm:px-6 lg:px-8">
+    <div class="w-full md:w-1/5 md:sticky top-2 mb-4 px-4 sm:px-6 lg:px-8">
       <aside>
         <div class="flex gap-4 mb-6">
           <button
-              @click="toggleFilter"
               class="text-gray-500 hover:text-pink-500 focus:outline-none"
+              @click="toggleFilter"
           >
-            <SlidersHorizontal />
+            <SlidersHorizontal/>
           </button>
           <span class="pl-3">{{ $t('general.filter') }}</span>
         </div>
@@ -198,96 +205,73 @@ onMounted(() => {
                   v-model="searchQuery"
                   class="w-full border-b focus:outline-none rounded-2xl py-2 px-2 pl-10"
                   placeholder="Search Product"
+                  @keyup.enter.prevent="updateQueryParams"
               />
-              <SearchIcon class="my-auto w-6 h-6 absolute right-3 cursor-pointer"/>
+              <SearchIcon
+                  class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
+                  @click="updateQueryParams"
+              />
             </div>
           </div>
 
-          <!--Select price range-->
-          <div class="gap-4 mb-6">
-            <h6 class="font-bold mb-5">{{ $t('general.price') }}</h6>
-            <div class="flex items-center space-x-4">
-              <el-slider
-                  v-model="price"
-                  :max="500"
-                  class="text-black black pl-2 pr-2.5"
-                  range
-              />
-            </div>
-            <div class="flex justify-between mt-2 text-sm">
-              <span>Min Price: ${{ minPrice }}</span>
-              <span>Max Price: ${{ maxPrice }}</span>
-            </div>
-          </div>
-
-          <!--Select color-->
-          <div class="gap-4 mb-8">
-            <h6 class="font-bold mb-5">{{ $t('general.color') }}</h6>
-            <div class="flex flex-wrap gap-2">
-              <div
-                  v-for="color in colors"
-                  :key="color.id"
-                  :class="{'border-1 border-black': selectedColor === color.id}"
-                  class="w-10 h-10 rounded-full cursor-pointer flex justify-center items-center mt-2"
-                  @click="selectedColor = color.id"
-              >
-                <div
-                    :style="{backgroundColor: color.hex}"
-                    class="w-8 h-8 rounded-full border-1 border-black"
+          <el-collapse v-model="activeNames" class="gap-4 mb-6">
+            <!--Select price range-->
+            <el-collapse-item name="1">
+              <template #title>
+                <h6 class="text-base">{{ $t('general.price') }}</h6>
+              </template>
+              <div class="flex items-center space-x-4">
+                <el-slider
+                    v-model="price"
+                    :max="500"
+                    class="text-black black pl-2 pr-2.5"
+                    range
                 />
               </div>
-            </div>
-          </div>
-
-          <!--Select size-->
-          <div class="gap-4 mb-6">
-            <h6 class="font-bold mb-5">{{ $t('general.size') }}</h6>
-            <div class="flex flex-wrap gap-4">
-              <div
-                  v-for="size in sizes"
-                  :key="size.id"
-                  :class="{'bg-black text-white': selectedSize === size.id}"
-                  class="w-10 h-10 rounded-full cursor-pointer mt-2 flex justify-center items-center border-1 border-black hover:border-gray-500 hover:text-gray-500"
-                  @click="selectedSize = size.id"
-              >
-                {{ size.value }}
+              <div class="flex justify-between mt-2 text-sm">
+                <span>Min Price: ${{ minPrice }}</span>
+                <span>Max Price: ${{ maxPrice }}</span>
               </div>
-            </div>
-          </div>
+            </el-collapse-item>
 
-          <!--Select category-->
-          <div class="gap-4 mb-6">
-            <h6 class="font-bold mb-5">{{ $t('general.category') }}</h6>
-            <div class="">
-              <div
-                  v-for="category in categories"
-                  :key="category.id"
-                  class="px-4 py-2 rounded-full cursor-pointer mt-2"
-                  @click="toggleCategorySelection(category.id)"
-              >
-                <div class="flex justify-between">
-                  <span class="hover:text-red-500">{{ category.name }}</span>
-                  <span>({{ category.quantity }})</span>
+            <!--Select color-->
+            <el-collapse-item name="2">
+              <template #title>
+                <h6 class="text-base">{{ $t('general.color') }}</h6>
+              </template>
+              <div class="flex flex-wrap gap-2">
+                <div
+                    v-for="color in colors"
+                    :class="{'border-1 border-black': selectedColors.indexOf(color.id) !== -1}"
+                    class="w-10 h-10 rounded-full cursor-pointer flex justify-center items-center mt-2"
+                    @click="toggleColorSelection(color.id)"
+                >
+                  <div
+                      :style="{backgroundColor: color.hex}"
+                      class="w-8 h-8 rounded-full border-1 border-black"
+                  />
                 </div>
               </div>
-            </div>
-          </div>
+            </el-collapse-item>
 
-          <!--Select tags-->
-          <div class="gap-4 mb-6">
-            <h6 class="font-bold mb-5">{{ $t('general.tag') }}</h6>
-            <div class="flex flex-wrap gap-4">
-              <div
-                  v-for="tag in tags"
-                  :key="tag.id"
-                  class="px-4 py-2 rounded-full cursor-pointer mt-2 border-1 border-black"
-              >
-                <div class="flex justify-between">
-                  <span class="hover:text"> {{ tag.name }}</span>
+            <!--Select size-->
+            <el-collapse-item name="3">
+              <template #title>
+                <h6 class="text-base">{{ $t('general.size') }}</h6>
+              </template>
+              <div class="flex flex-wrap gap-4">
+                <div
+                    v-for="size in sizes"
+                    :key="size.id"
+                    :class="{'bg-black text-white': selectedSizes.indexOf(size.id) !== -1}"
+                    class="w-10 h-10 rounded-full cursor-pointer mt-2 flex justify-center items-center border-1 border-black hover:border-gray-500 hover:text-gray-500"
+                    @click="toggleSizeSelection(size.id)"
+                >
+                  {{ size.value }}
                 </div>
               </div>
-            </div>
-          </div>
+            </el-collapse-item>
+          </el-collapse>
 
           <!--Clear all filters-->
           <div class="flex justify-start gap-4">
@@ -307,86 +291,43 @@ onMounted(() => {
         </div>
       </aside>
     </div>
-    <div class="w-full md:w-4/5 px-4 sm:px-6 lg:px-8">
-      <LayoutsClientSliderAppCarousel
-          :products="products"
-      />
-      <div class="border-t-2 border-gray-400">
-        <div class="flex flex-col md:flex-row items-center py-4">
-          <!-- Category Buttons -->
-          <div class="flex flex-wrap gap-2 mr-4 max-w-md sm-list" v-if="selectedCategories.length">
-            <button
-                v-for="id in selectedCategories"
-                :key="id"
-                class="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-full text-gray-800 hover:bg-gray-200"
+    <div class="w-full md:w-4/5">
+      <div class="flex flex-col md:flex-row items-center mx-auto px-4 w-full">
+        <!-- Results Display -->
+        <div class="text-gray-700 sm-list">
+          Showing 1–5 Of 50 Results
+        </div>
+
+        <div class="flex ml-auto sm-dropdown">
+          <!-- Sort and Filter Dropdowns -->
+          <div class=" flex items-center">
+            <List/>
+            <el-select
+                v-model="selectedFilter"
+                class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
+                size="large"
+                style="width: 240px"
+                focus=""
             >
-              {{ categories.find(category => category.id === id).name }}
-              <X
-                  class="w-6 h-6"
-                  @click="toggleCategorySelection(id)"
-              />
-            </button>
-          </div>
-
-          <!-- Results Display -->
-          <div class="text-gray-700 sm-list">
-            Showing 1–5 Of 50 Results
-          </div>
-
-          <div class="flex ml-auto sm-dropdown">
-            <!-- Sort and Filter Dropdowns -->
-            <div class="flex">
-              <div class="relative">
-                <select
-                    v-model="selectedFilter"
-                    class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
-                >
-                  <option value="latest">{{ $t('filter.latest') }}</option>
-                  <option value="popularity">{{ $t('filter.popularity') }}</option>
-                  <option value="avarage_rating">{{ $t('filter.average_rating') }}</option>
-                  <option value="price_low_to_high">{{ $t('filter.price_low_to_high') }}</option>
-                  <option value="price_high_to_low">{{ $t('filter.price_high_to_low') }}</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Layout Options -->
-            <div class="flex items-center gap-2">
-              <button
-                  :class="{ 'bg-gray-200': layout === 'list' }"
-                  class="p-1 border rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-                  @click="setLayout('list')"
-              >
-                <List/>
-              </button>
-              <button
-                  :class="{ 'bg-gray-200': layout === 'grid' }"
-                  class="p-1 border rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-                  @click="setLayout('grid')"
-              >
-                <LayoutGrid/>
-              </button>
-            </div>
+              <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
+              <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
+              <el-option :value="$t('filter.average_rating')">{{ $t('filter.average_rating') }}</el-option>
+              <el-option :value="$t('filter.price_low_to_high')">{{ $t('filter.price_low_to_high') }}</el-option>
+              <el-option :value="$t('filter.price_high_to_low')">{{ $t('filter.price_high_to_low') }}</el-option>
+            </el-select>
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div v-for="product in products">
-          <ProductCard
-              :key="product.id"
-              :product="product"
-          />
-        </div>
-      </div>
+      <UiProductList/>
 
-      <div class="flex justify-center sm:justify-end mt-15 sm:w-auto">
+      <div class="flex justify-center mx-auto px-4 md:justify-end w-full">
         <el-pagination
-            class="sm-pagination"
             :page-size="10"
-            background
-            layout="total, prev, pager, next"
             :total="50"
+            background
+            class="sm-pagination"
+            layout="total, prev, pager, next"
         />
       </div>
     </div>
@@ -394,6 +335,14 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.el-collapse {
+  border-top: none;
+
+  .el-collapse-item__header {
+    border-bottom: none;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .sm-dropdown {
     margin: 0.5rem 0;
