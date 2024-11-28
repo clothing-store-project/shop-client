@@ -9,7 +9,7 @@
     <div class="page-content">
       <slot/>
     </div>
-    <LayoutsClientAppFooter/>
+    <LayoutsClientMobileFooter/>
   </el-container>
 </template>
 
