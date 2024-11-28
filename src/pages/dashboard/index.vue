@@ -4,7 +4,10 @@ const {t} = useI18n()
 
 useSeoMeta({
   title: t('page.dashboard.title'),
-  description: t('page.dashboard.description')
+  description: t('page.dashboard.description'),
+  ogImage: 'https://example.com/image.png',
+  ogTitle: t('page.dashboard.title'),
+  ogType: 'website',
 })
 
 useHead({
@@ -26,7 +29,7 @@ const stats = [
     <LayoutsClientProfileNavbar/>
 
     <!-- Main Content -->
-    <main class="w-full md:w-3/4 top-2 mb-8 px-4 sm:px-6 lg:px-8">
+    <main class="w-full md:w-3/4 top-2 mb-8 px-1 sm:px-6 lg:px-8">
       <div class="md:p-8">
         <!-- Welcome Section -->
         <div class="rounded-xl border border-gray-200 shadow-sm p-6 mb-6">

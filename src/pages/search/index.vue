@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import {CircleX, SearchIcon, SlidersHorizontal} from 'lucide-vue-next'
+import {CircleX, List, SearchIcon, SlidersHorizontal} from 'lucide-vue-next'
 import {colors} from "~/data/colorData"
 import {sizes} from "~/data/sizeData"
 
 const {t} = useI18n()
 useSeoMeta({
   title: t('page.search.title'),
-  description: t('page.search.description')
+  description: t('page.search.description'),
+  ogImage: 'https://example.com/image.png',
+  ogTitle: t('page.search.title'),
+  ogType: 'website',
 })
 
 useHead({
@@ -30,7 +33,7 @@ const maxPrice = computed(() => price.value[1])
 
 const selectedColors = ref<number[]>(route.query.color ? JSON.parse(route.query.color as string) : [1])
 const selectedSizes = ref<number[]>(route.query.sizes ? JSON.parse(route.query.sizes as string) : [1])
-const selectedFilter = ref('latest')
+const selectedFilter = ref(t('filter.latest'))
 const layout = ref('grid')
 
 const payload = ref({
@@ -43,39 +46,6 @@ const payload = ref({
 })
 
 const activeNames = ref(['1', '2', '3'])
-
-// const categories = [
-//   {id: 0, name: 'All', quantity: 100},
-//   {id: 1, name: 'Dresses', quantity: 20},
-//   {id: 2, name: 'Tops', quantity: 30},
-//   {id: 3, name: 'Outerwear', quantity: 10},
-//   {id: 4, name: 'Jacket', quantity: 40},
-// ]
-//
-// const tags = [
-//   {id: 1, name: 'All'},
-//   {id: 2, name: 'Dresses'},
-//   {id: 3, name: 'Tops'},
-//   {id: 4, name: 'Outerwear'},
-//   {id: 5, name: 'Jacket'},
-// ]
-//
-// const toggleCategorySelection = (categoryId: number) => {
-//   if (categoryId === 0) {
-//     selectedCategories.value = [0];
-//   } else {
-//     const index = selectedCategories.value.indexOf(categoryId);
-//     if (index === -1) {
-//       selectedCategories.value = selectedCategories.value.filter(id => id !== 0);
-//       selectedCategories.value.push(categoryId);
-//     } else {
-//       selectedCategories.value.splice(index, 1);
-//     }
-//     if (selectedCategories.value.length === 0) {
-//       selectedCategories.value = [0];
-//     }
-//   }
-// }
 
 const toggleColorSelection = (colorId: number) => {
   const index = selectedColors.value.indexOf(colorId);
@@ -207,7 +177,7 @@ watch(() => route.query, (newParams) => {
 <template>
   <div class="px-4 py-12 flex flex-col md:flex-row w-full">
     <!-- Filter aside -->
-    <div class="w-full md:w-1/5 md:sticky top-2 mb-8 px-4 sm:px-6 lg:px-8">
+    <div class="w-full md:w-1/5 md:sticky top-2 mb-4 px-4 sm:px-6 lg:px-8">
       <aside>
         <div class="flex gap-4 mb-6">
           <button
@@ -321,44 +291,37 @@ watch(() => route.query, (newParams) => {
         </div>
       </aside>
     </div>
-    <div class="w-full md:w-4/5 px-4 sm:px-6 lg:px-8">
-      <div>
-        <div class="flex flex-col md:flex-row items-center pb-4">
-          <!-- Results Display -->
-          <div class="text-gray-700 sm-list">
-            Showing 1–5 Of 50 Results
-          </div>
+    <div class="w-full md:w-4/5">
+      <div class="flex flex-col md:flex-row items-center mx-auto px-4 w-full">
+        <!-- Results Display -->
+        <div class="text-gray-700 sm-list">
+          Showing 1–5 Of 50 Results
+        </div>
 
-          <div class="flex ml-auto sm-dropdown">
-            <!-- Sort and Filter Dropdowns -->
-            <div class="flex">
-              <div class="relative">
-                <select
-                    v-model="selectedFilter"
-                    class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
-                >
-                  <option value="latest">{{ $t('filter.latest') }}</option>
-                  <option value="popularity">{{ $t('filter.popularity') }}</option>
-                  <option value="avarage_rating">{{ $t('filter.average_rating') }}</option>
-                  <option value="price_low_to_high">{{ $t('filter.price_low_to_high') }}</option>
-                  <option value="price_high_to_low">{{ $t('filter.price_high_to_low') }}</option>
-                </select>
-              </div>
-            </div>
+        <div class="flex ml-auto sm-dropdown">
+          <!-- Sort and Filter Dropdowns -->
+          <div class=" flex items-center">
+            <List/>
+            <el-select
+                v-model="selectedFilter"
+                class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
+                size="large"
+                style="width: 240px"
+                focus=""
+            >
+              <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
+              <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
+              <el-option :value="$t('filter.average_rating')">{{ $t('filter.average_rating') }}</el-option>
+              <el-option :value="$t('filter.price_low_to_high')">{{ $t('filter.price_low_to_high') }}</el-option>
+              <el-option :value="$t('filter.price_high_to_low')">{{ $t('filter.price_high_to_low') }}</el-option>
+            </el-select>
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div v-for="product in products">
-          <ProductCard
-              :key="product.id"
-              :product="product"
-          />
-        </div>
-      </div>
+      <UiProductList/>
 
-      <div class="flex justify-center sm:justify-end mt-15 sm:w-auto">
+      <div class="flex justify-center mx-auto px-4 md:justify-end w-full">
         <el-pagination
             :page-size="10"
             :total="50"
