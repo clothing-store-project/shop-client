@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <ProductList/>
+    <UiProductList/>
 </template>
 
 <style lang="scss" scoped>

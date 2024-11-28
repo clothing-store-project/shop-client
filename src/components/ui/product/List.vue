@@ -7,7 +7,7 @@
           :key="product.id"
           class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
       >
-        <ProductItem
+        <UiProductItem
             :product="product"
             @add-to-cart="addToCart"
             :is-mobile="isMobile"

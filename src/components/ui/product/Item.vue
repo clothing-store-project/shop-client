@@ -25,9 +25,7 @@
           <span>Thêm nhanh vào giỏ</span>
           <div
               class="grid grid-cols-6 gap-2 items-center px-2 w-full"
-              @blur="showSizeDialog = false"
           >
-
             <button
                 v-for="size in product.sizes"
                 :key="size.id"
@@ -69,10 +67,10 @@
       <!-- Price -->
       <div class="flex items-center gap-2">
         <span class="text-lg font-bold text-gray-900">
-          {{ formatPrice(product.price) }}
+          {{ useFormatNumber(product.price) }}
         </span>
         <span v-if="product.originalPrice" class="text-sm text-gray-500 line-through">
-          {{ formatPrice(product.originalPrice) }}
+          {{ useFormatNumber(product.originalPrice) }}
         </span>
       </div>
     </div>
@@ -92,21 +90,10 @@ const emit = defineEmits<{
   (e: 'add-to-cart', product: Product & { selectedSize: number,selectColor:number }): void
 }>();
 
-const showSizeDialog = ref(false);
 const selectedSize = ref(0);
 const selectColor = ref(props.product.colors[0].id);
 
-
-const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-    minimumFractionDigits: 0
-  }).format(price);
-};
-
 const handleSelectColor = (colorId: number) => {
-  console.log(colorId);
   selectColor.value = colorId;
 };
 
@@ -123,7 +110,6 @@ const addToCart = () => {
       selectedSize: selectedSize.value,
       selectColor: selectColor.value
     });
-    showSizeDialog.value = false;
     selectedSize.value = 0;
   }
 };

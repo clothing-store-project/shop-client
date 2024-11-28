@@ -244,9 +244,9 @@ const addToCart = () => {
           <div v-html="product.description"/>
         </el-tab-pane>
         <el-tab-pane :label="$t('general.reviews')" class="space-y-8" name="reviews">
-          <ReviewList :reviews="reviews"/>
+          <UiReviewList :reviews="reviews"/>
           <!-- Review Form -->
-          <ReviewForm/>
+          <UiReviewForm/>
         </el-tab-pane>
       </el-tabs>
     </div>
