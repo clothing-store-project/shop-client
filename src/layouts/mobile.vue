@@ -5,11 +5,11 @@
   <el-container
       direction="vertical"
   >
-    <LayoutsClientMobileHeader/>
+    <LayoutsClientMobileAppHeader/>
     <div class="page-content">
       <slot/>
     </div>
-    <LayoutsClientMobileFooter/>
+    <LayoutsClientMobileAppFooter/>
   </el-container>
 </template>
 

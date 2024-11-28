@@ -29,8 +29,12 @@
                 class="w-full border-b focus:outline-none rounded-2xl py-2 px-2 pl-10"
                 placeholder="Search Product"
                 @input="filterSearch"
+                @keyup.enter.prevent="viewAll"
             />
-            <SearchIcon class="my-auto w-6 h-6 absolute right-3 cursor-pointer"/>
+            <SearchIcon
+                class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
+                @click="viewAll"
+            />
           </div>
         </div>
 
@@ -79,7 +83,7 @@
 </template>
 
 <script lang="ts" setup>
-import {PlusIcon, SearchIcon, XIcon, CircleX} from 'lucide-vue-next'
+import {CircleX, SearchIcon, XIcon} from 'lucide-vue-next'
 
 defineProps({
   isOpen: Boolean,
@@ -89,6 +93,7 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
+const router = useRouter()
 const searchQuery = ref('')
 
 type Product = {
@@ -111,11 +116,10 @@ const getData = () => {
 
 const viewAll = () => {
   // route to search page
+  router.push({name: 'search', query: {q: searchQuery.value || ''}})
 };
 
 const filterSearch = useDebounce(getData, 500)
-
-const quickSearchTags = ['Clothes', 'UrbanSkirt', 'VelvetGown', 'LushShorts']
 
 const products: Product[] = [
   {
@@ -211,14 +215,5 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-:deep(.swiper-button-next),
-:deep(.swiper-button-prev) {
-  color: #000;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: #000;
 }
 </style>

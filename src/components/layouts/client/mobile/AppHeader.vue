@@ -3,6 +3,7 @@ import type {MenuMobile} from "~/types/menu";
 import {LazyElIconSearch} from "#components";
 
 const isScrolled = ref<boolean>(false)
+const isSearchVisible = ref<boolean>(false)
 const search = ref<string>('')
 const onScroll = () => {
   isScrolled.value = window.scrollY > 0;
@@ -33,7 +34,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       </div>
       <div class="px-4 py-3 flex items-center justify-between">
         <div class="flex items-center">
-          <img src="~/assets/images/logo.svg" alt="CANIFA" class="h-8"/>
+          <img src="../../../../assets/images/logo.svg" alt="CANIFA" class="h-8"/>
           <div class="ml-1 bg-black text-white text-[10px] px-2 py-1 rounded">
             BLACK FRIDAY
           </div>
@@ -41,7 +42,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
         <div class="flex items-center space-x-4">
           <el-icon>
-            <LazyElIconSearch/>
+            <LazyElIconSearch
+                @click="isSearchVisible = true"
+            />
           </el-icon>
           <el-icon>
             <LazyElIconChatDotRound/>
@@ -95,5 +98,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <p>Miễn phí vận chuyển cho đơn hàng 599.000đ</p>
     </div>
   </header>
+  
+  <SearchPreview
+      :isOpen="isSearchVisible"
+      @close="isSearchVisible = false"
+  />
 </template>
 
