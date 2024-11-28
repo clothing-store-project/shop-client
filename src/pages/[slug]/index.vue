@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import {MinusIcon, PlusIcon} from 'lucide-vue-next'
-
 const product = ref({
   id: 1,
   slug: 'regular-collar-women-regular-fit-jacket',
@@ -84,181 +82,16 @@ const addToCart = () => {
 useSeoMeta({
   title: product.value.name,
   description: product.value.short_description,
-  image: product.value.images[0]
+  ogImage: product.value.images[0]
 })
+
+const isMobile = useCheckDeviceIsMobile()
+
 </script>
 
 <template>
-  <UiProductDetail/>
-
-  <!--  &lt;!&ndash; Breadcrumb &ndash;&gt;-->
-<!--  <div class="container mx-auto px-4 py-4 max-w-7xl">-->
-<!--    <div class="flex items-center space-x-2 text-sm">-->
-<!--      <NuxtLinkLocale class="text-gray-500 hover:text-black" to="/">{{ $t('general.home') }}</NuxtLinkLocale>-->
-<!--      <span class="text-gray-400">/</span>-->
-<!--      <NuxtLinkLocale class="text-gray-500 hover:text-black" to="#">{{ product.categories }}</NuxtLinkLocale>-->
-<!--      <span class="text-gray-400">/</span>-->
-<!--      <span class="text-gray-900">{{ product.name }}</span>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  &lt;!&ndash; Product Section &ndash;&gt;-->
-<!--  <main class="container mx-auto px-4 py-8 max-w-7xl ">-->
-<!--    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">-->
-<!--      &lt;!&ndash; Product Images &ndash;&gt;-->
-<!--      <div class="md:flex md:flex-row flex gap-2 flex-col-reverse">-->
-<!--        <div-->
-<!--            class="overflow-x-auto md:overflow-y-auto md:max-h-[480px] flex md:flex-col flex-row gap-4 md:w-50 scroll-smooth focus:scroll-auto">-->
-<!--          <button-->
-<!--              v-for="(image, index) in product.images"-->
-<!--              :key="index"-->
-<!--              :class="selectedImage === image ? 'border-black' : 'border-gray-300'"-->
-<!--              class="flex-shrink-0 w-20 h-20 rounded-lg border overflow-hidden snap-start"-->
-<!--              @click="selectedImage = image"-->
-<!--          >-->
-<!--            <img :src="image" alt="Thumbnail" class="w-full h-full object-cover"/>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Main Image &ndash;&gt;-->
-<!--        <div class="relative">-->
-<!--          <img-->
-<!--              :src="selectedImage"-->
-<!--              alt="Product Image"-->
-<!--              class="w-full rounded-lg"-->
-<!--          />-->
-<!--          <span class="absolute top-4 right-4 bg-black text-white px-3 py-1 text-sm">-->
-<!--              {{ product.tag }}-->
-<!--          </span>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; Product Details &ndash;&gt;-->
-<!--      <div class="space-y-6">-->
-<!--        <h1 class="text-3xl font-bold">{{ product.name }}</h1>-->
-
-<!--        <div class="flex items-center space-x-2">-->
-<!--          <div class="flex">-->
-<!--            <el-rate-->
-<!--                v-model="product.rating"-->
-<!--                :score-template="$t('general.rate_count', { value:product.rating,count: product.rate_count })"-->
-<!--                disabled-->
-<!--                show-score-->
-<!--                size="large"-->
-<!--                text-color="#4b5563"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        <p class="text-gray-600">{{ product.short_description }}</p>-->
-
-<!--        <div class="flex items-center space-x-2">-->
-<!--          <span class="text-2xl font-bold">${{ product.price.toFixed(2) }}</span>-->
-<!--          <span class="text-gray-500 line-through">${{ product.originalPrice.toFixed(2) }}</span>-->
-<!--        </div>-->
-<!--        <div class="flex md:gap-6 flex-col gap-4 md:flex-row  ">-->
-<!--          &lt;!&ndash; Size Selector &ndash;&gt;-->
-<!--          <div class="space-y-2">-->
-<!--            <label class="block text-sm font-medium">{{ $t('general.size') }}: {{ selectedSize }}</label>-->
-<!--            <div class="flex space-x-2">-->
-<!--              <button-->
-<!--                  v-for="size in product.sizes"-->
-<!--                  :key="size"-->
-<!--                  :class="selectedSize === size ? 'border-black bg-black text-white' : 'border-gray-300'"-->
-<!--                  class="w-10 h-10 rounded-full border flex items-center justify-center"-->
-<!--                  @click="selectedSize = size"-->
-<!--              >-->
-<!--                {{ size }}-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Color Selector &ndash;&gt;-->
-<!--          <div class="space-y-2">-->
-<!--            <label class="block text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.name }}</label>-->
-<!--            <div class="flex space-x-2">-->
-<!--              <div-->
-<!--                  v-for="color in product.colors"-->
-<!--                  :key="color.name"-->
-<!--                  :class="{-->
-<!--                  'border-black': selectedColor.name === color.name,-->
-<!--                  'border-transparent': selectedColor.name !== color.name-->
-<!--                }"-->
-<!--                  class="w-10 h-10 rounded-full border-2"-->
-<!--                  @click="selectedColor = color"-->
-<!--              >-->
-<!--                <span-->
-<!--                    :style="{ backgroundColor: color.value }"-->
-<!--                    class="block w-full h-full rounded-full border-2"-->
-<!--                ></span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Quantity Selector &ndash;&gt;-->
-<!--        <div class="space-y-2">-->
-<!--          <label class="text-sm font-medium">{{ $t('general.quantity') }}: </label>-->
-<!--          <div class="flex items-center border rounded-full w-36">-->
-<!--            <button-->
-<!--                class="w-8 h-8 flex items-center justify-center"-->
-<!--                @click="quantity > 1 && quantity&#45;&#45;"-->
-<!--            >-->
-<!--              <MinusIcon class="h-4 w-4"/>-->
-<!--            </button>-->
-<!--            <span class="w-20 text-center">{{ quantity }}</span>-->
-<!--            <button-->
-<!--                class="w-8 h-8 flex items-center justify-center"-->
-<!--                @click="quantity++"-->
-<!--            >-->
-<!--              <PlusIcon class="h-4 w-4"/>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Action Buttons &ndash;&gt;-->
-<!--        <div class="flex space-x-4">-->
-<!--          <button-->
-<!--              class="flex w-44 text-center justify-center bg-black text-white py-3 rounded-full hover:bg-gray-800 transition-colors"-->
-<!--              @click="addToCart"-->
-<!--          >-->
-<!--            {{ $t('general.add_to_cart') }}-->
-<!--          </button>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Product Info &ndash;&gt;-->
-<!--        <div class="space-y-4 pt-6 border-t">-->
-<!--          <div class="flex">-->
-<!--            <span class="font-medium w-30">{{ $t('general.sku') }}:</span>-->
-<!--            <span class="text-gray-600">{{ product.sku }}</span>-->
-<!--          </div>-->
-<!--          <div class="flex">-->
-<!--            <span class="font-medium w-30">{{ $t('general.categories') }}:</span>-->
-<!--            <div class="flex-1 flex-wrap gap-2">-->
-<!--              <NuxtLink-->
-<!--                  class="text-gray-600 hover:text-black"-->
-<!--                  to="#"-->
-<!--              >-->
-<!--                {{ product.categories }}-->
-<!--              </NuxtLink>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Tabs &ndash;&gt;-->
-<!--    <div class="mt-16">-->
-<!--      <el-tabs v-model="activeTab" class="demo-tabs">-->
-<!--        <el-tab-pane :label="$t('general.description')" class="prose max-w-none" name="description">-->
-<!--          <div v-html="product.description"/>-->
-<!--        </el-tab-pane>-->
-<!--        <el-tab-pane :label="$t('general.reviews')" class="space-y-8" name="reviews">-->
-<!--          <UiReviewList :reviews="reviews"/>-->
-<!--          &lt;!&ndash; Review Form &ndash;&gt;-->
-<!--          <UiReviewForm/>-->
-<!--        </el-tab-pane>-->
-<!--      </el-tabs>-->
-<!--    </div>-->
-<!--  </main>-->
+  <UiProductDetail v-if="!isMobile"/>
+  <UiProductDetailMobile v-else/>
 </template>
 
 <style lang="scss" scoped>

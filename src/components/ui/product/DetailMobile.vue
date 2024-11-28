@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
 import type {ProductImage, RelatedProduct} from "~/types/product";
 
 const images: ProductImage[] = [
@@ -52,7 +51,7 @@ const product = ref({
 })
 
 const selectedSize = ref(product.value.sizes[0].id)
-const selectedColor = ref(product.value.colors[0].id)
+const selectedColor = ref(product.value.colors[0])
 const currentImageIndex = ref(0)
 
 const relatedProducts: RelatedProduct[] = [
@@ -126,9 +125,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 <template>
   <div class="max-w-7xl mx-auto">
-    <div class="bg-[#EE1C25] text-white py-2 px-4 text-center">
-      <p class="text-sm font-medium">BLACK NOVEMBER GIẢM TỐI 50%</p>
-    </div>
     <div
         v-show="isHeaderVisible"
         class="fixed top-0 left-0 right-0 bg-white z-50 md:hidden"
@@ -237,7 +233,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     </div>
 
     <!-- Desktop Product Gallery -->
-    <div class="hidden md:block px-4 py-8">
+    <div class="hidden md:block px-4 py-8 w-full">
       <nav class="flex items-center space-x-2 text-sm mb-8">
         <NuxtLink class="text-gray-500 hover:text-gray-700" to="/">Trang chủ</NuxtLink>
         <span class="text-gray-500">/</span>
@@ -246,26 +242,43 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <span class="text-gray-900">Áo nỉ</span>
       </nav>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
-          <img
-              :alt="images[currentImageIndex].alt"
-              :src="images[currentImageIndex].src"
-              class="w-full h-full object-cover"
-          />
-          <div class="mt-4 grid grid-cols-4 gap-4">
-            <button
-                v-for="(image, index) in images"
-                :key="image.id"
-                :class="{ 'ring-2 ring-red-500': currentImageIndex === index }"
-                class="aspect-square rounded-lg overflow-hidden"
-                @click="setImage(index)"
-            >
-              <img :alt="image.alt" :src="image.src" class="w-full h-full object-cover"/>
-            </button>
-          </div>
-        </div>
+      <!--      <div class="grid gap-8">-->
+      <div class="aspect-[3/4] relative overflow-hidden rounded-lg w-full h-full">
+        <img
+            :alt="images[currentImageIndex].alt"
+            :src="images[currentImageIndex].src"
+            class="w-full h-full object-cover"
+        />
+        <button
+            class="absolute left-4 top-1/2 -translate-y-1/2 bg-transparent rounded-full p-4"
+            @click="prevImage"
+        >
+          <el-icon :size="30">
+            <LazyElIconArrowLeft/>
+          </el-icon>
+        </button>
+        <button
+            class="absolute right-4 top-1/2 -translate-y-1/2 bg-transparent rounded-full p-4"
+            @click="nextImage"
+        >
+          <el-icon :size="30">
+            <LazyElIconArrowRight/>
+          </el-icon>
+        </button>
+
       </div>
+      <div class="mt-4 grid grid-cols-4 gap-4">
+        <button
+            v-for="(image, index) in images"
+            :key="image.id"
+            :class="{ 'ring-2 ring-red-500': currentImageIndex === index }"
+            class="aspect-square rounded-lg overflow-hidden"
+            @click="setImage(index)"
+        >
+          <img :alt="image.alt" :src="image.src" class="w-full h-full object-cover"/>
+        </button>
+      </div>
+      <!--      </div>-->
     </div>
 
     <!-- Product Info -->
@@ -278,7 +291,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <div class="flex items-baseline space-x-4">
         <span class="text-xl md:text-2xl font-bold">{{ useFormatNumber(product.price) }}</span>
         <span class="text-gray-500 line-through">{{ useFormatNumber(product.originalPrice) }}</span>
-        <span class="text-red-500">{{ ((product.originalPrice - product.price) / product.originalPrice * 100).toFixed(0) }}%</span>
+        <span class="text-red-500">{{
+            ((product.originalPrice - product.price) / product.originalPrice * 100).toFixed(0)
+          }}%</span>
       </div>
 
       <!-- Promotion Banner -->
@@ -290,7 +305,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <!-- Color Selection -->
       <div>
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium">Màu sắc: {{ selectedColor }}</span>
+          <span class="text-sm font-medium">Màu sắc: {{ selectedColor.code }}</span>
           <button class="text-blue-500 text-sm flex gap-1 items-center">
             <el-icon>
               <LazyElIconQuestionFilled/>
@@ -304,10 +319,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
               :key="color.code"
               :class="[
               color.class,
-              selectedColor === color.id ? 'ring-red-500' : 'ring-transparent'
+              selectedColor.id === color.id ? 'ring-red-500' : 'ring-transparent'
             ]"
               class="w-8 h-8 rounded-full ring-2 ring-offset-2"
-              @click="selectedColor = color.id"
+              @click="selectedColor = color"
           />
         </div>
       </div>
@@ -321,7 +336,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
               :key="size.id"
               :class="selectedSize === size.id ? 'border-red-500 text-red-500' : 'border-gray-300'"
               class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"
-              @click="selectedSize = size.id"pro
+              @click="selectedSize = size.id"
           >
             {{ size.name }}
           </button>
@@ -332,10 +347,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <div
           ref="buttonContainerRef"
           :class="[isSticky ? 'fixed' : '']"
-          class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-50"
+          class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-51"
       >
         <div class="grid gap-4">
-          <el-button size="large" style="background-color: #dc2626;color: #ffffff">Thêm vào giỏ</el-button>
+          <el-button style="background-color: #dc2626;color: #ffffff;padding: 1.75rem 1rem">Thêm vào giỏ</el-button>
         </div>
       </div>
 

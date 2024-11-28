@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <UiProductList/>
+    <UiProductList class="w-full px-4 py-12"/>
 </template>
 
 <style lang="scss" scoped>
