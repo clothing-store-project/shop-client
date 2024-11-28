@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto xl:w-10/12 w-full">
+  <div class="mx-auto px-4 py-12 w-full">
     <!-- Product Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-2 gap-6 w-auto">
       <div
