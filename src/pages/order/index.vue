@@ -9,6 +9,7 @@ useSeoMeta({
   ogDescription: t('page.order.description'),
   ogImage: 'https://example.com/image.png',
   twitterCard: 'summary_large_image',
+  ogType: 'website',
 })
 
 useHead({

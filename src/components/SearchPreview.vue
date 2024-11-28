@@ -116,7 +116,7 @@ const getData = () => {
 
 const viewAll = () => {
   // route to search page
-  router.push({name: 'search', query: {q: searchQuery.value || ''}})
+  router.push({path: '/search', query: {q: searchQuery.value || ''}});
 };
 
 const filterSearch = useDebounce(getData, 500)

@@ -161,7 +161,11 @@ const subtotal = computed(() => {
               placement="bottom"
           >
             <a class="hidden md:block text-gray-700 hover:text-pink-500" href="#">
-              <CircleUser/>
+              <NuxtLinkLocale
+                  to="/dashboard"
+              >
+                <CircleUser/>
+              </NuxtLinkLocale>
             </a>
           </el-tooltip>
           <el-tooltip
