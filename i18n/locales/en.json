@@ -44,7 +44,9 @@
       "address": "Address",
       "total_orders": "Total orders",
       "total_pending_orders": "Total pending orders",
-      "total_cart_items": "Total cart items"
+      "total_cart_items": "Total cart items",
+      "password": "Password",
+      "log_out": "Log out"
     }
   },
   "validate": {

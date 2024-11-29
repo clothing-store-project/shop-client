@@ -44,7 +44,9 @@
       "address": "Địa chỉ",
       "total_orders": "Đơn hàng",
       "total_pending_orders": "Đơn hàng chờ xử lý",
-      "total_cart_items": "Sản phẩm trong giỏ hàng"
+      "total_cart_items": "Sản phẩm trong giỏ hàng",
+      "password": "Mật khẩu",
+      "log_out": "Đăng xuất"
     }
   },
   "validate": {

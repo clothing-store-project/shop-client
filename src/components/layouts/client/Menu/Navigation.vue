@@ -160,13 +160,13 @@ const subtotal = computed(() => {
               effect="dark"
               placement="bottom"
           >
-            <a class="hidden md:block text-gray-700 hover:text-pink-500" href="#">
-              <NuxtLinkLocale
-                  to="/dashboard"
-              >
-                <CircleUser/>
-              </NuxtLinkLocale>
-            </a>
+            <NuxtLinkLocale
+                class="hidden md:block text-gray-700 hover:text-pink-500"
+                to="/dashboard"
+            >
+              <CircleUser/>
+            </NuxtLinkLocale>
+
           </el-tooltip>
           <el-tooltip
               class="box-item"
@@ -223,10 +223,12 @@ const subtotal = computed(() => {
 
 :deep(.el-menu-item) {
   transition: none;
-  &.is-active{
+
+  &.is-active {
     border: none;
     background-color: transparent;
   }
+
   &:not(.is-disabled):focus {
     background-color: transparent;
   }

@@ -1,9 +1,15 @@
 <script lang="ts" setup>
+import {Book, BrickWall, KeyRound, LogOut, ShoppingBag, UserRoundPen} from 'lucide-vue-next'
 
+const router = useRouter()
+
+const logOut = () => {
+  //add logic logout here
+}
 </script>
 
 <template>
-  <aside class="md:sticky w-full md:w-1/4 top-2 mb-8 px-4 sm:px-6 lg:px-8 bg-white shadow-lg">
+  <aside class="md:sticky w-1/4 top-2 mb-8 px-4 sm:px-6 lg:px-8 bg-white shadow-lg">
     <!-- Profile Section -->
     <div class="text-center mb-8 mt-8">
       <img
@@ -16,49 +22,53 @@
     </div>
 
     <!-- Navigation -->
-    <div class="space-y-6 mb-8">
-      <div class="space-y-2">
-        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-          {{ $t('general.dashboard.dashboard') }}
-        </h3>
-        <nav class="space-y-1">
-          <NuxtLink
-              to="/dashboard"
-              active-class="bg-rose-50 text-rose-500"
-              class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          >
-            {{ $t('general.dashboard.dashboard')}}
-          </NuxtLink>
-          <NuxtLink
-              to="/order"
-              active-class="bg-rose-50 text-rose-500"
-              class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          >
-            {{ $t('general.dashboard.orders')}}
-          </NuxtLink>
-        </nav>
-      </div>
-
-      <div class="space-y-2">
-        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-          {{ $t('general.dashboard.account_setting') }}
-        </h3>
-        <nav class="space-y-1">
-          <NuxtLink
-              to="/profile"
-              active-class="bg-rose-50 text-rose-500"
-              class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          >
-            {{ $t('general.dashboard.profile') }}
-          </NuxtLink>
-          <NuxtLink
-              to="/address"
-              active-class="bg-rose-50 text-rose-500"
-              class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          >
-            {{ $t('general.dashboard.address') }}
-          </NuxtLink>
-        </nav>
+    <div class="space-y-4 mb-8">
+      <NuxtLinkLocale
+          active-class="bg-rose-50 text-rose-500"
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2"
+          to="/dashboard"
+      >
+        <BrickWall/>
+        {{ $t('general.dashboard.dashboard') }}
+      </NuxtLinkLocale>
+      <NuxtLinkLocale
+          active-class="bg-rose-50 text-rose-500"
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2"
+          to="/order"
+      >
+        <ShoppingBag/>
+        {{ $t('general.dashboard.orders') }}
+      </NuxtLinkLocale>
+      <NuxtLinkLocale
+          active-class="bg-rose-50 text-rose-500"
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2"
+          to="/profile"
+      >
+        <UserRoundPen/>
+        {{ $t('general.dashboard.profile') }}
+      </NuxtLinkLocale>
+      <NuxtLinkLocale
+          active-class="bg-rose-50 text-rose-500"
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2"
+          to="/address"
+      >
+        <Book/>
+        {{ $t('general.dashboard.address') }}
+      </NuxtLinkLocale>
+      <NuxtLinkLocale
+          active-class="bg-rose-50 text-rose-500"
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2"
+          to="/password"
+      >
+        <KeyRound/>
+        {{ $t('general.dashboard.password') }}
+      </NuxtLinkLocale>
+      <div
+          class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 flex gap-2 cursor-pointer"
+          @click="logOut"
+      >
+        <LogOut/>
+        {{ $t('general.dashboard.log_out') }}
       </div>
     </div>
   </aside>
