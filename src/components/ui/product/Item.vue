@@ -1,5 +1,8 @@
 <template>
-  <div class="group relative flex flex-col">
+  <div
+      class="group relative flex flex-col"
+      @click="isMobile?$router.push(product.slug):''"
+  >
     <!-- Sale Badge -->
     <div v-if="product.discount" class="absolute top-2 right-2 z-10">
       <div class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
@@ -60,12 +63,18 @@
       </div>
 
       <!-- Product Name -->
-      <h3 class="text-sm font-medium text-gray-900 mb-2">
+      <h3
+          class="text-sm font-medium text-gray-900 mb-2"
+          @click="$router.push(product.slug)"
+      >
         {{ product.name }}
       </h3>
 
       <!-- Price -->
-      <div class="flex items-center gap-2">
+      <div
+          class="flex items-center gap-2"
+          @click="$router.push(product.slug)"
+      >
         <span class="text-lg font-bold text-gray-900">
           {{ useFormatNumber(product.price) }}
         </span>
@@ -78,7 +87,6 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
 import type {Product} from "~/types/product";
 
 const props = defineProps<{
@@ -87,7 +95,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'add-to-cart', product: Product & { selectedSize: number,selectColor:number }): void
+  (e: 'add-to-cart', product: Product & { selectedSize: number, selectColor: number }): void
 }>();
 
 const selectedSize = ref(0);

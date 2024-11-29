@@ -19,3 +19,19 @@ export type Product = {
   sizes: Size[];
   colors: Color[];
 }
+
+export interface ProductImage {
+  id: number
+  src: string
+  alt: string
+}
+
+export interface RelatedProduct {
+  id: number
+  name: string
+  price: number
+  originalPrice: number
+  discount: number
+  image: string
+  colors: string[]
+}

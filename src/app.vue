@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const layout: Ref<'mobile' | 'default' | false> = useState('deviceLayout', () => 'default');
+const layout: Ref<'mobile' | 'default' | 'product' | false> = useState('deviceLayout', () => 'default');
 </script>
 
 <template>
