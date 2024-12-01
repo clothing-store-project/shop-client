@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import 'animate.css'
-import {ref} from 'vue'
 
 const loading = ref(false)
 </script>
@@ -13,11 +12,11 @@ const loading = ref(false)
       v-if="!loading"
       direction="vertical"
   >
-    <LayoutsClientAppHeader/>
+    <LayoutsClientHeaderDesktop/>
     <div class="page-content">
-      <slot />
+      <slot/>
     </div>
-    <LayoutsClientAppFooter/>
+    <LayoutsClientFooterDesktop/>
   </el-container>
 </template>
 

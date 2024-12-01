@@ -1,5 +1,5 @@
 :root{
-  --el-color-primary: #ec4899 !important;
+  --el-color-primary: #ef3224 !important;
 }
 
 html,
@@ -16,14 +16,16 @@ html.dark {
 }
 
 .el-popper.is-pure.is-light.mega-menu{
-  inset: 3.5rem auto auto 11% !important;
+  //inset: auto auto auto 11% !important;
+  //inset-inline-end: 11% !important;
   border-radius: 0.5rem;
   .el-menu{
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2rem;
     padding: 1rem 2rem;
-    max-width: 80rem;
+    width: 100%;
+    //max-width: 80rem;
     border-radius: 0.5rem;
   }
 }
@@ -46,6 +48,7 @@ html.dark {
   background-color: var(--el-color-primary);
   border-radius: 2rem;
 }
-//.el-popup-parent--hidden{
-//  width: 100% !important;
-//}
+
+.el-popup-parent--hidden{
+  width: 100% !important;
+}

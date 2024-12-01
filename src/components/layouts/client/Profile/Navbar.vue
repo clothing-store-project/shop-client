@@ -16,14 +16,14 @@
     </div>
 
     <!-- Navigation -->
-    <div class="space-y-6 mb-8">
+    <div class="space-y-6 mb-8 w-full">
       <div class="space-y-2">
         <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
           {{ $t('general.dashboard.dashboard') }}
         </h3>
         <nav class="space-y-1">
           <NuxtLink
-              to="/dashboard"
+              to="#"
               active-class="bg-rose-50 text-rose-500"
               class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
           >

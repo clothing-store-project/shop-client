@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import {CircleX, List, SearchIcon, SlidersHorizontal} from 'lucide-vue-next'
 import {colors} from "~/data/colorData"
 import {sizes} from "~/data/sizeData"
+import type {Product} from "~/types/product";
 
 const {t} = useI18n()
 useSeoMeta({
@@ -103,56 +103,176 @@ const resetFilters = () => {
   })
 }
 
-const products = [
+const products = ref<Product[]>([
   {
     id: 1,
-    name: 'SilkBliss Dress',
-    price: 60.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-1',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 2,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-2',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 3,
-    name: 'GlamPants',
-    price: 30.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-3',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 4,
-    name: 'ComfyLeggings',
-    price: 35.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-4',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 5,
-    name: 'ClassicCapri',
-    price: 20.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-5',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 6,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-6',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 7,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-7',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 8,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-8',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
-]
+])
 
 const setLayout = (newLayout: string) => {
   layout.value = newLayout
@@ -184,7 +304,7 @@ watch(() => route.query, (newParams) => {
               class="text-gray-500 hover:text-pink-500 focus:outline-none"
               @click="toggleFilter"
           >
-            <SlidersHorizontal/>
+            <Icon name="lucide:sliders-horizontal"/>
           </button>
           <span class="pl-3">{{ $t('general.filter') }}</span>
         </div>
@@ -197,7 +317,7 @@ watch(() => route.query, (newParams) => {
           <!--Keyword search-->
           <div class="flex gap-4 mb-6">
             <div class="relative flex-[2] pb-2 flex items-center w-full">
-              <CircleX
+              <Icon name="lucide:circle-x"
                   class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
                   @click="searchQuery = ''"
               />
@@ -207,7 +327,7 @@ watch(() => route.query, (newParams) => {
                   placeholder="Search Product"
                   @keyup.enter.prevent="updateQueryParams"
               />
-              <SearchIcon
+              <Icon name="lucide:search"
                   class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
                   @click="updateQueryParams"
               />
@@ -301,7 +421,7 @@ watch(() => route.query, (newParams) => {
         <div class="flex ml-auto sm-dropdown">
           <!-- Sort and Filter Dropdowns -->
           <div class=" flex items-center">
-            <List/>
+            <LazyElIconList/>
             <el-select
                 v-model="selectedFilter"
                 class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
@@ -319,7 +439,9 @@ watch(() => route.query, (newParams) => {
         </div>
       </div>
 
-      <UiProductList/>
+      <UiProductList
+        :products="products"
+      />
 
       <div class="flex justify-center mx-auto px-4 md:justify-end w-full">
         <el-pagination
@@ -356,11 +478,11 @@ watch(() => route.query, (newParams) => {
   }
 
   .sm-pagination {
-    ::v-deep(.el-pagination__total) {
+    :deep(.el-pagination__total) {
       display: none;
     }
 
-    ::v-deep(.btn-prev) {
+    :deep(.btn-prev) {
       margin-left: 0;
     }
   }

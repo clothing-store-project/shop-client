@@ -1,7 +1,7 @@
 <template>
   <div
       class="group relative flex flex-col"
-      @click="isMobile?$router.push(product.slug):''"
+
   >
     <!-- Sale Badge -->
     <div v-if="product.discount" class="absolute top-2 right-2 z-10">
@@ -63,17 +63,17 @@
       </div>
 
       <!-- Product Name -->
-      <h3
+      <NuxtLinkLocale
           class="text-sm font-medium text-gray-900 mb-2"
-          @click="$router.push(product.slug)"
+          :to="'/product/'+product.slug"
       >
         {{ product.name }}
-      </h3>
+      </NuxtLinkLocale>
 
       <!-- Price -->
-      <div
+      <NuxtLinkLocale
           class="flex items-center gap-2"
-          @click="$router.push(product.slug)"
+          :to="'/product/'+product.slug"
       >
         <span class="text-lg font-bold text-gray-900">
           {{ useFormatNumber(product.price) }}
@@ -81,7 +81,7 @@
         <span v-if="product.originalPrice" class="text-sm text-gray-500 line-through">
           {{ useFormatNumber(product.originalPrice) }}
         </span>
-      </div>
+      </NuxtLinkLocale>
     </div>
   </div>
 </template>

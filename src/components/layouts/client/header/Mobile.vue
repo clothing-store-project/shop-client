@@ -10,11 +10,11 @@ const onScroll = () => {
 }
 
 const menus = ref<MenuMobile[]>([
-  {name: 'BLACK NOVEMBER', path: '/black-november'},
-  {name: 'NAM', path: '/nam'},
-  {name: 'NỮ', path: '/nu'},
-  {name: 'BÉ TRAI', path: '/be-trai'},
-  {name: 'BÉ GÁI', path: '/be-gai'},
+  {name: 'BLACK NOVEMBER', path: '/#'},
+  {name: 'NAM', path: '/#'},
+  {name: 'NỮ', path: '/#'},
+  {name: 'BÉ TRAI', path: '/#'},
+  {name: 'BÉ GÁI', path: '/#'},
 ])
 
 onMounted(() => window.addEventListener('scroll', onScroll))
@@ -34,7 +34,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       </div>
       <div class="px-4 py-3 flex items-center justify-between">
         <div class="flex items-center">
-          <img src="../../../../assets/images/logo.svg" alt="CANIFA" class="h-8"/>
+          <img src="~/assets/images/logo.svg" alt="CANIFA" class="h-8"/>
           <div class="ml-1 bg-black text-white text-[10px] px-2 py-1 rounded">
             BLACK FRIDAY
           </div>
@@ -69,12 +69,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           </div>
         </div>
         <div class="flex items-center space-x-4 ml-4">
-            <el-icon>
-              <LazyElIconChatDotRound/>
-            </el-icon>
-            <el-icon>
-              <LazyElIconBell/>
-            </el-icon>
+          <el-icon>
+            <LazyElIconChatDotRound/>
+          </el-icon>
+          <el-icon>
+            <LazyElIconBell/>
+          </el-icon>
         </div>
       </div>
 
@@ -98,7 +98,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <p>Miễn phí vận chuyển cho đơn hàng 599.000đ</p>
     </div>
   </header>
-  
+
   <SearchPreview
       :isOpen="isSearchVisible"
       @close="isSearchVisible = false"

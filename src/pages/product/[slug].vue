@@ -86,11 +86,14 @@ useSeoMeta({
 })
 
 const isMobile = useCheckDeviceIsMobile()
-
+const isProductLayout = useState('deviceLayout').value === 'product'
+definePageMeta({
+  layout: false,
+});
 </script>
 
 <template>
-  <UiProductDetail v-if="!isMobile"/>
+  <UiProductDetail v-if="!isMobile && !isProductLayout"/>
   <UiProductDetailMobile v-else/>
 </template>
 
