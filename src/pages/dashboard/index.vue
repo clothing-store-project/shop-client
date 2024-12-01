@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {Clock, Heart, ShoppingCart} from 'lucide-vue-next'
 const {t} = useI18n()
 
 useSeoMeta({
@@ -17,9 +16,9 @@ useHead({
 })
 
 const stats = [
-  {name: t('general.dashboard.total_orders'), value: '3658', icon: ShoppingCart},
-  {name: t('general.dashboard.total_pending_orders'), value: '215', icon: Clock},
-  {name: t('general.dashboard.total_cart_items'), value: '31576', icon: Heart},
+  {name: t('general.dashboard.total_orders'), value: '3658', icon: 'lucide:shopping-cart'},
+  {name: t('general.dashboard.total_pending_orders'), value: '215', icon: 'lucide:clock'},
+  {name: t('general.dashboard.total_cart_items'), value: '31576', icon: 'lucide:heart'},
 ]
 </script>
 
@@ -61,10 +60,7 @@ const stats = [
               <div
                   class="w-12 h-12 rounded-lg bg-rose-50 flex items-center justify-center"
               >
-                <component
-                    :is="stat.icon"
-                    class="w-6 h-6 text-rose-500 "
-                />
+                <Icon :name="stat.icon" class="w-6 h-6 text-rose-500 "/>
               </div>
             </div>
             <h3 class="text-gray-500 text-sm mb-2">{{ stat.name }}</h3>

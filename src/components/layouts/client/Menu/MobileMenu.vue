@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import {ChevronRightIcon, XMarkIcon} from '@heroicons/vue/24/outline'
-import {mainNavItems} from '../../../../data/navigationData'
+import {mainNavItems} from '~/data/navigationData'
 
 defineProps<{
   isOpen: boolean
@@ -22,12 +21,12 @@ defineEmits<{
   >
     <div v-if="isOpen" class="fixed inset-0 z-50 bg-white">
       <div class="flex items-center justify-between p-4 border-b">
-        <img alt="Pixio" class="h-8 w-auto" src="../../../../assets/images/logo.svg"/>
+        <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
         <button
             class="p-2 text-gray-700 hover:text-pink-500"
             @click="$emit('close')"
         >
-          <XMarkIcon class="h-6 w-6"/>
+          <Icon name="lucide:x" class="h-6 w-6"/>
         </button>
       </div>
 
@@ -47,7 +46,7 @@ defineEmits<{
                   NEW
                 </span>
               </span>
-              <ChevronRightIcon class="h-5 w-5"/>
+              <Icon name="lucide:chevron-right" class="h-5 w-5"/>
             </a>
           </li>
         </ul>

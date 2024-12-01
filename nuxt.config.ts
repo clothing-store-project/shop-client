@@ -14,7 +14,7 @@ export default defineNuxtConfig({
           content: 'Shop Ecommerce',
         },
       ],
-      link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+      link: [{rel: 'icon', type: 'image/svg', href: '/logo.svg'}],
     }
   },
   
@@ -49,7 +49,8 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxt/icon',
   ],
   
   // vueuse

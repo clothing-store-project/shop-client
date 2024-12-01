@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type {ProductImage, RelatedProduct} from "~/types/product";
+import type {Product, ProductImage} from "~/types/product";
 
 const images: ProductImage[] = [
   {
@@ -42,6 +42,7 @@ const product = ref({
   id: 1,
   name: 'Áo nỉ nữ basic cổ tròn',
   sku: '6TW23W005',
+  short_description:'Áo nỉ nữ basic cổ tròn mẫu mới',
   price: 99000,
   originalPrice: 249000,
   discount: 60,
@@ -54,35 +55,176 @@ const selectedSize = ref(product.value.sizes[0].id)
 const selectedColor = ref(product.value.colors[0])
 const currentImageIndex = ref(0)
 
-const relatedProducts: RelatedProduct[] = [
+const relatedProducts = ref<Product[]>([
   {
     id: 1,
-    name: 'Áo sơ mi nữ dài tay',
-    price: 179000,
-    originalPrice: 249000,
-    discount: 30,
-    image: 'https://canifa.com/img/1000/1500/resize/6/t/6tw23w005-se257-1.webp',
-    colors: ['#E8D8C7', '#000000', '#4F46E5']
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-1',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 2,
-    name: 'Quần jean nữ ống rộng',
-    price: 149000,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-2',
+    price: 199000,
     originalPrice: 299000,
-    discount: 50,
-    image: 'https://canifa.com/img/1000/1500/resize/6/t/6tw23w005-se257-1.webp',
-    colors: ['#E8D8C7', '#000000']
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
   {
     id: 3,
-    name: 'Áo khoác nữ mùa đông',
-    price: 149000,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-3',
+    price: 199000,
     originalPrice: 299000,
-    discount: 50,
-    image: 'https://canifa.com/img/1000/1500/resize/6/t/6tw23w005-se257-1.webp',
-    colors: ['#E8D8C7', '#000000', '#4F46E5', '#DC2626']
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
   },
-]
+  {
+    id: 4,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-4',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 5,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-5',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 6,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-6',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 7,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-7',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 8,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-8',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+])
 
 const nextImage = () => {
   currentImageIndex.value = (currentImageIndex.value + 1) % images.length
@@ -100,8 +242,6 @@ const buttonContainerRef = ref<HTMLElement | null>(null)
 const isSticky = ref(false)
 const isHeaderVisible = ref(false)
 const showShare = ref(false)
-const activeTab = ref('MÔ TẢ')
-
 
 const router = useRouter()
 const goBack = () => {
@@ -118,6 +258,13 @@ const onScroll = () => {
   isHeaderVisible.value = window.scrollY > 0
   isSticky.value = window.scrollY > buttonContainerRef.value!.offsetTop / 2
 }
+useSeoMeta({
+  title: product.value.name,
+  ogTitle: product.value.name,
+  description: product.value.short_description,
+  ogDescription: product.value.short_description,
+  ogImage: product.value.images[0].src
+})
 
 onMounted(() => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
@@ -125,6 +272,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 <template>
   <div class="max-w-7xl mx-auto">
+    <div class="bg-[#EE1C25] text-white py-2 px-4 text-center">
+      <p class="text-sm font-medium">BLACK NOVEMBER GIẢM TỐI 50%</p>
+    </div>
     <div
         v-show="isHeaderVisible"
         class="fixed top-0 left-0 right-0 bg-white z-50 md:hidden"
@@ -150,22 +300,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </el-icon>
           </button>
         </div>
-      </div>
-      <!-- Tabs -->
-      <div class="flex border-b">
-        <button
-            v-for="tab in ['MÔ TẢ', 'ĐỀ XUẤT']"
-            :key="tab"
-            :class="[
-            activeTab === tab
-              ? 'text-red-500 border-b-2 border-red-500'
-              : 'text-gray-500'
-          ]"
-            class="flex-1 text-sm font-medium py-3 relative"
-            @click="activeTab = tab"
-        >
-          {{ tab }}
-        </button>
       </div>
     </div>
 
@@ -237,12 +371,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <nav class="flex items-center space-x-2 text-sm mb-8">
         <NuxtLink class="text-gray-500 hover:text-gray-700" to="/">Trang chủ</NuxtLink>
         <span class="text-gray-500">/</span>
-        <NuxtLink class="text-gray-500 hover:text-gray-700" to="/nu">Nữ</NuxtLink>
+        <NuxtLink class="text-gray-500 hover:text-gray-700" to="#">Nữ</NuxtLink>
         <span class="text-gray-500">/</span>
         <span class="text-gray-900">Áo nỉ</span>
       </nav>
 
-      <!--      <div class="grid gap-8">-->
       <div class="aspect-[3/4] relative overflow-hidden rounded-lg w-full h-full">
         <img
             :alt="images[currentImageIndex].alt"
@@ -278,7 +411,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           <img :alt="image.alt" :src="image.src" class="w-full h-full object-cover"/>
         </button>
       </div>
-      <!--      </div>-->
     </div>
 
     <!-- Product Info -->
@@ -305,7 +437,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <!-- Color Selection -->
       <div>
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium">Màu sắc: {{ selectedColor.code }}</span>
+          <span class="text-sm font-medium">Màu sắc: {{ selectedColor.name }}</span>
           <button class="text-blue-500 text-sm flex gap-1 items-center">
             <el-icon>
               <LazyElIconQuestionFilled/>
@@ -350,7 +482,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-51"
       >
         <div class="grid gap-4">
-          <el-button style="background-color: #dc2626;color: #ffffff;padding: 1.75rem 1rem">Thêm vào giỏ</el-button>
+          <button class="bg-[#dc2626] text-white py-3">Thêm vào giỏ</button>
         </div>
       </div>
 
