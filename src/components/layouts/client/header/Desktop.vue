@@ -115,12 +115,12 @@ const cartCount = computed(() => {
                         <div class="text-xs text-gray-500">HOURS</div>
                       </div>
                     </div>
-                    <NuxtLink
+                    <NuxtLinkLocale
                         class="mt-6 block w-full rounded-md bg-gray-900 px-4 py-2 text-center text-sm font-medium text-white hover:bg-gray-800"
-                        href="#"
+                        to="#"
                     >
                       View All Products
-                    </NuxtLink>
+                    </NuxtLinkLocale>
                   </el-menu-item-group>
                 </template>
               </el-sub-menu>
@@ -148,12 +148,12 @@ const cartCount = computed(() => {
                 class="!border-none "
             />
           </div>
-          <NuxtLink to="#" class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600">
+          <NuxtLinkLocale to="/dashboard" class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600">
             <el-icon class="text-xl mb-0.5" :size="22">
               <LazyElIconUser/>
             </el-icon>
             <span class="text-xs">Tài khoản</span>
-          </NuxtLink>
+          </NuxtLinkLocale>
 
           <div class="hidden md:flex flex-col items-center text-gray-700 cursor-pointer hover:text-red-600 relative"
                @click="isCartVisible=true">

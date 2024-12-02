@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 const {t} = useI18n()
 useSeoMeta({
-  title: 'Thông tin cá nhân',
-  description: t('page.order.description'),
-  ogTitle: 'Thông tin cá nhân',
+  title: t('page.profile.title'),
+  description: t('page.profile.description'),
+  ogTitle: t('page.profile.title'),
   ogImage: 'https://example.com/image.png',
   ogType: 'website',
 })
@@ -13,13 +13,10 @@ useHead({
     lang: 'vn'
   }
 })
-
-const isMobile = useCheckDeviceIsMobile()
 </script>
 
 <template>
-  <UiProfileDetail v-if="!isMobile"/>
-  <UiProfileDetailMobile v-else />
+  <UiProfileDetail />
 </template>
 
 <style lang="scss" scoped>

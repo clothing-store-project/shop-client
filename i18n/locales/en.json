@@ -36,6 +36,7 @@
     "filter": "Filter",
     "tags": "Tags",
     "password": "Password",
+    "update": "Update",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -47,6 +48,26 @@
       "total_cart_items": "Total cart items",
       "password": "Password",
       "log_out": "Log out"
+    },
+    "profile": {
+      "label": {
+        "sex": "Sex",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "birthday": "Birthday"
+      },
+      "sex": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "placeholder": {
+        "name": "Enter your name",
+        "email": "Enter your email",
+        "phone": "Enter your phone",
+        "birthday": "Enter your birthday"
+      }
     }
   },
   "validate": {
@@ -103,6 +124,10 @@
     "dashboard": {
       "title": "Dashboard",
       "description": "Manage your account"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your profile"
     }
   }
 }
