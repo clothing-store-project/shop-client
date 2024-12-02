@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="max-w-7xl mx-auto px-4 py-12 overflow-hidden">
+  <section class="max-w-screen-2xl mx-auto px-4 py-6 md:py-12 overflow-hidden">
     <div
         ref="containerRef"
         class="grid  grid-flow-col md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-x-visible snap-x md:snap-none scrollbar-hide"
@@ -72,7 +72,7 @@ onMounted(() => {
           v-for="category in categories"
           :key="category.id"
           :to="category.link"
-          class="group relative overflow-hidden rounded-lg aspect-[3/4] flex-shrink-0 w-[75vw] sm:w-[45vw] md:w-auto snap-center"
+          class="group relative overflow-hidden rounded-lg aspect-[3/4] flex-shrink-0 w-[35vw] sm:w-[45vw] md:w-auto snap-center"
       >
         <img
             :src="category.image"

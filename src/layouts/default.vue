@@ -16,6 +16,7 @@ const loading = ref(false)
     <div class="page-content">
       <slot/>
     </div>
+    <el-backtop :right="30" :bottom="100" />
     <LayoutsClientFooterDesktop/>
   </el-container>
 </template>

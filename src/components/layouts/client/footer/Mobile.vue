@@ -140,7 +140,7 @@ const companyInfo = {
       </el-collapse>
     </div>
     <el-text class="d-flex justify-center my-6">
-      © 2021 ADFY. All rights reserved.
+      © 2024 ADFY. All rights reserved.
     </el-text>
   </footer>
 
