@@ -1,14 +1,38 @@
 <script lang="ts" setup>
+import type {FormInstance,FormRules} from 'element-plus'
+
+const {t} = useI18n()
+const ruleFormRef = ref<FormInstance>()
 const avatarUrl = ref<string | null>(null)
 
 const form = reactive({
   sex: '',
-  firstName: '',
-  lastName: '',
+  name: '',
   email: '',
   phone: '',
   birthday: '',
 })
+
+const rules = reactive<FormRules<typeof form>>({
+  sex: [
+    {required: true, message: t('validate.sex.required'), trigger: 'blur'},
+  ],
+  name: [
+    {required: true, message: t('validate.name.required'), trigger: 'blur'},
+    {max: 255, message: t('validate.name.max', { value: 255 }), trigger: 'blur'},
+  ],
+  phone: [
+    {required: true, message: t('validate.phone.required'), trigger: 'blur'},
+    {pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/, message: t('validate.phone.pattern'), trigger: 'blur'},
+  ],
+  birthday: [
+    {required: true, message: 'Please input birthday', trigger: 'blur'},
+  ],
+})
+
+const disabledDate = (time: Date) => {
+  return time.getTime() > Date.now();
+};
 
 const handleAvatarUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
@@ -23,9 +47,13 @@ const handleAvatarUpload = (event: Event) => {
   // call upload api image here
 }
 
-const updateProfile = () => {
-  // Implement your update logic here
+const updateProfile = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  try {
 
+  } catch (error) {
+
+  }
 }
 
 onMounted(() => {
@@ -64,36 +92,38 @@ onMounted(() => {
             <p class="text-sm text-gray-600">johndoe@example.com</p>
           </div>
         </div>
-        <form class="p-8 space-y-4" @submit.prevent="updateProfile">
-          <el-form-item :label="$t('general.profile.label.sex')">
-            <el-radio-group v-model="form.sex" size="large" class="mt-2">
-              <el-radio-button :label="$t('general.profile.sex.male')" value="1" />
-              <el-radio-button :label="$t('general.profile.sex.female')" value="2" />
-              <el-radio-button :label="$t('general.profile.sex.other')" value="3" />
+        <el-form ref="ruleFormRef" class="p-8" :rules="rules">
+          <el-form-item :label="$t('general.profile.label.sex')" prop="sex">
+            <el-radio-group v-model="form.sex" class="mt-2" size="large">
+              <el-radio-button :label="$t('general.profile.sex.male')" value="1"/>
+              <el-radio-button :label="$t('general.profile.sex.female')" value="2"/>
+              <el-radio-button :label="$t('general.profile.sex.other')" value="3"/>
             </el-radio-group>
           </el-form-item>
 
-          <el-form-item :label="$t('general.profile.label.name')">
-            <el-input v-model="form.firstName" :placeholder="$t('general.profile.placeholder.name')" class="mt-2"/>
+          <el-form-item :label="$t('general.profile.label.name')" prop="name">
+            <el-input v-model="form.name" :placeholder="$t('general.profile.placeholder.name')" class="mt-2"/>
           </el-form-item>
 
-          <el-form-item :label="$t('general.profile.label.email')">
-            <el-input v-model="form.email" :placeholder="$t('general.profile.placeholder.email')" readonly class="mt-2"/>
+          <el-form-item :label="$t('general.profile.label.email')" prop="email">
+            <el-input v-model="form.email" :placeholder="$t('general.profile.placeholder.email')" class="mt-2"
+                      readonly/>
           </el-form-item>
 
-          <el-form-item :label="$t('general.profile.label.phone')">
+          <el-form-item :label="$t('general.profile.label.phone')" prop="phone">
             <el-input v-model="form.phone" :placeholder="$t('general.profile.placeholder.phone')" class="mt-2"/>
           </el-form-item>
 
-          <el-form-item :label="$t('general.profile.label.birthday')">
-            <el-date-picker v-model="form.birthday" :placeholder="$t('general.profile.placeholder.birthday')" class="mt-2"/>
+          <el-form-item :label="$t('general.profile.label.birthday')" prop="birthday">
+            <el-date-picker v-model="form.birthday" :placeholder="$t('general.profile.placeholder.birthday')"
+                            class="mt-2" :disabledDate="disabledDate"/>
           </el-form-item>
-          <div class="flex justify-end mt-4">
-            <el-button class="bg-red-600 hover:bg-red-700 text-white" native-type="submit" type="primary">
+          <el-form-item class="mt-12">
+            <el-button type="primary" @click.prevent="updateProfile(ruleFormRef)" class="w-full text-center" :disabled="!ruleFormRef?.validate()">
               {{ $t('general.update') }}
             </el-button>
-          </div>
-        </form>
+          </el-form-item>
+        </el-form>
       </div>
 
     </main>
@@ -101,5 +131,15 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.el-form {
+  .el-form-item {
+    display: block;
+  }
 
+  .el-button:hover {
+    background-color: white;
+    border-color: black;
+    color: #6b7280;
+  }
+}
 </style>

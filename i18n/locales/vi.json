@@ -88,6 +88,16 @@
     },
     "rating": {
       "required": "Đánh giá không được để trống"
+    },
+    "sex": {
+      "required": "Giới tính không được để trống"
+    },
+    "phone": {
+      "required": "Số điện thoại không được để trống",
+      "pattern": "Định dạng số điện thoại không đúng"
+    },
+    "birthday": {
+      "required": "Ngày sinh không được để trống"
     }
   },
   "filter": {

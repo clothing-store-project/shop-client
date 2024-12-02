@@ -88,6 +88,16 @@
     },
     "rating": {
       "required": "Rating is required"
+    },
+    "sex": {
+      "required": "Sex is required"
+    },
+    "phone": {
+      "required": "Phone is required",
+      "pattern": "Incorrect phone number"
+    },
+    "birthday": {
+      "required": "Birthday is required"
     }
   },
   "filter": {
