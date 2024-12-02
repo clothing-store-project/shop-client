@@ -1,9 +1,6 @@
 <script lang="ts" setup>
-import {mainNavItems, megaMenu} from '../../../../data/navigationData'
-import {Bars3Icon} from '@heroicons/vue/24/outline'
-import type {CartItem} from "../../../../types/cart";
-import {CircleUser} from 'lucide-vue-next';
-import {useCountdown} from "../../../../composables/useCountdown";
+import {mainNavItems, megaMenu} from '~/data/navigationData'
+import type {CartItem} from "~/types/cart";
 
 const {days, hours} = useCountdown(new Date('2024-12-31T23:59:59'));
 
@@ -54,16 +51,23 @@ const subtotal = computed(() => {
   return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
 })
 
+
+const cartCount = computed(() => {
+  return items.value.reduce((sum, item) => sum + item.quantity, 0)
+})
 </script>
 
 <template>
-  <nav class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="top-banner">
+    <img src="~/assets/images/blacknov_fixtop_desktop-29.11.webp" class="h-12 object-cover w-full" alt="banner"/>
+  </div>
+  <nav class="bg-white sticky top-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
       <div class="flex h-16 justify-between items-center">
+        <div class="flex-shrink-0">
+          <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
+        </div>
         <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <img alt="Pixio" class="h-8 w-auto" src="../../../../assets/images/logo.svg"/>
-          </div>
           <el-menu
               :default-active="'1'"
               :ellipsis="false"
@@ -75,10 +79,10 @@ const subtotal = computed(() => {
               <el-sub-menu
                   v-if="item.hasMega"
                   :index="index+'m'"
-                  class="group inline-flex items-center rounded-md p-0 text-base font-medium text-gray-700 !hover:text-pink-500 !hover:bg-transparent"
+                  class="group inline-flex items-center rounded-md p-0 text-base font-medium text-gray-700 !hover:text-[#ef3224] !hover:bg-transparent"
               >
                 <template #title>
-                  <span class="group-hover:text-pink-500 group-hover:bg-transparent">{{ item.name }}</span>
+                  <span class="group-hover:text-[#ef3224] group-hover:bg-transparent uppercase">{{ item.name }}</span>
                   <span v-if="item.isNew"
                         class="ml-2 inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
                   NEW
@@ -86,10 +90,10 @@ const subtotal = computed(() => {
                 </template>
                 <template #default>
                   <el-menu-item-group v-for="(data,index) in megaMenu" :key="index">
-                    <h3 class="text-base font-medium text-gray-900">{{ data.sectionName }}</h3>
+                    <h3 class="text-base font-medium text-gray-900 ">{{ data.sectionName }}</h3>
                     <ul class="mt-4 space-y-3">
                       <li v-for="item in data.data" :key="item.name">
-                        <NuxtLink :href="item.href" class="text-sm text-gray-500 hover:text-pink-500">
+                        <NuxtLink :to="item.href" class="text-sm text-gray-500 hover:text-[#ef3224]">
                           {{ item.name }}
                         </NuxtLink>
                       </li>
@@ -123,7 +127,7 @@ const subtotal = computed(() => {
               <el-menu-item
                   v-else
                   :index="index+'m'"
-                  class="group inline-flex items-center rounded-md p-0 text-base font-medium text-gray-700 !hover:text-pink-500 !hover:bg-transparent"
+                  class="group uppercase inline-flex items-center rounded-md p-0 text-base font-medium text-gray-700 !hover:text-[#ef3224] !hover:bg-transparent"
 
               >
                 <span>{{ item.name }}</span>
@@ -135,69 +139,45 @@ const subtotal = computed(() => {
             </template>
           </el-menu>
         </div>
-        <div class="flex items-center space-x-4">
-          <el-tooltip
-              class="box-item"
-              content="Search"
-              effect="dark"
-              placement="bottom"
-          >
-            <button
-                class="hidden md:block text-gray-700 hover:text-pink-500"
-                @click="isSearchVisible = true"
-            >
-              <span class="sr-only">Search</span>
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"/>
-              </svg>
-            </button>
-          </el-tooltip>
-          <el-tooltip
-              class="box-item"
-              content="Account"
-              effect="dark"
-              placement="bottom"
-          >
-            <NuxtLinkLocale
-                class="hidden md:block text-gray-700 hover:text-pink-500"
-                to="/dashboard"
-            >
-              <CircleUser/>
-            </NuxtLinkLocale>
 
-          </el-tooltip>
-          <el-tooltip
-              class="box-item"
-              content="Cart"
-              effect="dark"
-              placement="bottom"
-          >
-            <button class="text-gray-700 hover:text-pink-500 relative" @click="toggleCart">
-              <span class="sr-only">Cart</span>
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"/>
-              </svg>
-              <span
-                  class="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-pink-500 rounded-full">{{
-                  items.length
-                }}</span>
-            </button>
-          </el-tooltip>
+        <div class="flex items-center space-x-8">
+          <div class="hidden md:flex flex-1 max-w-md rounded-3xl" @click="isSearchVisible = true">
+            <el-input
+                placeholder="Tìm kiếm"
+                :prefix-icon="ElIconSearch"
+                class="!border-none "
+            />
+          </div>
+          <NuxtLink to="#" class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600">
+            <el-icon class="text-xl mb-0.5" :size="22">
+              <LazyElIconUser/>
+            </el-icon>
+            <span class="text-xs">Tài khoản</span>
+          </NuxtLink>
+
+          <div class="hidden md:flex flex-col items-center text-gray-700 cursor-pointer hover:text-red-600 relative"
+               @click="isCartVisible=true">
+            <el-icon class="text-xl mb-0.5" :size="22">
+              <LazyElIconShoppingBag/>
+            </el-icon>
+            <span class="text-xs">Giỏ hàng</span>
+            <span
+                v-if="cartCount >= 0"
+                class="absolute -top-1 right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
+            >
+              {{ cartCount }}
+            </span>
+          </div>
           <button
-              class="md:hidden p-2 text-gray-700 hover:text-pink-500"
+              class="md:hidden p-2 text-gray-700 hover:text-[#ef3224]"
               @click="isMobileMenuOpen = true"
           >
-            <Bars3Icon class="h-6 w-6"/>
+            <Icon class="h-6 w-6" name="lucide:align-justify"/>
           </button>
         </div>
       </div>
     </div>
   </nav>
-
   <SearchPreview
       :isOpen="isSearchVisible"
       @close="isSearchVisible = false"
@@ -244,3 +224,5 @@ const subtotal = computed(() => {
   }
 }
 </style>
+
+

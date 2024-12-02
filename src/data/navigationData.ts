@@ -1,11 +1,11 @@
 import type {MegaMenu, NavItem} from "~/types/navbar";
 
 export const mainNavItems: NavItem[] = [
-    {name: 'Home', href: '#'},
-    {name: 'Shop', href: '#', hasMega: true},
-    {name: 'Blog', href: '#'},
-    {name: 'Portfolio', href: '#'},
-    {name: 'Pages', href: '#'},
+    {name: 'Black November', href: '#'},
+    {name: 'Nữ', href: '#', hasMega: true},
+    {name: 'Nam', href: '#'},
+    {name: 'Bé Gái', href: '#'},
+    {name: 'Bé Trai', href: '#'},
 ]
 
 

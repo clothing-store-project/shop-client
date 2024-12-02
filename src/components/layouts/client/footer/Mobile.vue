@@ -6,17 +6,17 @@ const routes = [
     icon: 'House'
   },
   {
-    path: '/products',
+    path: '#',
     label: 'Sản phẩm',
     icon: 'Present'
   },
   {
-    path: '/cart',
+    path: '#',
     label: 'Giỏ hàng',
     icon: 'ShoppingBag'
   },
   {
-    path: '/account',
+    path: '#',
     label: 'Tài khoản',
     icon: 'User'
   }
@@ -46,16 +46,9 @@ const companyInfo = {
     email: 'contact@adfy.com'
   }
 }
-
-const route = useRoute();
-
-const getColor = (path: string) => {
-  return computed(() => (route.path === path ? '#ff0000' : '')).value;
-};
 </script>
 
 <template>
-
   <footer class="bg-white px-4 pt-8 border-t border-gray-200">
     <div class="max-w-screen-xl mx-auto space-y-6">
       <!-- Company Name -->
@@ -107,13 +100,13 @@ const getColor = (path: string) => {
           <div class="py-2">
             <ul class="space-y-2">
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/about">Về ADFY</NuxtLinkLocale>
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Về ADFY</NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/careers">Tuyển dụng</NuxtLinkLocale>
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Tuyển dụng</NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/contact">Liên hệ</NuxtLinkLocale>
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Liên hệ</NuxtLinkLocale>
               </li>
             </ul>
           </div>
@@ -123,22 +116,22 @@ const getColor = (path: string) => {
           <div class="py-2">
             <ul class="space-y-2">
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/q&a">Hỏi đáp</NuxtLinkLocale>
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Hỏi đáp</NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/shipping">Chính sách vận chuyển
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Chính sách vận chuyển
                 </NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/returns">Chính sách đổi trả
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Chính sách đổi trả
                 </NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/returns">Gợi ý tìm size
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Gợi ý tìm size
                 </NuxtLinkLocale>
               </li>
               <li>
-                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="/returns">Kiểm tra đơn hàng
+                <NuxtLinkLocale class="text-gray-600 hover:text-primary-500" to="#">Kiểm tra đơn hàng
                 </NuxtLinkLocale>
               </li>
             </ul>
@@ -157,9 +150,9 @@ const getColor = (path: string) => {
         <li v-for="route in routes" :key="route.path" class="flex-1">
           <NuxtLinkLocale
               :to="route.path"
-              class="flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none"
+              class="menu-item flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none"
           >
-            <IconComponent :color="getColor(route.path)" :name="route.icon" :size="24"/>
+            <IconComponent class="icon" :name="route.icon" :size="24"/>
             <span class="text-xs">{{ route.label }}</span>
           </NuxtLinkLocale>
         </li>
@@ -187,4 +180,12 @@ const getColor = (path: string) => {
   justify-content: center;
   margin: 1rem 0;
 }
+
+
+.router-link-active {
+  .el-icon {
+    color: #ff0000;
+  }
+}
+
 </style>

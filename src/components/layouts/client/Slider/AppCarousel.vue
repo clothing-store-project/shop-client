@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {PlusIcon} from "lucide-vue-next";
 import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -61,7 +60,7 @@ defineProps({
             <p class="text-sm">${{ product.price.toFixed(2) }}</p>
             <button
               class="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded-full transition-opacity">
-              <PlusIcon class="w-4 h-4"/>
+              <Icon name="lucide:plus" class="h-4 w-4"/>
             </button>
           </div>
         </div>

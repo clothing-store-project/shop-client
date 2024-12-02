@@ -1,3 +1,210 @@
+<script lang="ts" setup>
+import type {Product} from "~/types/product";
+
+defineProps({
+  isOpen: Boolean,
+})
+
+defineEmits<{
+  (e: 'close'): void
+}>()
+
+const router = useRouter()
+const searchQuery = ref('')
+
+const searchResults = ref<Product[]>([])
+const searchResultNames = ref(new Set<string>())
+const products = ref<Product[]>([
+  {
+    id: 1,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-1',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 2,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-2',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 3,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-3',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 4,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-4',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 5,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-5',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 6,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-6',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 7,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-7',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+  {
+    id: 8,
+    name: 'Quần nỉ bé trai in họa tiết cổ tứi',
+    slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-8',
+    price: 199000,
+    originalPrice: 299000,
+    discount: 33,
+    image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
+    sizes: [
+      {id: 1, value: '98'},
+      {id: 2, value: '104'},
+      {id: 3, value: '110'},
+      {id: 4, value: '116'},
+      {id: 5, value: '122'},
+      {id: 6, value: '128'},
+    ],
+    colors: [
+      {id: 1, value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
+      {id: 2, value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
+    ]
+  },
+])
+
+const isMobile = useCheckDeviceIsMobile();
+
+const getData = () => {
+  const results = products.value.filter((product: Product) => product.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
+  searchResults.value = results
+  searchResultNames.value = new Set(results.map(product => product.name))
+
+  return results
+}
+
+const viewAll = () => {
+  // route to search page
+  router.push({path: '/search', query: {q: searchQuery.value || ''}});
+};
+
+const filterSearch = useDebounce(getData, 500)
+
+
+</script>
+
 <template>
   <transition
       enter-active-class="transition ease-out duration-300"
@@ -13,16 +220,16 @@
         <!-- Header with close button -->
         <div class="flex justify-end mb-6">
           <button class="p-2 hover:bg-gray-100 rounded-full" @click="$emit('close')">
-            <XIcon class="w-6 h-6"/>
+            <Icon name="lucide:x" class="w-6 h-6"/>
           </button>
         </div>
 
         <!-- Search Header -->
         <div class="flex gap-4 mb-6">
           <div class="relative flex-[2] pb-2 flex items-center w-full">
-            <CircleX
-                class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
-                @click="searchQuery = ''"
+            <Icon name="lucide:x"
+                  class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
+                  @click="searchQuery = ''"
             />
             <input
                 v-model="searchQuery"
@@ -31,9 +238,9 @@
                 @input="filterSearch"
                 @keyup.enter.prevent="viewAll"
             />
-            <SearchIcon
-                class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
-                @click="viewAll"
+            <Icon name="lucide:search"
+                  class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
+                  @click="viewAll"
             />
           </div>
         </div>
@@ -61,8 +268,9 @@
               >
                 <div
                     class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp cursor-pointer">
-                  <ProductCard
+                  <UiProductItem
                       :product="product"
+                      :isMobile="isMobile"
                   />
                 </div>
               </div>
@@ -81,134 +289,6 @@
     </div>
   </transition>
 </template>
-
-<script lang="ts" setup>
-import {CircleX, SearchIcon, XIcon} from 'lucide-vue-next'
-
-defineProps({
-  isOpen: Boolean,
-})
-
-defineEmits<{
-  (e: 'close'): void
-}>()
-
-const router = useRouter()
-const searchQuery = ref('')
-
-type Product = {
-  id: number
-  name: string
-  price: number
-  image: string
-}
-
-const searchResults = ref<Product[]>([])
-const searchResultNames = ref(new Set<string>())
-
-const getData = () => {
-  const results = products.filter(product => product.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
-  searchResults.value = results
-  searchResultNames.value = new Set(results.map(product => product.name))
-
-  return results
-}
-
-const viewAll = () => {
-  // route to search page
-  router.push({path: '/search', query: {q: searchQuery.value || ''}});
-};
-
-const filterSearch = useDebounce(getData, 500)
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: 'SilkBliss Dress 1',
-    price: 60.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 2,
-    name: 'SilkBliss Dress 2',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 3,
-    name: 'GlamPants',
-    price: 30.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 4,
-    name: 'ComfyLeggings',
-    price: 35.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 5,
-    name: 'ClassicCapri',
-    price: 20.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 6,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 7,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 8,
-    name: 'DapperCoat',
-    price: 70.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 9,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 10,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 11,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 12,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 13,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-  {
-    id: 14,
-    name: 'SilkBliss Dress',
-    price: 40.00,
-    image: 'https://pet-project-shop.github.io/template/images/shop/product/2.png'
-  },
-]
-
-</script>
 
 <style scoped>
 select {
