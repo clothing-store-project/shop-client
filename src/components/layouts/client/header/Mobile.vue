@@ -79,7 +79,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       </div>
 
       <div class="overflow-x-auto scrollbar-hide">
-        <div class="flex whitespace-nowrap px-4 py-2 space-x-6 text-sm font-medium">
+        <div class="flex whitespace-nowrap px-4 py-2 space-x-6 text-sm font-medium justify-center">
           <NuxtLinkLocale
               v-for="item in menus"
               :key="item.path"

@@ -61,8 +61,8 @@ const cartCount = computed(() => {
   <div class="top-banner">
     <img src="~/assets/images/blacknov_fixtop_desktop-29.11.webp" class="h-12 object-cover w-full" alt="banner"/>
   </div>
-  <nav class="bg-white sticky top-0 z-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+  <nav class="bg-white sticky top-0 z-50  border-b-1 border-gray-200">
+    <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 relative">
       <div class="flex h-16 justify-between items-center">
         <div class="flex-shrink-0">
           <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>

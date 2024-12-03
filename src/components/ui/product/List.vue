@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="mx-auto px-4 w-full" v-if="!category">
+  <div v-if="!category" class="mx-auto px-4 w-full">
     <!-- Product Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 w-auto">
       <div
@@ -30,20 +30,21 @@ defineProps({
           class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
       >
         <UiProductItem
+            :is-mobile="isMobile"
             :product="product"
             @add-to-cart="addToCart"
-            :is-mobile="isMobile"
         />
       </div>
     </div>
   </div>
   <template v-else>
-    <div class="mx-auto px-4 w-full" v-for="item in category" :key="item.id">
-      <img
-          @clink="$router.push(item.slug)"
-          :src="item.banner" alt="banner"
-          class="object-cover my-4"
-      />
+    <div v-for="item in category" :key="item.id" class="mx-auto px-4 w-full">
+      <NuxtLinkLocale :to="item.slug">
+        <img
+            :src="item.banner" alt="banner"
+            class="object-cover my-4 cursor-pointer"
+        />
+      </NuxtLinkLocale>
       <!-- Product Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 w-auto">
         <div
@@ -52,15 +53,15 @@ defineProps({
             class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
         >
           <UiProductItem
+              :is-mobile="isMobile"
               :product="product"
               @add-to-cart="addToCart"
-              :is-mobile="isMobile"
           />
         </div>
       </div>
       <NuxtLinkLocale
           :to="item.slug"
-          class="border-[#ef3224] border  w-50 h-10 mx-auto color-[#ef3224] flex justify-center items-center my-5 font-bold rounded-lg"
+          class="border-[#ef3224] border  w-50 h-10 mx-auto color-[#ef3224] flex justify-center items-center my-5 font-bold rounded-lg cursor-pointer"
       >
         Xem thêm
       </NuxtLinkLocale>
