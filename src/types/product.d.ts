@@ -156,6 +156,6 @@ export type Product = {
   slug: string;
   season: string;
   stock: Stock;
-  media_gallery: MediaGallery[];
   configurable_options: ConfigurableOption[];
+  configurable_children: ConfigurableChild[];
 }

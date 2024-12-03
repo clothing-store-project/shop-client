@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type {Color, ProductDetail, Size} from "~/types/product";
+import type {Color, Product, ProductDetail, Size} from "~/types/product";
+import {ProductData} from "~/data/productData";
 
 const product = ref<ProductDetail>({
       id: 123,
@@ -225,187 +226,8 @@ const product = ref<ProductDetail>({
       ]
     }
 )
-// const selectedSize = ref(product.value.sizes[0].id)
-// const selectedColor = ref(product.value.colors[0])
 
-// const relatedProducts = ref<Product[]>([
-//   {
-//     id: 1,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-1',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 2,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-2',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 3,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-3',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 4,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-4',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 5,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-5',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 6,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-6',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/2/b/2bp24w014-sg305-2.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 7,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-7',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-//   {
-//     id: 8,
-//     name: 'Quần nỉ bé trai in họa tiết cổ tứi',
-//     slug: 'quan-ni-be-trai-in-hoa-tiet-co-tui-8',
-//     sku: 'BTS25A001',
-//     price: 199000,
-//     originalPrice: 299000,
-//     discount: 33,
-//     image: 'https://canifa.com/img/1517/2000/resize/3/t/3tw23w005-sa855-110-1-u.webp',
-//     sizes: [
-//       {id: 1, value: '98'},
-//       {id: 2, value: '104'},
-//       {id: 3, value: '110'},
-//       {id: 4, value: '116'},
-//       {id: 5, value: '122'},
-//       {id: 6, value: '128'},
-//     ],
-//     colors: [
-//       {id: 1, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sb128.webp'},
-//       {id: 2, name: 'Xanh', value: 'https://media.canifa.com/attribute/swatch/images/sp189.webp'}
-//     ]
-//   },
-// ])
+const relatedProducts = ref<Product[]>(ProductData)
 
 const currentImageIndex = ref(0)
 const allImages = computed(() => {
@@ -763,13 +585,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           </div>
         </div>
       </div>
-
-      <!-- Related Products -->
     </div>
-    <!--    <div class="px-4 py-4 space-y-4 mb-12">-->
-    <!--      <h2 class="text-lg font-medium mb-4">Có thể bạn cũng thích</h2>-->
-    <!--      <UiProductList :products="relatedProducts"/>-->
-    <!--    </div>-->
+    <div class="space-y-4 mb-16">
+      <h2 class="px-4 text-lg font-medium mb-4">Có thể bạn cũng thích</h2>
+      <UiProductList
+          :is-loading="false"
+          :products="relatedProducts"
+      />
+    </div>
 
     <el-dialog
         v-model="showShare"
