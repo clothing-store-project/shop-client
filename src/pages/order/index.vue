@@ -261,8 +261,8 @@ onMounted(() => {
   <div class="mx-auto px-4 py-12 lg:w-9/12 w-full flex flex-col md:flex-row">
     <LazyLayoutsClientProfileNavbar/>
     <!-- Main Content -->
-    <main class="w-full md:w-3/4 top-2 mb-8 px-1 sm:px-6 lg:px-8 bg-white shadow-lg">
-      <div class="md:p-8">
+    <main class="w-full md:w-3/4 top-2 mb-8 px-1 sm:px-6 lg:px-8 bg-white">
+      <div class="md:p-1">
         <el-card class="box-card">
           <el-table :data="currentPageOrders" style="width: 100%">
             <el-table-column type="expand">

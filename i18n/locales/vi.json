@@ -36,6 +36,7 @@
     "filter": "Lọc",
     "tag": "Tags",
     "password": "Mật khẩu",
+    "update": "Cập nhật",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -44,7 +45,29 @@
       "address": "Địa chỉ",
       "total_orders": "Đơn hàng",
       "total_pending_orders": "Đơn hàng chờ xử lý",
-      "total_cart_items": "Sản phẩm trong giỏ hàng"
+      "total_cart_items": "Sản phẩm trong giỏ hàng",
+      "password": "Mật khẩu",
+      "log_out": "Đăng xuất"
+    },
+    "profile": {
+      "label": {
+        "sex": "Giới tính",
+        "name": "Tên",
+        "email": "Email",
+        "phone": "Điện thoại",
+        "birthday": "Sinh nhật"
+      },
+      "sex": {
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "placeholder": {
+        "name": "Nhập tên",
+        "email": "Nhập email",
+        "phone": "Nhập số điện thoại",
+        "birthday": "Chọn ngày sinh"
+      }
     }
   },
   "validate": {
@@ -65,6 +88,16 @@
     },
     "rating": {
       "required": "Đánh giá không được để trống"
+    },
+    "sex": {
+      "required": "Giới tính không được để trống"
+    },
+    "phone": {
+      "required": "Số điện thoại không được để trống",
+      "pattern": "Định dạng số điện thoại không đúng"
+    },
+    "birthday": {
+      "required": "Ngày sinh không được để trống"
     }
   },
   "filter": {
@@ -101,6 +134,10 @@
     "dashboard": {
       "title": "Thông tin cá nhân",
       "description": "Trang thông tin cá nhân"
+    },
+    "profile": {
+      "title": "Hồ sơ",
+      "description": "Quản lý thông tin cá nhân"
     }
   }
 }

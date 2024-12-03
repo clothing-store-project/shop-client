@@ -317,9 +317,9 @@ watch(() => route.query, (newParams) => {
           <!--Keyword search-->
           <div class="flex gap-4 mb-6">
             <div class="relative flex-[2] pb-2 flex items-center w-full">
-              <Icon name="lucide:circle-x"
-                  class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
-                  @click="searchQuery = ''"
+              <Icon class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
+                    name="lucide:circle-x"
+                    @click="searchQuery = ''"
               />
               <input
                   v-model="searchQuery"
@@ -327,9 +327,9 @@ watch(() => route.query, (newParams) => {
                   placeholder="Search Product"
                   @keyup.enter.prevent="updateQueryParams"
               />
-              <Icon name="lucide:search"
-                  class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
-                  @click="updateQueryParams"
+              <Icon class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
+                    name="lucide:search"
+                    @click="updateQueryParams"
               />
             </div>
           </div>
@@ -421,13 +421,12 @@ watch(() => route.query, (newParams) => {
         <div class="flex ml-auto sm-dropdown">
           <!-- Sort and Filter Dropdowns -->
           <div class=" flex items-center">
-            <LazyElIconList/>
             <el-select
                 v-model="selectedFilter"
                 class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
+                focus=""
                 size="large"
                 style="width: 240px"
-                focus=""
             >
               <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
               <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
@@ -440,7 +439,8 @@ watch(() => route.query, (newParams) => {
       </div>
 
       <UiProductList
-        :products="products"
+          :products="products"
+          class="mt-2"
       />
 
       <div class="flex justify-center mx-auto px-4 md:justify-end w-full">
