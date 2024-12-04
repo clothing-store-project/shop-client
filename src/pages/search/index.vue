@@ -176,7 +176,7 @@ watch(() => route.query, (newParams) => {
                 <el-slider
                     v-model="price"
                     :max="500"
-                    class="text-black black pl-2 pr-2.5"
+                    class="text-black black px-3"
                     range
                 />
               </div>

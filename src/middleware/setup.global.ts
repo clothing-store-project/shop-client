@@ -8,6 +8,11 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     useState('deviceLayout').value = 'product';
     return
   }
+  const categories = to.params.category
+  if (isMobile && categories) {
+    useState('deviceLayout').value = 'category';
+    return
+  }
   
   useState('deviceLayout').value = isMobile ? 'mobile' : 'default';
 });

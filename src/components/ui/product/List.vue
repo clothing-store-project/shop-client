@@ -27,7 +27,7 @@ defineProps({
 <template>
   <div v-if="!category" class="mx-auto px-4 w-full">
     <!-- Product Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 w-auto">
+    <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6 w-auto">
       <div
           v-for="product in products"
           :key="product.id"
@@ -51,7 +51,7 @@ defineProps({
         />
       </NuxtLinkLocale>
       <!-- Product Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-6 w-auto">
+      <div class="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-6 w-auto">
         <div
             v-for="product in item.products"
             :key="product.id"
@@ -67,7 +67,7 @@ defineProps({
       </div>
       <NuxtLinkLocale
           :to="item.slug"
-          class="border-[#ef3224] border  w-50 h-10 mx-auto color-[#ef3224] flex justify-center items-center my-5 font-bold rounded-lg cursor-pointer"
+          class="border-[#ef3224] border w-50 h-10 mx-auto color-[#ef3224] flex justify-center items-center my-5 font-bold rounded-lg cursor-pointer"
       >
         Xem thêm
       </NuxtLinkLocale>

@@ -2,6 +2,10 @@
 const route = useRoute()
 const {t} = useI18n()
 const isMobile = useCheckDeviceIsMobile()
+const isCategoryLayout = useState('deviceLayout').value === 'category'
+definePageMeta({
+  layout: false,
+});
 
 useSeoMeta({
   title: t('page.category.title', {value: route.params.category.at(-1)}),
@@ -14,10 +18,10 @@ useSeoMeta({
 
 <template>
   <UiCategorySearchDetail
-      v-if="!isMobile"
+      v-if="!isMobile && !isCategoryLayout"
       :category="route.params.category"
   />
-  <UiCategorySearchMobileDetail v-else/>
+  <UiCategorySearchDetailMobile v-else/>
 </template>
 
 <style lang="scss" scoped>
