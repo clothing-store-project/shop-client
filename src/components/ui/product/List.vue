@@ -16,6 +16,10 @@ defineProps({
   category: {
     type: Array as PropType<ProductCategory[]>,
     required: false
+  },
+  isLoading: {
+    type: Boolean as PropType<boolean>,
+    required: true
   }
 })
 </script>
@@ -32,6 +36,7 @@ defineProps({
         <UiProductItem
             :is-mobile="isMobile"
             :product="product"
+            :is-loading="isLoading"
             @add-to-cart="addToCart"
         />
       </div>
@@ -55,6 +60,7 @@ defineProps({
           <UiProductItem
               :is-mobile="isMobile"
               :product="product"
+              :is-loading="isLoading"
               @add-to-cart="addToCart"
           />
         </div>
