@@ -51,6 +51,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     '@nuxt/icon',
+    'vue3-carousel-nuxt',
   ],
   
   // vueuse

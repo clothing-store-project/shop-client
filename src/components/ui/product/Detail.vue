@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {ElScrollbar} from "element-plus";
-import type {Color, ProductDetail, Size} from "~/types/product";
+import type {Color, Product, ProductDetail, Size} from "~/types/product";
+import {ProductData} from "~/data/productData";
 
 const product = ref<ProductDetail>({
   id: 123,
@@ -225,31 +225,33 @@ const product = ref<ProductDetail>({
     }
   ]
 })
-const currentImageIndex = ref(0)
 const allImages = computed(() => {
-  const mainImages = product.value.media_gallery.map(media => media.path)
-  const variantImages = product.value.configurable_children.flatMap(child => child.media_gallery.map(media => media.path))
-  return [...mainImages, ...variantImages]
-})
-
+  const uniqueImages = new Set<string>();
+  product.value.configurable_children.forEach(child => {
+    child.media_gallery.forEach(media => {
+      uniqueImages.add(media.path);
+    });
+  });
+  return Array.from(uniqueImages);
+});
+const suggestedProducts = ref<Product[]>(ProductData)
+const containerRef = ref(null)
+const containerRef1 = ref(null)
+const swiper = useSwiper(containerRef)
+const swiper1 = useSwiper(containerRef1)
 const nextImage = () => {
-  if (currentImageIndex.value < allImages.value.length - 1) {
-    currentImageIndex.value++
-  } else {
-    currentImageIndex.value = 0
-  }
+  swiper.next()
+  swiper1.next()
 }
 
 const prevImage = () => {
-  if (currentImageIndex.value > 0) {
-    currentImageIndex.value--
-  } else {
-    currentImageIndex.value = allImages.value.length - 1
-  }
+  swiper.prev()
+  swiper1.prev()
 }
 
 const setImage = (index: number) => {
-  currentImageIndex.value = index
+  swiper1.to(index)
+  swiper.to(swiper1.instance.value.activeIndex)
 }
 
 const colors = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
@@ -264,11 +266,40 @@ const selectedSku = computed(() => {
   return child ? child.sku : ''
 })
 
-const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
-const innerRef = ref<HTMLDivElement>()
-const handleScroll = ({scrollTop}) => {
-  console.log(scrollTop)
-}
+const shippingInfo = [
+  {
+    icon: 'lucide:package',
+    title: 'Thanh toán khi nhận hàng (COD)',
+    description: 'Giao hàng toàn quốc.'
+  },
+  {
+    icon: 'lucide:truck',
+    title: 'Miễn phí giao hàng',
+    description: 'Với đơn hàng trên 599.000 đ.'
+  },
+  {
+    icon: 'lucide:refresh-cw',
+    title: 'Đổi hàng miễn phí',
+    description: 'Trong 30 ngày kể từ ngày mua.'
+  }
+]
+
+const currentSlide = ref(0);
+
+const slideTo = (nextSlide) => (currentSlide.value = nextSlide);
+
+const galleryConfig = {
+  itemsToShow: 1,
+  wrapAround: true,
+  mouseDrag: false,
+  touchDrag: false,
+};
+
+const thumbnailsConfig = {
+  itemsToShow: 1,
+  wrapAround: true,
+};
+
 </script>
 
 <template>
@@ -276,54 +307,81 @@ const handleScroll = ({scrollTop}) => {
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Image Gallery with Slider (Left Column) -->
       <div class="w-full md:w-1/2 md:sticky   flex h-[40rem] gap-4">
-        <div class="aspect-square overflow-hidden rounded-lg relative group">
-          <div class="relative w-full h-full">
-            <TransitionGroup name="slide">
-              <img
-                  v-for="(image, index) in allImages"
-                  :key="index"
-                  :alt="product.name"
-                  :class="{ 'opacity-0': currentImageIndex !== index }"
-                  :src="image"
-                  class="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500"
-              />
-            </TransitionGroup>
-          </div>
+<!--        <div class=" group">-->
+          <Carousel id="gallery" v-model="currentSlide" v-bind="galleryConfig" style="width: 10rem">
+            <Slide v-for="(image,index) in allImages" :key="index" class="!w-[30rem] h-full">
+              <div class="carousel__item w-20 h-20 flex-shrink-0 rounded-lg  transition-all mx-1 my-1 thumb-image">
+                <img :src="image" class="!w-[30rem] h-full" alt="Gallery Image"/>
+              </div>
+            </Slide>
+          </Carousel>
 
-          <!-- Navigation Arrows -->
-          <button
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity flex"
-              @click="prevImage"
-          >
-            <Icon class="w-6 h-6" name="lucide:chevron-left"/>
-          </button>
-          <button
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity flex"
-              @click="nextImage"
-          >
-            <Icon class="w-6 h-6" name="lucide:chevron-right"/>
-          </button>
-        </div>
+          <Carousel id="thumbnails" v-model="currentSlide" v-bind="{thumbnailsConfig}">
+            <Slide v-for="(image,index) in allImages" :key="index">
+              <div class="carousel__item w-20 h-20 flex-shrink-0 rounded-lg  transition-all mx-1 my-1 thumb-image"
+                   @click="slideTo(index - 1)">
+                <img :src="image" alt="Thumbnail Image" class="!w-[30rem] h-full"/>
+              </div>
+            </Slide>
+          </Carousel>
+<!--        </div>-->
+        <!--        <ClientOnly>-->
+        <!--          <div class="relative group">-->
+        <!--            <swiper-container-->
+        <!--                ref="containerRef"-->
+        <!--                :modules="[Thumbs,Pagination]"-->
+        <!--                :pagination="{ type: 'fraction' }"-->
+        <!--                :space-between="5"-->
+        <!--                style="max-width: 30rem"-->
+        <!--            >-->
+        <!--              <swiper-slide-->
+        <!--                  v-for="(image, index) in allImages"-->
+        <!--                  :key="index"-->
+        <!--                  class="!w-[30rem] h-full main-image"-->
+        <!--              >-->
+        <!--                <img-->
+        <!--                    :alt="product.name"-->
+        <!--                    :src="image"-->
+        <!--                    class="w-full h-full object-cover rounded-lg"-->
+        <!--                />-->
+        <!--              </swiper-slide>-->
+        <!--            </swiper-container>-->
+        <!--            <button-->
+        <!--                class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity flex z-1"-->
+        <!--                @click="prevImage"-->
+        <!--            >-->
+        <!--              <Icon class="w-6 h-6" name="lucide:chevron-left"/>-->
+        <!--            </button>-->
+        <!--            <button-->
+        <!--                class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity flex z-1"-->
+        <!--                @click="nextImage"-->
+        <!--            >-->
+        <!--              <Icon class="w-6 h-6" name="lucide:chevron-right"/>-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--          <swiper-container-->
+        <!--              ref="containerRef1"-->
+        <!--              :direction="'vertical'"-->
+        <!--              :modules="[Thumbs]"-->
+        <!--              :slides-per-view="5"-->
+        <!--              :space-between="5"-->
+        <!--          >-->
+        <!--            <swiper-slide-->
+        <!--                v-for="(image, index) in allImages"-->
+        <!--                :key="index"-->
+        <!--                class="w-20 h-20 flex-shrink-0 rounded-lg  transition-all mx-1 my-1 thumb-image"-->
+        <!--                @click="setImage(index)"-->
+        <!--            >-->
+        <!--              <img-->
+        <!--                  :alt="`${product.name} thumbnail ${index + 1}`"-->
+        <!--                  :src="image"-->
+        <!--                  class="w-full h-full object-cover rounded-lg"-->
+        <!--              />-->
+        <!--            </swiper-slide>-->
+        <!--          </swiper-container>-->
+        <!--        </ClientOnly>-->
 
-        <!-- Thumbnails -->
-        <el-scrollbar ref="scrollbarRef" class="flex flex-col gap-2 w-25" height="40rem" @scroll="handleScroll">
-          <button
-              v-for="(image, index) in allImages"
-              :key="index"
-              ref="innerRef"
-              :class="{ 'ring-2 ring-primary ring-offset-2': currentImageIndex === index }"
-              class="w-20 h-20 flex-shrink-0 rounded-lg  transition-all mx-1 my-1"
-              @click="setImage(index)"
-          >
-            <img
-                :alt="`${product.name} thumbnail ${index + 1}`"
-                :src="image"
-                class="w-full h-full object-cover rounded-lg"
-            />
-          </button>
-        </el-scrollbar>
       </div>
-
       <!-- Product Info -->
       <div class="w-full md:w-1/2 space-y-6">
         <div class="space-y-2">
@@ -364,7 +422,7 @@ const handleScroll = ({scrollTop}) => {
         <div class="space-y-2">
           <div class="flex items-center justify-between">
             <p class="text-sm">Kích cỡ</p>
-            <el-link class="text-sm" type="primary">
+            <el-link class="text-sm hover:!color-[#f62f30]" type="primary">
               Gợi ý tìm size
               <Icon class="w-4 h-4" name="lucide:chevron-right"/>
             </el-link>
@@ -412,9 +470,45 @@ const handleScroll = ({scrollTop}) => {
         </div>
       </div>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+      <div
+          v-for="info in shippingInfo"
+          :key="info.title"
+          :class="[info.title === shippingInfo[shippingInfo.length - 1].title ? 'border-r-0' : '']"
+          class="flex gap-4 p-4 border-r border-gray-200"
+      >
+        <div class="w-10 h-10 bg-[#f62f3010] flex items-center justify-center rounded-md">
+          <Icon
+              :name="info.icon"
+              class="w-7 h-7 text-primary shrink-0 color-[#f62f30]"
+          />
+        </div>
+        <div>
+          <h3 class="font-medium">{{ info.title }}</h3>
+          <p class="text-sm text-gray-600">{{ info.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <h2 class="text-xl font-semibold mb-6">Gợi ý mua cùng</h2>
+      <UiProductList
+          :is-loading="false"
+          :products="suggestedProducts"
+          class="px-0"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.thumb-image {
+  border: 2px solid transparent;
+
+  &.swiper-slide-active {
+    border-color: #f62f30;
+  }
+}
 </style>
 
