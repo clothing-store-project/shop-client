@@ -11,6 +11,50 @@ const selectedFilter = ref(t('filter.latest'))
 
 const isFilterOpen = ref<boolean>(false)
 
+const price = ref<number[]>([
+  Number(route.query.min) || 0,
+  Number(route.query.max) || 500
+])
+const selectedColors = ref<number[]>(route.query.color ? JSON.parse(route.query.color as string) : [1])
+const selectedSizes = ref<number[]>(route.query.sizes ? JSON.parse(route.query.sizes as string) : [1])
+
+const payload = ref({
+  min: price.value[0],
+  max: price.value[1],
+  colors: selectedColors.value,
+  sizes: selectedSizes.value,
+})
+
+watch(() => route.query, (newQuery) => {
+  console.log(newQuery);
+  price.value = [
+    Number(newQuery.min) || 0,
+    Number(newQuery.max) || 500
+  ];
+  selectedColors.value = newQuery.color ? JSON.parse(newQuery.color as string) : [1];
+  selectedSizes.value = newQuery.sizes ? JSON.parse(newQuery.sizes as string) : [1];
+  payload.value = {
+    min: price.value[0],
+    max: price.value[1],
+    colors: selectedColors.value,
+    sizes: selectedSizes.value,
+  };
+  fetchProducts()
+});
+
+const fetchProducts = async () => {
+  try {
+    // api get data here
+
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+onMounted(() => {
+  fetchProducts();
+});
+
 </script>
 
 <template>
@@ -28,8 +72,8 @@ const isFilterOpen = ref<boolean>(false)
           <span class="text-sm text-gray-600">4 sản phẩm</span>
         </div>
 
-        <div class="my-4 flex justify-center items-center h-full w-1/3">
-          <ElButton class="flex items-center space-x-2" @click="isFilterOpen = true">
+        <div class="my-4 flex justify-center items-center h-full w-1/3" @click="isFilterOpen = true">
+          <ElButton class="flex items-center space-x-2" >
             <Icon name="lucide:list" class="mr-2"/>
             <span>{{ $t('general.filter') }}</span>
           </ElButton>
@@ -57,9 +101,9 @@ const isFilterOpen = ref<boolean>(false)
         class="mt-2"
     />
   </div>
-  <LayoutsClientFilterDetail
+  <UiCategoryFilterMobile
       :isOpen="isFilterOpen"
-      @close="(() => isFilterOpen = !isFilterOpen)"
+      @close="isFilterOpen = false"
   />
 </template>
 
