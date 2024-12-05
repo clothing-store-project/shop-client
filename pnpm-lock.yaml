@@ -56,6 +56,9 @@ importers:
       vue-tsc:
         specifier: ^2.1.8
         version: 2.1.10(typescript@5.6.3)
+      vue3-touch-events:
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@element-plus/nuxt':
         specifier: ^1.0.10
@@ -4569,6 +4572,9 @@ packages:
     resolution: {integrity: sha512-jImUDbQa/9pELxUQdkflUPXL94V+iQZaOPUxWDBKSffCuxhYcV3sDM40pxoiYxUxXoNCDLUF4u9Ug6Xjdt4nkA==}
     peerDependencies:
       vue: ^3.2.0
+
+  vue3-touch-events@4.2.0:
+    resolution: {integrity: sha512-DgZJo8/QE72ilEDJ5+01SJ2JH7Aj55k0PidGLDU1jHewIG3GOW25azFuDsJ6nIXrfN8kMXBRR8PDx0GuNbIXhw==}
 
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
@@ -9787,6 +9793,8 @@ snapshots:
   vue3-carousel@0.3.4(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       vue: 3.5.13(typescript@5.6.3)
+
+  vue3-touch-events@4.2.0: {}
 
   vue@3.5.13(typescript@5.6.3):
     dependencies:

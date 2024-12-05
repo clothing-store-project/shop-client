@@ -6,14 +6,15 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import type {NavigationOptions} from "swiper/types";
 
 const product = ref<ProductDetail>({
   id: 123,
   name: "Áo thun nam",
   description: "Áo thun nam chất lượng cao, thoáng mát, dễ chịu.",
-  short_description: "Áo thun nam chất liệu cotton.",
-  materials: 'Cotton',
-  instructions: 'Giặt tay',
+  short_description: "Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.\n" + "Chất liệu 100% polyester.",
+  materials: '100% polyester',
+  instructions: 'Giặt máy ở nhiệt độ thường.\n' + 'Không sử dụng chất tẩy.\n' + 'Phơi trong bóng râm.',
   price: 200000,
   regular_price: 200000,
   status: 1,
@@ -273,29 +274,30 @@ const shippingInfo = [
 ]
 
 const thumbsSwiper = ref(null);
-const setThumbsSwiper = (swiper) => {
+const setThumbsSwiper = (swiper: any) => {
   thumbsSwiper.value = swiper;
 };
-
+const isShowSizeGuide = ref(false);
+const activeName = ref('first')
+const navigationOption = ref<NavigationOptions>({enabled: true});
 </script>
 
 <template>
-  <div class="container max-w-screen-xl mx-auto  py-8">
+  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto  py-8">
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Image Gallery with Slider (Left Column) -->
-      <div class="w-full flex h-[40rem] gap-4 justify-end">
+      <div class="w-full flex h-[50rem] gap-4 justify-end  max-w-[40rem] xl:max-w-[50rem]">
         <swiper
             ref="containerRef"
             :loop="true"
             :modules="[Thumbs,Pagination,Navigation]"
-            :navigation="true"
-            :pagination="{ type: 'fraction' }"
+            :navigation="navigationOption as any"
+            :pagination="{ type: 'fraction'} as any"
             :slides-per-view="1"
             :space-between="5"
             :style="{
               '--swiper-navigation-color': '#fff',
               '--swiper-pagination-color': '#fff',
-              'max-width':'30rem'
             }"
             :thumbs="{ swiper: thumbsSwiper }"
         >
@@ -318,7 +320,7 @@ const setThumbsSwiper = (swiper) => {
             :modules="[Thumbs]"
             :slides-per-view="5"
             :space-between="5"
-            class="m-0"
+            class="m-0 w-96"
             watch-slides-progress
             @swiper="setThumbsSwiper"
         >
@@ -375,7 +377,7 @@ const setThumbsSwiper = (swiper) => {
         <div class="space-y-2">
           <div class="flex items-center justify-between">
             <p class="text-sm">Kích cỡ</p>
-            <el-link class="text-sm hover:!color-[#f62f30]" type="primary">
+            <el-link class="text-sm hover:!color-[#f62f30]" type="primary" @click="isShowSizeGuide=true">
               Gợi ý tìm size
               <Icon class="w-4 h-4" name="lucide:chevron-right"/>
             </el-link>
@@ -405,19 +407,19 @@ const setThumbsSwiper = (swiper) => {
 
         <!-- Description -->
         <div class="pt-4">
-          <el-collapse>
+          <el-collapse v-if="product.short_description">
             <el-collapse-item name="description" title="Mô tả">
-              <p>{{ 'Áo phòng nam' }}</p>
+              <div class="text-sm text-gray-600 whitespace-pre-line">{{ product.short_description }}</div>
             </el-collapse-item>
           </el-collapse>
-          <el-collapse>
-            <el-collapse-item name="description" title="Mô tả">
-              <p>{{ 'Áo phòng nam' }}</p>
+          <el-collapse v-if="product.materials">
+            <el-collapse-item name="description" title="Chất liệu">
+              <div class="text-sm text-gray-600 whitespace-pre-line">{{ product.materials }}</div>
             </el-collapse-item>
           </el-collapse>
-          <el-collapse>
-            <el-collapse-item name="description" title="Mô tả">
-              <p>{{ 'Áo phòng nam' }}</p>
+          <el-collapse v-if="product.instructions">
+            <el-collapse-item name="description" title="Hướng dẫn sử dụng">
+              <div class="text-sm text-gray-600 whitespace-pre-line">{{ product.instructions }}</div>
             </el-collapse-item>
           </el-collapse>
         </div>
@@ -429,7 +431,7 @@ const setThumbsSwiper = (swiper) => {
           v-for="info in shippingInfo"
           :key="info.title"
           :class="[info.title === shippingInfo[shippingInfo.length - 1].title ? 'border-r-0' : '']"
-          class="flex gap-4 p-4 border-r border-gray-200"
+          class="flex gap-4 p-4 md:border-r border-gray-200 "
       >
         <div class="w-10 h-10 bg-[#f62f3010] flex items-center justify-center rounded-md">
           <Icon
@@ -453,6 +455,35 @@ const setThumbsSwiper = (swiper) => {
       />
     </div>
   </div>
+
+  <el-dialog
+      v-model="isShowSizeGuide"
+      align-center
+      title="Hướng dẫn chọn size"
+  >
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="Nam" name="first">
+        <el-scrollbar height="40rem">
+          <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_nam.png"/>
+        </el-scrollbar>
+      </el-tab-pane>
+      <el-tab-pane label="Nữ" name="second">
+        <el-scrollbar height="40rem">
+          <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_nudesktop.png"/>
+        </el-scrollbar>
+      </el-tab-pane>
+      <el-tab-pane label="Trẻ em" name="third">
+        <el-scrollbar height="40rem">
+          <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_treem.png"/>
+        </el-scrollbar>
+      </el-tab-pane>
+      <el-tab-pane label="Phụ kiện" name="fourth">
+        <el-scrollbar height="40rem">
+          <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_phukien.png"/>
+        </el-scrollbar>
+      </el-tab-pane>
+    </el-tabs>
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
@@ -463,5 +494,6 @@ const setThumbsSwiper = (swiper) => {
     border-color: #f62f30;
   }
 }
+
 </style>
 

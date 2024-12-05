@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import type {Color, Product, ProductDetail, Size} from "~/types/product";
 import {ProductData} from "~/data/productData";
+import type {DrawerProps} from "element-plus";
 
 const product = ref<ProductDetail>({
       id: 123,
       name: "Áo thun nam",
       description: "Áo thun nam chất lượng cao, thoáng mát, dễ chịu.",
-      short_description: "Áo thun nam chất liệu cotton.",
-      materials: 'Cotton',
-      instructions: 'Giặt tay',
+      short_description: "Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.\n" + "Chất liệu 100% polyester.",
+      materials: '100% polyester',
+      instructions: 'Giặt máy ở nhiệt độ thường.\n' + 'Không sử dụng chất tẩy.\n' + 'Phơi trong bóng râm.',
       price: 200000,
       regular_price: 200000,
       status: 1,
@@ -230,11 +231,21 @@ const product = ref<ProductDetail>({
 const relatedProducts = ref<Product[]>(ProductData)
 
 const currentImageIndex = ref(0)
+// const allImages = computed(() => {
+//   const mainImages = product.value.media_gallery.map(media => media.path)
+//   const variantImages = product.value.configurable_children.flatMap(child => child.media_gallery.map(media => media.path))
+//   return [...mainImages, ...variantImages]
+// })
+
 const allImages = computed(() => {
-  const mainImages = product.value.media_gallery.map(media => media.path)
-  const variantImages = product.value.configurable_children.flatMap(child => child.media_gallery.map(media => media.path))
-  return [...mainImages, ...variantImages]
-})
+  const uniqueImages = new Set<string>();
+  product.value.configurable_children.forEach(child => {
+    child.media_gallery.forEach(media => {
+      uniqueImages.add(media.path);
+    });
+  });
+  return Array.from(uniqueImages);
+});
 
 const nextImage = () => {
   if (currentImageIndex.value < allImages.value.length - 1) {
@@ -276,13 +287,13 @@ const onScroll = () => {
   isHeaderVisible.value = window.scrollY > 0
   isSticky.value = window.scrollY > buttonContainerRef.value!.offsetTop / 2
 }
-// useSeoMeta({
-//   title: product.value.name,
-//   ogTitle: product.value.name,
-//   description: product.value.short_description,
-//   ogDescription: product.value.short_description,
-//   ogImage: product.value.images[0].src
-// })
+useSeoMeta({
+  title: product.value.name,
+  ogTitle: product.value.name,
+  description: product.value.short_description,
+  ogDescription: product.value.short_description,
+  ogImage: allImages[0]
+})
 const colors = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
 const sizes = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
 
@@ -294,6 +305,10 @@ const selectedSku = computed(() => {
   )
   return child ? child.sku : ''
 })
+
+const direction = ref<DrawerProps['direction']>('btt')
+const isShowSizeGuide = ref<boolean>(false)
+const activeName = ref('first')
 
 onMounted(() => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
@@ -339,6 +354,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           <img
               v-for="(image, index) in allImages"
               :key="index"
+              v-touch:swipe.left="nextImage"
+              v-touch:swipe.right="prevImage"
               :alt="product.name"
               :class="{ 'hidden': currentImageIndex !== index }"
               :src="image"
@@ -480,7 +497,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <div>
         <div class="flex items-center justify-between mb-2">
           <span class="text-sm font-medium">Màu sắc: {{ selectedColor.label }}</span>
-          <button class="text-blue-500 text-sm flex gap-1 items-center">
+          <button class="text-blue-500 text-sm flex gap-1 items-center" @click="isShowSizeGuide=true">
             <el-icon>
               <LazyElIconQuestionFilled/>
             </el-icon>
@@ -530,21 +547,18 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <!-- Product Description -->
       <el-collapse class="border-t border-b">
         <el-collapse-item name="1" title="Mô tả">
-          <div class="text-sm text-gray-600 space-y-2">
-            <p>Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.</p>
-            <p>Chất liệu 100% polyester.</p>
+          <div class="text-sm text-gray-600 whitespace-pre-line">
+            {{ product.short_description }}
           </div>
         </el-collapse-item>
         <el-collapse-item name="2" title="Chất liệu">
-          <div class="text-sm text-gray-600">
-            <p>100% polyester</p>
+          <div class="text-sm text-gray-600 whitespace-pre-line">
+            {{ product.materials }}
           </div>
         </el-collapse-item>
         <el-collapse-item name="3" title="Hướng dẫn sử dụng">
-          <div class="text-sm text-gray-600">
-            <p>Giặt máy ở nhiệt độ thường.</p>
-            <p>Không sử dụng chất tẩy.</p>
-            <p>Phơi trong bóng râm.</p>
+          <div class="text-sm text-gray-600 whitespace-pre-line">
+            {{ product.instructions }}
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -619,10 +633,57 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       </div>
     </el-dialog>
   </div>
+
+  <Transition
+      enter-active-class="animate__animated animate__fadeInUp"
+      leave-active-class="animate__animated animate__fadeOutDown"
+  >
+    <div v-if="isShowSizeGuide" class="fixed inset-0 bg-black bg-opacity-50 z-51">
+      <div class="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl h-[80vh] overflow-hidden flex flex-col">
+        <div class="flex items-center justify-between p-4 border-b">
+          <div class="w-6 h-6"></div>
+          <h3 class="text-lg font-medium">Gợi ý tìm size</h3>
+          <button class="text-gray-500 hover:text-gray-700" @click="isShowSizeGuide=false">
+            <Icon class="w-6 h-6" name="lucide:x"/>
+          </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4">
+          <el-tabs v-model="activeName" class="h-[68vh]">
+            <el-tab-pane label="Nam" name="first">
+              <el-scrollbar height="40rem">
+                <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/nammobile.png"/>
+              </el-scrollbar>
+            </el-tab-pane>
+            <el-tab-pane label="Nữ" name="second">
+              <el-scrollbar height="40rem">
+                <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/nu_mobile.png"/>
+              </el-scrollbar>
+            </el-tab-pane>
+            <el-tab-pane label="Trẻ em" name="third">
+              <el-scrollbar height="40rem">
+                <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/treemmb.png"/>
+              </el-scrollbar>
+            </el-tab-pane>
+            <el-tab-pane label="Phụ kiện" name="fourth">
+              <el-scrollbar height="40rem">
+                <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/phukienmb.png"/>
+              </el-scrollbar>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <style lang="scss" scoped>
 .el-icon {
   display: block;
+}
+
+.el-drawer {
+  :deep(.el-drawer__header) {
+    margin: 0;
+  }
 }
 </style>
