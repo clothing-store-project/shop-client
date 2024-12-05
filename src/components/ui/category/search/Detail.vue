@@ -233,8 +233,9 @@ onMounted(() => {
             <div class=" flex items-center">
               <el-select
                   v-model="selectedFilter"
-                  class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500 w-[240px]"
+                  class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
                   size="large"
+                  style="width: 240px"
               >
                 <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
                 <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
