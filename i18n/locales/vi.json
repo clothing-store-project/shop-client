@@ -138,6 +138,11 @@
     "profile": {
       "title": "Hồ sơ",
       "description": "Quản lý thông tin cá nhân"
+    },
+    "category": {
+      "title": "{value} | ADFY",
+      "description": "Danh sách sản phẩm {value} | ADFY",
+      "list": "Danh sách danh mục"
     }
   }
 }

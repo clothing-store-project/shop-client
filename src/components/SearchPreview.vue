@@ -6,7 +6,7 @@ defineProps({
   isOpen: Boolean,
 })
 
-defineEmits<{
+const emits = defineEmits<{
   (e: 'close'): void
 }>()
 
@@ -29,11 +29,16 @@ const getData = () => {
 
 const viewAll = () => {
   // route to search page
+  emits('close')
   router.push({path: '/search', query: {q: searchQuery.value || ''}});
 };
 
-const filterSearch = useDebounce(getData, 500)
+const filterSearch = useDebounce(getData, 1000)
 
+const close = () => {
+  searchQuery.value = ''
+  emits('close')
+}
 
 </script>
 
@@ -48,24 +53,24 @@ const filterSearch = useDebounce(getData, 500)
       name="fade"
   >
     <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto border-x-blue-400">
-      <div class="mx-auto px-4 py-6 bg-red-50">
+      <div class="mx-auto px-4 py-6 bg-white h-screen">
         <!-- Header with close button -->
         <div class="flex justify-end mb-6">
-          <button class="p-2 hover:bg-gray-100 rounded-full" @click="$emit('close')">
-            <Icon name="lucide:x" class="w-6 h-6"/>
+          <button class="p-2 hover:bg-gray-100 rounded-full" @click="close">
+            <Icon name="lucide:circle-x" class="w-6 h-6"/>
           </button>
         </div>
 
         <!-- Search Header -->
         <div class="flex gap-4 mb-6">
           <div class="relative flex-[2] pb-2 flex items-center w-full">
-            <Icon name="lucide:x"
-                  class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
+            <Icon name="lucide:circle-x"
+                  class="my-auto w-5 h-5 absolute left-3 cursor-pointer"
                   @click="searchQuery = ''"
             />
             <input
                 v-model="searchQuery"
-                class="w-full border-b focus:outline-none rounded-2xl py-2 px-2 pl-10"
+                class="w-full border focus:outline-none rounded-2xl py-2 px-2 pl-10"
                 placeholder="Search Product"
                 @input="filterSearch"
                 @keyup.enter.prevent="viewAll"

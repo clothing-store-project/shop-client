@@ -138,6 +138,11 @@
     "profile": {
       "title": "Profile",
       "description": "Manage your profile"
+    },
+    "category": {
+      "title": "{value} | ADFY",
+      "description": "List of products in {value} | ADFY",
+      "list": "List Categories"
     }
   }
 }

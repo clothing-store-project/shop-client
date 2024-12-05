@@ -1,30 +1,17 @@
 <script lang="ts" setup>
-import {colors} from "~/data/colorData"
-import {sizes} from "~/data/sizeData"
+import {colors} from "~/data/colorData";
+import {sizes} from "~/data/sizeData";
 import type {Product} from "~/types/product";
 import {ProductData} from "~/data/productData";
 
-const {t} = useI18n()
-useSeoMeta({
-  title: t('page.search.title'),
-  description: t('page.search.description'),
-  ogImage: 'https://example.com/image.png',
-  ogTitle: t('page.search.title'),
-  ogType: 'website',
-})
-
-useHead({
-  htmlAttrs: {
-    lang: 'vn'
-  }
-})
+defineProps<{
+  category: string | string[]
+}>()
 
 const router = useRouter()
 const route = useRoute()
+const {t} = useI18n()
 
-const isMobileFilterOpen = ref<boolean>(true)
-
-const searchQuery = ref(route.query.q || '')
 const price = ref<number[]>([
   Number(route.query.min) || 0,
   Number(route.query.max) || 500
@@ -34,19 +21,21 @@ const maxPrice = computed(() => price.value[1])
 
 const selectedColors = ref<number[]>(route.query.color ? JSON.parse(route.query.color as string) : [1])
 const selectedSizes = ref<number[]>(route.query.sizes ? JSON.parse(route.query.sizes as string) : [1])
+const selectedCategory = ref<string>(route.params.category.at(-1))
 const selectedFilter = ref(t('filter.latest'))
-const layout = ref('grid')
+
+const products = ref<Product[]>(ProductData)
 
 const payload = ref({
-  q: searchQuery.value,
   min: price.value[0],
   max: price.value[1],
   colors: selectedColors.value,
   sizes: selectedSizes.value,
-  filter: selectedFilter.value,
+  category: selectedCategory.value,
+  filter: selectedFilter.value
 })
 
-const activeNames = ref(['1', '2', '3'])
+const activeNames = ref(['0', '1', '2', '3'])
 
 const toggleColorSelection = (colorId: number) => {
   const index = selectedColors.value.indexOf(colorId);
@@ -68,105 +57,95 @@ const toggleSizeSelection = (sizeId: number) => {
 
 const updateQueryParams = (newQueryParams = {}) => {
   const query = {
-    q: searchQuery.value,
     min: price.value[0],
     max: price.value[1],
     colors: JSON.stringify(selectedColors.value),
     sizes: JSON.stringify(selectedSizes.value),
+    category: selectedCategory.value,
     ...newQueryParams
   };
 
   router.push({query});
   payload.value = {
     ...query,
-    filter: selectedFilter.value,
     colors: selectedColors.value,
-    sizes: selectedSizes.value
+    sizes: selectedSizes.value,
+    category: selectedCategory.value,
+    filter: selectedFilter.value
   };
 }
 
-const toggleFilter = () => {
-  if (window.innerWidth < 640) {
-    isMobileFilterOpen.value = !isMobileFilterOpen.value
-  }
-}
-
 const resetFilters = () => {
-  searchQuery.value = ''
   price.value = [0, 500]
   selectedColors.value = [1]
   selectedSizes.value = [1]
+  selectedCategory.value = route.params.category.at(-1)
+  selectedFilter.value = t('filter.latest')
   updateQueryParams({
-    searchQuery: '',
     price: [0, 500],
     selectedColors: [1],
-    selectedSizes: [1]
+    selectedSizes: [1],
+    category: selectedCategory.value,
+    filter: selectedFilter.value
   })
 }
 
-const products = ref<Product[]>(ProductData)
-
-const setLayout = (newLayout: string) => {
-  layout.value = newLayout
-}
-
-const checkScreenSize = () => {
-  isMobileFilterOpen.value = window.innerWidth >= 640;
-}
+const menuItems = ref([
+  { id: 1, label: 'Áo nỉ & Áo Hoodie', href: 'nam/ao-ni-ao-hoodie' },
+  { id: 2, label: 'Áo khoác', href: 'nam/ao-khoac' },
+  { id: 3, label: 'Áo/ Quần giữ nhiệt', href: 'nam/ao-quan-giu-nhiet' },
+  { id: 4, label: 'Áo len', href: 'nam/ao-len' },
+  { id: 5, label: 'Quần nỉ', href: 'nam/quan-ni' },
+  { id: 6, label: 'Quần áo mặc nhà/ Đồ ngủ', href: 'nu/quan-ao-mac-nha-do-ngu' },
+  { id: 7, label: 'Bộ nỉ/ Bộ quần áo', href: 'nu/bo-ni-bo-quan-ao' },
+  { id: 8, label: 'Quần dài & Quần Jean', href: 'nu/quan-dai-quan-jean' },
+  { id: 9, label: 'Quần áo thể thao', href: 'nam/quan-ao-the-thao' },
+  { id: 10, label: 'Áo polo', href: 'nam/ao-polo' },
+  { id: 11, label: 'Áo sơ mi', href: 'nam/ao-so-mi' },
+  { id: 12, label: 'Áo chống nắng', href: 'hang-moi-ve/ao-chong-nang' },
+  { id: 13, label: 'Quần soóc/ Quần short', href: 'nam/quan-short' },
+  { id: 14, label: 'Đồ lót', href: 'hang-moi-ve/do-lot' },
+  { id: 15, label: 'Tất/Vớ', href: 'hang-moi-ve/tat-vo' }
+])
 
 onMounted(() => {
-  checkScreenSize()
-  window.addEventListener('resize', checkScreenSize)
-  console.log('route.query', route.query)
-  // use fetch to get products
-})
-
-watch(() => route.query, (newParams) => {
-  console.log('newParams', newParams)
+  // add logic get product here
 })
 </script>
 
 <template>
-  <div class="px-4 py-12 flex flex-col md:flex-row w-full">
-    <!-- Filter aside -->
-    <div class="w-full md:w-1/5 md:sticky top-2 mb-4 px-4 sm:px-6 lg:px-8">
-      <aside>
-        <div class="flex gap-4 mb-6">
-          <button
-              class="text-gray-500 hover:text-pink-500 focus:outline-none"
-              @click="toggleFilter"
-          >
-            <Icon name="lucide:sliders-horizontal"/>
-          </button>
-          <span class="pl-3">{{ $t('general.filter') }}</span>
-        </div>
-
+  <div class="max-w-screen-2xl container mx-auto px-4 py-8 flex-col">
+    <el-breadcrumb separator="|">
+      <el-breadcrumb-item class="text-base" :to="{ path: '/' }">{{ $t('general.home') }}</el-breadcrumb-item>
+      <el-breadcrumb-item
+          v-for="(cat, index) in Array.isArray(category) ? category : [category]"
+          :key="index"
+          :to="{ path: '/' + (Array.isArray(category) ? category.slice(0, index + 1).join('/') : category) }"
+          class="text-base"
+      >
+        {{ cat }}
+      </el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="w-full top-2 my-8 flex">
+      <aside class="w-full md:w-1/4 md:sticky">
         <!--Filter content-->
-        <div
-            v-show="isMobileFilterOpen"
-            class="transition-all duration-300 ease-in-out"
-        >
-          <!--Keyword search-->
-          <div class="flex gap-4 mb-6">
-            <div class="relative flex-[2] pb-2 flex items-center w-full">
-              <Icon class="my-auto w-4 h-4 absolute left-3 cursor-pointer"
-                    name="lucide:circle-x"
-                    @click="searchQuery = ''"
-              />
-              <input
-                  v-model="searchQuery"
-                  class="w-full border-b focus:outline-none rounded-2xl py-2 px-2 pl-10"
-                  placeholder="Search Product"
-                  @keyup.enter.prevent="updateQueryParams"
-              />
-              <Icon class="my-auto w-6 h-6 absolute right-3 cursor-pointer"
-                    name="lucide:search"
-                    @click="updateQueryParams"
-              />
-            </div>
-          </div>
-
+        <div class="transition-all duration-300 ease-in-out">
           <el-collapse v-model="activeNames" class="gap-4 mb-6">
+            <el-collapse-item name="0">
+              <template #title>
+                <h6 class="text-base">{{ $t('page.category.list') }}</h6>
+              </template>
+              <div v-for="(item, index) in menuItems" :key="index" class="mb-2 flex items-center text-center">
+                <NuxtLinkLocale
+                    :to="`/${item.href}`"
+                    active-class="text-red-500"
+                    class="text-base text-center"
+                >
+                  <Icon name="lucide:play" v-if="route.path.includes(item.href)"/>
+                  {{ item.label }}
+                </NuxtLinkLocale>
+              </div>
+            </el-collapse-item>
             <!--Select price range-->
             <el-collapse-item name="1">
               <template #title>
@@ -242,82 +221,51 @@ watch(() => route.query, (newParams) => {
           </div>
         </div>
       </aside>
-    </div>
-    <div class="w-full md:w-4/5">
-      <div class="flex flex-col md:flex-row items-center mx-auto px-4 w-full">
-        <!-- Results Display -->
-        <div class="text-gray-700 sm-list">
-          Showing 1–5 Of 50 Results
-        </div>
+      <main class="w-full md:w-3/4">
+        <div class="flex flex-col md:flex-row items-center mx-auto px-4 w-full">
+          <!-- Results Display -->
+          <div class="text-gray-700 sm-list">
+            Showing 1–5 Of 50 Results
+          </div>
 
-        <div class="flex ml-auto sm-dropdown">
-          <!-- Sort and Filter Dropdowns -->
-          <div class=" flex items-center">
-            <el-select
-                v-model="selectedFilter"
-                class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500"
-                focus=""
-                size="large"
-                style="width: 240px"
-            >
-              <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
-              <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
-              <el-option :value="$t('filter.average_rating')">{{ $t('filter.average_rating') }}</el-option>
-              <el-option :value="$t('filter.price_low_to_high')">{{ $t('filter.price_low_to_high') }}</el-option>
-              <el-option :value="$t('filter.price_high_to_low')">{{ $t('filter.price_high_to_low') }}</el-option>
-            </el-select>
+          <div class="flex ml-auto sm-dropdown">
+            <!-- Sort and Filter Dropdowns -->
+            <div class=" flex items-center">
+              <el-select
+                  v-model="selectedFilter"
+                  class="mx-3 my-1 rounded-md text-gray-700 focus:outline-none focus:border-gray-500 w-[240px]"
+                  size="large"
+              >
+                <el-option :value="$t('filter.latest')">{{ $t('filter.latest') }}</el-option>
+                <el-option :value="$t('filter.popularity')">{{ $t('filter.popularity') }}</el-option>
+                <el-option :value="$t('filter.average_rating')">{{ $t('filter.average_rating') }}</el-option>
+                <el-option :value="$t('filter.price_low_to_high')">{{ $t('filter.price_low_to_high') }}</el-option>
+                <el-option :value="$t('filter.price_high_to_low')">{{ $t('filter.price_high_to_low') }}</el-option>
+              </el-select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <UiProductList
-          :products="products"
-          :is-loading="false"
-          class="mt-2"
-      />
-
-      <div class="flex justify-center mx-auto px-4 md:justify-end w-full">
-        <el-pagination
-            :page-size="10"
-            :total="50"
-            background
-            class="sm-pagination"
-            layout="total, prev, pager, next"
+        <UiProductList
+            :products="products"
+            class="mt-2"
+            :is-loading="false"
         />
-      </div>
+
+        <div class="flex justify-center mx-auto px-4 mt-8 md:justify-end w-full">
+          <el-pagination
+              :page-size="10"
+              :total="50"
+              background
+              class="sm-pagination"
+              layout="total, prev, pager, next"
+          />
+        </div>
+      </main>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.el-collapse {
-  border-top: none;
 
-  .el-collapse-item__header {
-    border-bottom: none;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .sm-dropdown {
-    margin: 0.5rem 0;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .sm-list {
-    margin: 0.5rem 0;
-    width: 100%;
-  }
-
-  .sm-pagination {
-    :deep(.el-pagination__total) {
-      display: none;
-    }
-
-    :deep(.btn-prev) {
-      margin-left: 0;
-    }
-  }
-}
 </style>
