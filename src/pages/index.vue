@@ -83,8 +83,9 @@ const category = ref([
       <img :alt="item.alt" :src="item.src" class="w-full object-cover" loading="lazy">
     </el-carousel-item>
   </el-carousel>
-  <UiCategoryList :category="category"/>
-  <div class="max-w-screen-2xl m-auto">
+  <UiCategoryList :category="category"
+                  class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto"/>
+  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto m-auto">
     <UiProductList
         :category="category"
         :products="products"

@@ -1,5 +1,5 @@
 :root{
-  --el-color-primary: #ef3224 !important;
+  --el-color-primary: #f62f30 !important;
 }
 
 html,
@@ -16,8 +16,6 @@ html.dark {
 }
 
 .el-popper.is-pure.is-light.mega-menu{
-  //inset: auto auto auto 11% !important;
-  //inset-inline-end: 11% !important;
   border-radius: 0.5rem;
   .el-menu{
     display: grid;

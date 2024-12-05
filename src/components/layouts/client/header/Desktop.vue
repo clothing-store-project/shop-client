@@ -42,7 +42,6 @@ const items = ref<CartItem[]>([
   }
 ])
 
-
 const removeItem = (id: number) => {
   items.value = items.value.filter(item => item.id !== id)
 }
@@ -51,7 +50,6 @@ const subtotal = computed(() => {
   return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
 })
 
-
 const cartCount = computed(() => {
   return items.value.reduce((sum, item) => sum + item.quantity, 0)
 })
@@ -59,14 +57,15 @@ const cartCount = computed(() => {
 
 <template>
   <div class="top-banner">
-    <img src="~/assets/images/blacknov_fixtop_desktop-29.11.webp" class="h-12 object-cover w-full" alt="banner"/>
+    <img alt="banner" class="h-12 object-cover w-full" src="~/assets/images/blacknov_fixtop_desktop-29.11.webp"/>
   </div>
   <nav class="bg-white sticky top-0 z-50  border-b-1 border-gray-200">
-    <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 relative">
+    <div
+        class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="flex h-16 justify-between items-center">
-        <div class="flex-shrink-0">
+        <NuxtLinkLocale class="flex-shrink-0" to="/">
           <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
-        </div>
+        </NuxtLinkLocale>
         <div class="flex items-center">
           <el-menu
               :default-active="'1'"
@@ -93,9 +92,9 @@ const cartCount = computed(() => {
                     <h3 class="text-base font-medium text-gray-900 ">{{ data.sectionName }}</h3>
                     <ul class="mt-4 space-y-3">
                       <li v-for="item in data.data" :key="item.name">
-                        <NuxtLink :to="item.href" class="text-sm text-gray-500 hover:text-[#ef3224]">
+                        <NuxtLinkLocale :to="item.href" class="text-sm text-gray-500 hover:text-[#ef3224]">
                           {{ item.name }}
-                        </NuxtLink>
+                        </NuxtLinkLocale>
                       </li>
                     </ul>
                   </el-menu-item-group>
@@ -143,13 +142,13 @@ const cartCount = computed(() => {
         <div class="flex items-center space-x-8">
           <div class="hidden md:flex flex-1 max-w-md rounded-3xl" @click="isSearchVisible = true">
             <el-input
-                placeholder="Tìm kiếm"
                 :prefix-icon="ElIconSearch"
-                class="!border-none "
+                class="!border-none"
+                placeholder="Tìm kiếm"
             />
           </div>
-          <NuxtLinkLocale to="/dashboard" class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600">
-            <el-icon class="text-xl mb-0.5" :size="22">
+          <NuxtLinkLocale class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600" to="/dashboard">
+            <el-icon :size="22" class="text-xl mb-0.5">
               <LazyElIconUser/>
             </el-icon>
             <span class="text-xs">Tài khoản</span>
@@ -157,12 +156,12 @@ const cartCount = computed(() => {
 
           <div class="hidden md:flex flex-col items-center text-gray-700 cursor-pointer hover:text-red-600 relative"
                @click="isCartVisible=true">
-            <el-icon class="text-xl mb-0.5" :size="22">
+            <el-icon :size="22" class="text-xl mb-0.5">
               <LazyElIconShoppingBag/>
             </el-icon>
             <span class="text-xs">Giỏ hàng</span>
             <span
-                v-if="cartCount >= 0"
+                v-if="cartCount > 0"
                 class="absolute -top-1 right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"
             >
               {{ cartCount }}

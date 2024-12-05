@@ -42,7 +42,7 @@ const supportLinks = [
 
 <template>
   <footer class="bg-white pt-12 pb-4">
-    <div class="max-w-screen-2xl mx-auto px-4">
+    <div class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Company Info -->
         <div>

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type {Color, Product, ProductDetail, Size} from "~/types/product";
-import {ProductData} from "~/data/productData";
 import {Navigation, Pagination, Thumbs} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/css";
@@ -8,252 +7,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type {NavigationOptions} from "swiper/types";
 
-const product = ref<ProductDetail>({
-  id: 123,
-  name: "Áo thun nam",
-  description: "Áo thun nam chất lượng cao, thoáng mát, dễ chịu.",
-  short_description: "Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.\n" + "Chất liệu 100% polyester.",
-  materials: '100% polyester',
-  instructions: 'Giặt máy ở nhiệt độ thường.\n' + 'Không sử dụng chất tẩy.\n' + 'Phơi trong bóng râm.',
-  price: 200000,
-  regular_price: 200000,
-  status: 1,
-  slug: "ao-thun-nam",
-  stock: {
-    is_in_stock: true,
-    quantity: 50
-  },
-  season: 'Summer',
-  category: [
-    {
-      category_id: 1,
-      name: "Áo",
-      position: 1
-    },
-    {
-      category_id: 2,
-      name: "Nam",
-      position: 2
-    }
-  ],
-  media_gallery: [
-    {
-      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
-      pos: 1,
-    },
-    {
-      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
-      pos: 2
-    }
-  ],
-  configurable_options: [
-    {
-      attribute_code: "color",
-      label: "Màu sắc",
-      values: [
-        {
-          id: 1,
-          label: "Đỏ",
-          swatch: {
-            swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
-            type: 1
-          }
-        },
-        {
-          id: 2,
-          label: "Xanh",
-          swatch: {
-            swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
-            type: 1
-          }
-        }
-      ]
-    },
-    {
-      attribute_code: "size",
-      label: "Kích cỡ",
-      values: [
-        {
-          id: 1,
-          label: "M"
-        },
-        {
-          id: 2,
-          label: "L"
-        }
-      ]
-    }
-  ],
-  configurable_children: [
-    {
-      id: 1,
-      name: "Áo thun nam - Đỏ - M",
-      sku: "ATN-001-RD-M",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 30
-      },
-      image: "https://example.com/images/product-variant-red-m.jpg",
-      thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
-      size: {
-        id: 1,
-        label: "M"
-      },
-      color: {
-        id: 1,
-        label: "Đỏ",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-red.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
-          pos: 2,
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Áo thun nam - Xanh - L",
-      sku: "ATN-001-BL-L",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 2,
-        label: "L"
-      },
-      color: {
-        id: 2,
-        label: "Xanh",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Áo thun nam - Đỏ - L",
-      sku: "ATN-001-RD-L",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 2,
-        label: "L"
-      },
-      color: {
-        id: 1,
-        label: "Đỏ",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    },
-    {
-      id: 4,
-      name: "Áo thun nam - Xanh - M",
-      sku: "ATN-001-BL-M",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 1,
-        label: "M"
-      },
-      color: {
-        id: 2,
-        label: "Xanh",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    }
-  ]
-})
-const allImages = computed(() => {
-  const uniqueImages = new Set<string>();
-  product.value.configurable_children.forEach(child => {
-    child.media_gallery.forEach(media => {
-      uniqueImages.add(media.path);
-    });
-  });
-  return Array.from(uniqueImages);
-});
-const suggestedProducts = ref<Product[]>(ProductData)
-const containerRef = ref(null);
-const containerRef1 = ref(null);
-const colors = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
-const sizes = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const props = defineProps<{
+  product: ProductDetail,
+  suggestedProducts: Product[]
+}>()
 
-const selectedColor = ref<Color>(product.value.configurable_children[0].color)
-const selectedSize = ref<Size>(product.value.configurable_children[0].size)
-const selectedSku = computed(() => {
-  const child = product.value.configurable_children.find(
-      (child) => child.color.id === selectedColor.value.id && child.size.id === selectedSize.value.id
-  )
-  return child ? child.sku : ''
-})
+const emit = defineEmits<{
+  (e: 'add-to-cart', product: ProductDetail & { selectedSize: Size, selectColor: Color }): void
+}>();
 
 const shippingInfo = [
   {
@@ -273,18 +34,51 @@ const shippingInfo = [
   }
 ]
 
+const containerRef = ref(null);
+const containerRef1 = ref(null);
 const thumbsSwiper = ref(null);
+const isShowSizeGuide = ref<boolean>(false);
+const activeTabName = ref<string>('first')
+const navigationOption = ref<NavigationOptions>({enabled: true});
+const selectedColor = ref<Color>(props.product.configurable_children[0].color)
+const selectedSize = ref<Size>(props.product.configurable_children[0].size)
+
+const allImages = computed(() => {
+  const uniqueImages = new Set<string>();
+  props.product.configurable_children.forEach(child => {
+    child.media_gallery.forEach(media => {
+      uniqueImages.add(media.path);
+    });
+  });
+  return Array.from(uniqueImages);
+});
+const colors = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
+const sizes = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const selectedSku = computed(() => {
+  const child = props.product.configurable_children.find(
+      (child) => child.color.id === selectedColor.value.id && child.size.id === selectedSize.value.id
+  )
+  return child ? child.sku : ''
+})
+
+const addToCart = () => {
+  if (selectedSize.value && selectedColor.value) {
+    emit('add-to-cart', {
+      ...props.product,
+      selectColor: selectedColor.value,
+      selectedSize: selectedSize.value
+    });
+  }
+};
+
 const setThumbsSwiper = (swiper: any) => {
   thumbsSwiper.value = swiper;
 };
-const isShowSizeGuide = ref(false);
-const activeName = ref('first')
-const navigationOption = ref<NavigationOptions>({enabled: true});
 </script>
 
 <template>
-  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto  py-8">
-    <div class="flex flex-col md:flex-row gap-8">
+  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto  py-8">
+    <div class="flex flex-col md:flex-row gap-8 md:max-w-screen-lg xl:max-w-screen-xl container mx-auto">
       <!-- Image Gallery with Slider (Left Column) -->
       <div class="w-full flex h-[50rem] gap-4 justify-end  max-w-[40rem] xl:max-w-[50rem]">
         <swiper
@@ -400,7 +194,7 @@ const navigationOption = ref<NavigationOptions>({enabled: true});
 
         <!-- Action Buttons -->
         <div class="flex gap-4">
-          <button class="flex-1 bg-[#f62f30] h-10 text-white">
+          <button class="flex-1 bg-[#f62f30] h-10 text-white" @click="addToCart">
             Thêm vào giỏ
           </button>
         </div>
@@ -425,12 +219,11 @@ const navigationOption = ref<NavigationOptions>({enabled: true});
         </div>
       </div>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
       <div
           v-for="info in shippingInfo"
           :key="info.title"
-          :class="[info.title === shippingInfo[shippingInfo.length - 1].title ? 'border-r-0' : '']"
+          :class="[info.title === shippingInfo[shippingInfo.length - 1].title ? 'border-none' : '']"
           class="flex gap-4 p-4 md:border-r border-gray-200 "
       >
         <div class="w-10 h-10 bg-[#f62f3010] flex items-center justify-center rounded-md">
@@ -445,7 +238,6 @@ const navigationOption = ref<NavigationOptions>({enabled: true});
         </div>
       </div>
     </div>
-
     <div class="mt-16">
       <h2 class="text-xl font-semibold mb-6">Gợi ý mua cùng</h2>
       <UiProductList
@@ -459,26 +251,26 @@ const navigationOption = ref<NavigationOptions>({enabled: true});
   <el-dialog
       v-model="isShowSizeGuide"
       align-center
-      title="Hướng dẫn chọn size"
+      title="Gợi ý tìm size"
   >
-    <el-tabs v-model="activeName">
+    <el-tabs v-model="activeTabName">
       <el-tab-pane label="Nam" name="first">
-        <el-scrollbar height="40rem">
+        <el-scrollbar height="30rem">
           <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_nam.png"/>
         </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="Nữ" name="second">
-        <el-scrollbar height="40rem">
+        <el-scrollbar height="30rem">
           <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_nudesktop.png"/>
         </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="Trẻ em" name="third">
-        <el-scrollbar height="40rem">
+        <el-scrollbar height="30rem">
           <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_treem.png"/>
         </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="Phụ kiện" name="fourth">
-        <el-scrollbar height="40rem">
+        <el-scrollbar height="30rem">
           <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/size_phukien.png"/>
         </el-scrollbar>
       </el-tab-pane>
@@ -494,6 +286,5 @@ const navigationOption = ref<NavigationOptions>({enabled: true});
     border-color: #f62f30;
   }
 }
-
 </style>
 
