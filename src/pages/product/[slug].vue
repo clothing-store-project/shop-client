@@ -1,88 +1,241 @@
 <script lang="ts" setup>
-const product = ref({
-  id: 1,
-  slug: 'regular-collar-women-regular-fit-jacket',
-  name: 'Regular Collar Women Regular Fit Jacket',
-  price: 125.75,
-  originalPrice: 132.17,
-  categories: 'Dresses',
-  tag: 'SALE 20% OFF',
-  short_description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  sku: 'PRT584E63A',
-  rating: 3.5,
-  rate_count: 5,
-  reviews: 5,
-  images: [
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-2.png',
-    'https://pet-project-shop.github.io/template/images/products/product-detail4/lady-3.png'
-  ],
-  colors: [
+import type {Product, ProductDetail} from "~/types/product";
+import {ProductData} from "~/data/productData";
+
+const product = ref<ProductDetail>({
+  id: 123,
+  name: "Áo thun nam",
+  description: "Áo thun nam chất lượng cao, thoáng mát, dễ chịu.",
+  short_description: "Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.\n" + "Chất liệu 100% polyester.",
+  materials: '100% polyester',
+  instructions: 'Giặt máy ở nhiệt độ thường.\n' + 'Không sử dụng chất tẩy.\n' + 'Phơi trong bóng râm.',
+  price: 200000,
+  regular_price: 200000,
+  status: 1,
+  slug: "ao-thun-nam",
+  stock: {
+    is_in_stock: true,
+    quantity: 50
+  },
+  season: 'Summer',
+  category: [
     {
-      name: 'Yellow',
-      value: '#cdb935'
+      category_id: 1,
+      name: "Áo",
+      position: 1
     },
     {
-      name: 'White',
-      value: '#FFFFFF'
-    },
-    {
-      name: 'Red',
-      value: '#FF0000'
-    },
-    {
-      name: 'Blue',
-      value: '#0000FF'
+      category_id: 2,
+      name: "Nam",
+      position: 2
     }
   ],
-  sizes: ['S', 'M', 'L']
+  media_gallery: [
+    {
+      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
+      pos: 1,
+    },
+    {
+      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
+      pos: 2
+    }
+  ],
+  configurable_options: [
+    {
+      attribute_code: "color",
+      label: "Màu sắc",
+      values: [
+        {
+          id: 1,
+          label: "Đỏ",
+          swatch: {
+            swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
+            type: 1
+          }
+        },
+        {
+          id: 2,
+          label: "Xanh",
+          swatch: {
+            swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
+            type: 1
+          }
+        }
+      ]
+    },
+    {
+      attribute_code: "size",
+      label: "Kích cỡ",
+      values: [
+        {
+          id: 1,
+          label: "M"
+        },
+        {
+          id: 2,
+          label: "L"
+        }
+      ]
+    }
+  ],
+  configurable_children: [
+    {
+      id: 1,
+      name: "Áo thun nam - Đỏ - M",
+      sku: "ATN-001-RD-M",
+      price: 170000,
+      regular_price: 180000,
+      is_pre_order: false,
+      stock: {
+        is_in_stock: true,
+        quantity: 30
+      },
+      image: "https://example.com/images/product-variant-red-m.jpg",
+      thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
+      size: {
+        id: 1,
+        label: "M"
+      },
+      color: {
+        id: 1,
+        label: "Đỏ",
+        swatch: {
+          swatch_link: "https://example.com/images/color-swatch-red.jpg",
+          type: 1
+        }
+      },
+      media_gallery: [
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
+          pos: 1
+        },
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
+          pos: 2,
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "Áo thun nam - Xanh - L",
+      sku: "ATN-001-BL-L",
+      price: 170000,
+      regular_price: 180000,
+      is_pre_order: false,
+      stock: {
+        is_in_stock: true,
+        quantity: 20
+      },
+      image: "https://example.com/images/product-variant-blue-l.jpg",
+      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
+      size: {
+        id: 2,
+        label: "L"
+      },
+      color: {
+        id: 2,
+        label: "Xanh",
+        swatch: {
+          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
+          type: 1
+        }
+      },
+      media_gallery: [
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
+          pos: 1
+        },
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
+          pos: 2
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: "Áo thun nam - Đỏ - L",
+      sku: "ATN-001-RD-L",
+      price: 170000,
+      regular_price: 180000,
+      is_pre_order: false,
+      stock: {
+        is_in_stock: true,
+        quantity: 20
+      },
+      image: "https://example.com/images/product-variant-blue-l.jpg",
+      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
+      size: {
+        id: 2,
+        label: "L"
+      },
+      color: {
+        id: 1,
+        label: "Đỏ",
+        swatch: {
+          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
+          type: 1
+        }
+      },
+      media_gallery: [
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
+          pos: 1
+        },
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
+          pos: 2
+        }
+      ]
+    },
+    {
+      id: 4,
+      name: "Áo thun nam - Xanh - M",
+      sku: "ATN-001-BL-M",
+      price: 170000,
+      regular_price: 180000,
+      is_pre_order: false,
+      stock: {
+        is_in_stock: true,
+        quantity: 20
+      },
+      image: "https://example.com/images/product-variant-blue-l.jpg",
+      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
+      size: {
+        id: 1,
+        label: "M"
+      },
+      color: {
+        id: 2,
+        label: "Xanh",
+        swatch: {
+          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
+          type: 1
+        }
+      },
+      media_gallery: [
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
+          pos: 1
+        },
+        {
+          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
+          pos: 2
+        }
+      ]
+    }
+  ]
 })
-const selectedImage = ref(product.value.images[0])
-const quantity = ref(1)
-// Selectors
-const selectedSize = ref(product.value.sizes[0])
-
-const selectedColor = ref(product.value.colors[0])
-
-const activeTab = ref('description')
-
-// Reviews
-const reviews = ref([
-  {
-    id: 1,
-    name: 'John Doe',
-    avatar: 'https://pet-project-shop.github.io/template/images/profile2.jpg',
-    date: 'May 20, 2023',
-    rating: 5,
-    comment: 'Great product! The fit is perfect and the quality is excellent. Highly recommended!'
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    avatar: 'https://pet-project-shop.github.io/template/images/profile2.jpg',
-    date: 'May 18, 2023',
-    rating: 4,
-    comment: 'Nice jacket, but the color is slightly different from what I expected. Still, it\'s comfortable and stylish.'
-  }
-])
-
-// Methods
-const addToCart = () => {
-  console.log('Added to cart:', {
-    quantity: quantity.value,
-    size: selectedSize.value,
-    color: selectedColor.value
-  })
+const suggestedProducts = ref<Product[]>(ProductData)
+const addToCart = (product: ProductDetail) => {
+  console.log('cart', product)
 }
 
 useSeoMeta({
   title: product.value.name,
+  ogTitle: product.value.name,
   description: product.value.short_description,
-  ogImage: product.value.images[0]
+  ogDescription: product.value.short_description,
+  ogImage: product.value.media_gallery[0].path
 })
 
 const isMobile = useCheckDeviceIsMobile()
@@ -93,8 +246,18 @@ definePageMeta({
 </script>
 
 <template>
-  <UiProductDetail v-if="!isMobile && !isProductLayout"/>
-  <UiProductDetailMobile v-else/>
+  <UiProductDetail
+      v-if="!isMobile && !isProductLayout"
+      :product="product"
+      :suggestedProducts="suggestedProducts"
+      @add-to-cart="addToCart"
+  />
+  <UiProductDetailMobile
+      v-else
+      :product="product"
+      :suggestedProducts="suggestedProducts"
+      @add-to-cart="addToCart"
+  />
 </template>
 
 <style lang="scss" scoped>
