@@ -52,6 +52,10 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/icon',
   ],
+
+  plugins: [
+    '~/plugins/vue3-touch-events.ts',
+  ],
   
   // vueuse
   vueuse: {

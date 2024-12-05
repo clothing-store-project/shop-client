@@ -42,7 +42,7 @@ importers:
         specifier: ^8.4.49
         version: 8.4.49
       swiper:
-        specifier: ^11.1.14
+        specifier: ^11.1.15
         version: 11.1.15
       tailwindcss:
         specifier: ^3.4.14
@@ -56,6 +56,9 @@ importers:
       vue-tsc:
         specifier: ^2.1.8
         version: 2.1.10(typescript@5.6.3)
+      vue3-touch-events:
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@element-plus/nuxt':
         specifier: ^1.0.10
@@ -75,6 +78,9 @@ importers:
       '@pinia/nuxt':
         specifier: ^0.6.0
         version: 0.6.1(magicast@0.3.5)(rollup@4.27.3)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
+      '@types/jquery':
+        specifier: ^3.5.32
+        version: 3.5.32
       '@vueuse/nuxt':
         specifier: ^11.1.0
         version: 11.2.0(magicast@0.3.5)(nuxt@3.14.159(@parcel/watcher@2.5.0)(@types/node@22.9.0)(eslint@9.15.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(sass@1.81.0)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(sass@1.81.0)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
@@ -93,6 +99,9 @@ importers:
       vitest:
         specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(sass@1.81.0)(terser@5.36.0)
+      vue3-carousel-nuxt:
+        specifier: 1.1.3
+        version: 1.1.3(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
 
 packages:
 
@@ -1295,6 +1304,9 @@ packages:
   '@types/http-proxy@1.17.15':
     resolution: {integrity: sha512-25g5atgiVNTIv0LBDTg1H74Hvayx0ajtJPLLcYE3whFv75J0pWNtOBzaXJQgDTmrX1bx5U9YC2w/n65BN1HwRQ==}
 
+  '@types/jquery@3.5.32':
+    resolution: {integrity: sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -1309,6 +1321,9 @@ packages:
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
+
+  '@types/sizzle@2.3.9':
+    resolution: {integrity: sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w==}
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -4550,6 +4565,17 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
+  vue3-carousel-nuxt@1.1.3:
+    resolution: {integrity: sha512-VssmTpUn3PdTEs2/BrU6eDj/kBV3+Q44fcKY3+9a5Mqjmv2zkV20E9gPiA4MO4qZ58AJetQAxrpJ5nJ67HA52w==}
+
+  vue3-carousel@0.3.4:
+    resolution: {integrity: sha512-jImUDbQa/9pELxUQdkflUPXL94V+iQZaOPUxWDBKSffCuxhYcV3sDM40pxoiYxUxXoNCDLUF4u9Ug6Xjdt4nkA==}
+    peerDependencies:
+      vue: ^3.2.0
+
+  vue3-touch-events@4.2.0:
+    resolution: {integrity: sha512-DgZJo8/QE72ilEDJ5+01SJ2JH7Aj55k0PidGLDU1jHewIG3GOW25azFuDsJ6nIXrfN8kMXBRR8PDx0GuNbIXhw==}
+
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
     peerDependencies:
@@ -5952,6 +5978,10 @@ snapshots:
     dependencies:
       '@types/node': 22.9.0
 
+  '@types/jquery@3.5.32':
+    dependencies:
+      '@types/sizzle': 2.3.9
+
   '@types/json-schema@7.0.15': {}
 
   '@types/lodash-es@4.17.12':
@@ -5965,6 +5995,8 @@ snapshots:
       undici-types: 6.19.8
 
   '@types/resolve@1.20.2': {}
+
+  '@types/sizzle@2.3.9': {}
 
   '@types/web-bluetooth@0.0.16': {}
 
@@ -9747,6 +9779,22 @@ snapshots:
       '@vue/language-core': 2.1.10(typescript@5.6.3)
       semver: 7.6.3
       typescript: 5.6.3
+
+  vue3-carousel-nuxt@1.1.3(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      '@nuxt/kit': 3.14.159(magicast@0.3.5)(rollup@4.27.3)
+      vue3-carousel: 0.3.4(vue@3.5.13(typescript@5.6.3))
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
+      - vue
+
+  vue3-carousel@0.3.4(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.13(typescript@5.6.3)
+
+  vue3-touch-events@4.2.0: {}
 
   vue@3.5.13(typescript@5.6.3):
     dependencies:
