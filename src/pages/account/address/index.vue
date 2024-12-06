@@ -155,7 +155,7 @@ const communes = ref<Commune[]>([
   }
 ])
 
-const address = ref<Address>({})
+const address = ref<Address>({} as Address)
 
 const rules = reactive<FormRules<Address>>({
   name: [
