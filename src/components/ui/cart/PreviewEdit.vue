@@ -1,16 +1,21 @@
 <script lang="ts" setup>
-import type {Product, ProductDetail} from "~/types/product";
-import {ProductData} from "~/data/productData";
 import type {CartItem} from "~/types/cart";
+import type {Color, Size} from "~/types/product";
 
-const product = ref<ProductDetail>({
-  id: 123,
+const props = defineProps({
+  isOpen: Boolean,
+})
+
+const isOpenPopup = ref<boolean>(props.isOpen)
+
+const emit = defineEmits<{
+  (e: 'close'): void,
+}>()
+
+const product = ref<CartItem | null>({
+  id: 1,
   name: "Áo thun nam",
-  description: "Áo thun nam chất lượng cao, thoáng mát, dễ chịu.",
-  short_description: "Áo nỉ dài tay dáng regular, thiết kế đơn giản, mặc thoải mái và dễ kết hợp với nhiều loại trang phục.\n" + "Chất liệu 100% polyester.",
-  materials: '100% polyester',
-  instructions: 'Giặt máy ở nhiệt độ thường.\n' + 'Không sử dụng chất tẩy.\n' + 'Phơi trong bóng râm.',
-  price: 200000,
+  price: 179000,
   regular_price: 200000,
   status: 1,
   slug: "ao-thun-nam",
@@ -19,28 +24,6 @@ const product = ref<ProductDetail>({
     quantity: 50
   },
   season: 'Summer',
-  category: [
-    {
-      category_id: 1,
-      name: "Áo",
-      position: 1
-    },
-    {
-      category_id: 2,
-      name: "Nam",
-      position: 2
-    }
-  ],
-  media_gallery: [
-    {
-      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
-      pos: 1,
-    },
-    {
-      path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-1-u.webp",
-      pos: 2
-    }
-  ],
   configurable_options: [
     {
       attribute_code: "color",
@@ -224,54 +207,135 @@ const product = ref<ProductDetail>({
         }
       ]
     }
-  ]
+  ],
+  selected_size: {
+    "id": 1,
+    "label": "M"
+  },
+  selected_color: {
+    "id": 1,
+    "label": "Đỏ",
+    "swatch": {
+      "swatch_link": "https://media.canifa.com/attribute/swatch/images/sa476.webp",
+      "type": 1
+    }
+  },
+  quantity: 1
 })
-const suggestedProducts = ref<Product[]>(ProductData)
-const addToCart = (product: CartItem) => {
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  const existingProduct = cart.find((item: CartItem) => item.id === product.id);
+const selectedColor = ref<Color>(product.value.configurable_children[0].color)
+const selectedSize = ref<Size>(product.value.configurable_children[0].size)
 
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
-
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-useSeoMeta({
-  title: product.value.name,
-  ogTitle: product.value.name,
-  description: product.value.short_description,
-  ogDescription: product.value.short_description,
-  ogImage: product.value.media_gallery[0].path
-})
-
-const isMobile = useCheckDeviceIsMobile()
-const isProductLayout = useState('deviceLayout').value === 'product'
-definePageMeta({
-  layout: false,
+const allImages = computed(() => {
+  const uniqueImages = new Set<string>();
+  product.value.configurable_children.forEach(child => {
+    child.media_gallery.forEach(media => {
+      uniqueImages.add(media.path);
+    });
+  });
+  return Array.from(uniqueImages);
 });
+const colors = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
+const sizes = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const selectedSku = computed(() => {
+  const child = product.value.configurable_children.find(
+      (child) => child.color.id === selectedColor.value.id && child.size.id === selectedSize.value.id
+  )
+  return child ? child.sku : ''
+})
+
+const updateCart = () => {
+  // Implementation for updating cart
+  emit('close')
+}
 </script>
 
 <template>
-  <UiProductDetail
-      v-if="!isMobile && !isProductLayout"
-      :product="product"
-      :suggestedProducts="suggestedProducts"
-      @add-to-cart="addToCart"
-  />
-  <UiProductDetailMobile
-      v-else
-      :product="product"
-      :suggestedProducts="suggestedProducts"
-      @add-to-cart="addToCart"
-  />
+  <el-dialog
+      v-model="isOpenPopup"
+      title="Điều chỉnh sản phẩm"
+  >
+    <!-- Content -->
+    <div class="p-6">
+      <div class="flex gap-6">
+        <!-- Product Image -->
+        <div class="w-1/2 ">
+          <img
+              :alt="product.name"
+              :src="allImages[0]"
+              class="w-full max-h-[30rem] object-cover rounded-lg"
+          />
+        </div>
+
+        <!-- Product Details -->
+        <div class="flex-1 space-y-4">
+          <div>
+            <h2 class="font-bold text-2xl">{{ product.name }}</h2>
+            <p class="text-sm text-gray-500">Sku: {{ selectedSku }}</p>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <span class="text-2xl font-bold">{{ useFormatNumber(product.price) }}</span>
+            <div class="space-x-2">
+              <span class="text-sm text-gray-500 line-through">
+                  {{ useFormatNumber(product.regular_price) }}
+                </span>
+              <span class="text-red-500 text-sm font-bold">-{{
+                  Math.ceil((product.regular_price - product.price) / product.regular_price * 100)
+                }}%</span>
+            </div>
+          </div>
+
+          <!-- Color Selection -->
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <p class="text-sm font-bold">Màu sắc:</p>
+              <p class="text-sm">{{ selectedColor.label }}</p>
+            </div>
+            <div class="flex gap-2">
+              <button
+                  v-for="color in colors"
+                  :key="color.id"
+                  :class="[{ 'ring-2 ring-[#f62f30] ring-offset-2 ': selectedColor.id === color.id }]"
+                  class="w-8 h-8 rounded-full transition-transform hover:scale-110"
+                  @click="()=>{selectedColor = color as Color}">
+                <img :src="color.swatch.swatch_link" alt="color" class="w-8 h-8 rounded-full"/>
+              </button>
+            </div>
+          </div>
+
+          <!-- Size Selection -->
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <p class="text-sm font-bold">Kích cỡ:</p>
+              <p class="text-sm">{{ selectedSize.label }}</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button
+                  v-for="size in sizes"
+                  :key="size.id"
+                  :class="selectedSize.id === size.id ? 'border-[#f62f30] text-[#f62f30]' : 'border-gray-300'"
+                  class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"
+                  @click="() => { selectedSize = size }"
+              >
+                {{ size.label }}
+              </button>
+            </div>
+          </div>
+
+          <div class="border-t">
+            <button class="w-full h-10 text-md font-bold text-white bg-[#f62f30]" @click="updateCart">
+              Cập nhật vào giỏ hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
-:deep(.el-input__inner) {
-  height: 2.5rem;
-}
+
 </style>

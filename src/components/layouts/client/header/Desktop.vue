@@ -61,7 +61,7 @@ const cartCount = computed(() => {
   </div>
   <nav class="bg-white sticky top-0 z-50  border-b-1 border-gray-200">
     <div
-        class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        class="md:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl container mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="flex h-16 justify-between items-center">
         <NuxtLinkLocale class="flex-shrink-0" to="/">
           <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
@@ -182,12 +182,9 @@ const cartCount = computed(() => {
       @close="isSearchVisible = false"
   />
 
-  <CartPreview
+  <UiCartPreview
       :isOpen="isCartVisible"
-      :items="items"
-      :subtotal="subtotal"
       @close="toggleCart"
-      @removeItem="removeItem"
   />
   <LayoutsClientMenuMobileMenu
       :is-open="isMobileMenuOpen"

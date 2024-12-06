@@ -85,12 +85,9 @@ const cartCount = computed(() => {
       @close="isSearchVisible = false"
   />
 
-  <CartPreview
+  <UiCartPreview
       :isOpen="isCartVisible"
-      :items="items"
-      :subtotal="subtotal"
       @close="toggleCart"
-      @removeItem="removeItem"
   />
 </template>
 

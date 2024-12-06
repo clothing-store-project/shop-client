@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type {Color, Product, ProductDetail, Size} from "~/types/product";
+import type {CartItem} from "~/types/cart";
 
 const props = defineProps<{
   product: ProductDetail,
@@ -7,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'add-to-cart', product: ProductDetail & { selectedSize: Size, selectColor: Color }): void
+  (e: 'add-to-cart', product: CartItem): void
 }>();
 
 const buttonContainerRef = ref<HTMLElement | null>(null)
@@ -36,10 +37,12 @@ const sizes = computed(() => props.product.configurable_options.find(option => o
 
 const addToCart = () => {
   if (selectedSize.value && selectedColor.value) {
+    const { short_description, materials, instructions, description, ...productDetails } = props.product;
     emit('add-to-cart', {
-      ...props.product,
-      selectColor: selectedColor.value,
-      selectedSize: selectedSize.value
+      ...productDetails,
+      selected_color: selectedColor.value,
+      selected_size: selectedSize.value,
+      quantity:1
     });
   }
 };

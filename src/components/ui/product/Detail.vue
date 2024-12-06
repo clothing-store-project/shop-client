@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type {NavigationOptions} from "swiper/types";
+import type {CartItem} from "~/types/cart";
 
 const props = defineProps<{
   product: ProductDetail,
@@ -13,7 +14,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'add-to-cart', product: ProductDetail & { selectedSize: Size, selectColor: Color }): void
+  (e: 'add-to-cart', product: CartItem): void
 }>();
 
 const shippingInfo = [
@@ -63,10 +64,12 @@ const selectedSku = computed(() => {
 
 const addToCart = () => {
   if (selectedSize.value && selectedColor.value) {
+    const { short_description, materials, instructions, description, ...productDetails } = props.product;
     emit('add-to-cart', {
-      ...props.product,
-      selectColor: selectedColor.value,
-      selectedSize: selectedSize.value
+      ...productDetails,
+      selected_color: selectedColor.value,
+      selected_size: selectedSize.value,
+      quantity:1
     });
   }
 };
@@ -77,8 +80,9 @@ const setThumbsSwiper = (swiper: any) => {
 </script>
 
 <template>
-  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto  py-8">
-    <div class="flex flex-col md:flex-row gap-8 md:max-w-screen-lg xl:max-w-screen-xl container mx-auto">
+  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto  py-8">
+    <div
+        class="flex flex-col md:flex-row gap-8 md:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl container mx-auto">
       <!-- Image Gallery with Slider (Left Column) -->
       <div class="w-full flex h-[50rem] gap-4 justify-end  max-w-[40rem] xl:max-w-[50rem]">
         <swiper
@@ -178,7 +182,6 @@ const setThumbsSwiper = (swiper: any) => {
           </div>
           <div class="flex gap-2">
             <div class="flex space-x-2">
-
               <button
                   v-for="size in sizes"
                   :key="size.id"
