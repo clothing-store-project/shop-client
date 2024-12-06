@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type {Address, Province, District, Commune} from "~/types/address";
+import type {FormInstance, FormRules} from 'element-plus'
+import type {Info} from "~/types/info";
 
 const {t} = useI18n()
 useSeoMeta({
@@ -16,6 +18,7 @@ useHead({
   }
 })
 
+const ruleFormRef = ref<FormInstance>()
 const dialogVisible = ref(false)
 const isNew = ref(false)
 const addresses = ref<Address[]>([
@@ -152,7 +155,34 @@ const communes = ref<Commune[]>([
   }
 ])
 
-const address = ref<Address | null>(null)
+const address = ref<Address>({})
+
+const rules = reactive<FormRules<Address>>({
+  name: [
+    {required: true, message: t('validate.name.required'), trigger: 'blur'},
+    {min: 3, message: t('validate.name.min', {value: 3}), trigger: 'blur'},
+    {max: 255, message: t('validate.name.max', {value: 255}), trigger: 'blur'},
+  ],
+  phone: [
+    {required: true, message: t('validate.phone.required'), trigger: 'blur'},
+    {pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/, message: t('validate.phone.pattern'), trigger: 'blur'},
+  ],
+  province: [
+    {required: true, message: t('validate.required', {value: t('general.province')}), trigger: 'blur'},
+  ],
+  district: [
+    {required: true, message: t('validate.required', {value: t('general.district')}), trigger: 'blur'},
+  ],
+  commune: [
+    {required: true, message: t('validate.required', {value: t('general.commune')}), trigger: 'blur'},
+  ],
+  address: [
+    {required: true, message: t('validate.required', {value: t('general.address')}), trigger: 'blur'},
+  ],
+  type: [
+    {required: true, message: t('validate.required', {value: t('page.address.type')}), trigger: 'blur'},
+  ],
+})
 
 const handleEdit = (selectedAddress: Address) => {
   console.log('Edit address:', selectedAddress)
@@ -290,7 +320,7 @@ onMounted(() => {
       :title="$t('page.address.title')"
       style="min-width: 240px"
   >
-    <el-form :model="address">
+    <el-form ref="ruleFormRef" :model="address" :rules="rules">
       <div class="grid grid-cols-1 md:grid-cols-2 md:space-x-2">
         <el-form-item :label="$t('general.name')" class="flex-col" label-position="left" prop="name">
           <el-input v-model="address.name" autocomplete="off"/>
@@ -335,7 +365,7 @@ onMounted(() => {
           </el-select>
         </el-form-item>
       </div>
-      <el-form-item :label="$t('general.commune')" class="flex-col" label-position="left" prop="province">
+      <el-form-item :label="$t('general.commune')" class="flex-col" label-position="left" prop="commune">
         <el-select
             v-model="address.commune"
             :label="$t('general.commune')"

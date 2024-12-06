@@ -103,7 +103,8 @@
     },
     "birthday": {
       "required": "Birthday is required"
-    }
+    },
+    "required": "Field {value} is required"
   },
   "filter": {
     "latest": "Latest",

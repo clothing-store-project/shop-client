@@ -103,7 +103,8 @@
     },
     "birthday": {
       "required": "Ngày sinh không được để trống"
-    }
+    },
+    "required": "Trường {value} không được để trống"
   },
   "filter": {
     "latest": "Mới nhất",
