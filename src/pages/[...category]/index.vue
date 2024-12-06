@@ -2,7 +2,7 @@
 const route = useRoute()
 const {t} = useI18n()
 const isMobile = useCheckDeviceIsMobile()
-const isCategoryLayout = useState('deviceLayout').value === 'category'
+const isCategoryLayout = useState('deviceLayout').value === 'no-layout'
 definePageMeta({
   layout: false,
 });

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const route = useRoute()
 const routes = [
   {
     path: '/',
@@ -16,7 +17,7 @@ const routes = [
     icon: 'ShoppingBag'
   },
   {
-    path: '#',
+    path: '/account',
     label: 'Tài khoản',
     icon: 'User'
   }
@@ -45,6 +46,13 @@ const companyInfo = {
     fax: '+84-24 - 6222.2222',
     email: 'contact@adfy.com'
   }
+}
+
+const isRouteActive = (path: string) => {
+  if (path === '/') {
+    return route.path === path;
+  }
+  return route.path.includes(path);
 }
 </script>
 
@@ -147,13 +155,14 @@ const companyInfo = {
   <nav class="sticky bottom-0 z-50 left-0 right-0 bg-white border-t border-gray-200 py-2 px-4">
     <div class="max-w-screen-xl mx-auto">
       <ul class="flex justify-between items-center">
-        <li v-for="route in routes" :key="route.path" class="flex-1">
+        <li v-for="(link, index) in routes" :key="index" class="flex-1">
           <NuxtLinkLocale
-              :to="route.path"
+              :to="link.path"
               class="menu-item flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none"
+              :class="{ 'router-link-active': isRouteActive(link.path) }"
           >
-            <IconComponent class="icon" :name="route.icon" :size="24"/>
-            <span class="text-xs">{{ route.label }}</span>
+            <IconComponent class="icon" :name="link.icon" :size="24"/>
+            <span class="text-xs">{{ link.label }}</span>
           </NuxtLinkLocale>
         </li>
       </ul>

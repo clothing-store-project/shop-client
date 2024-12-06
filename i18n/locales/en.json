@@ -37,6 +37,11 @@
     "tags": "Tags",
     "password": "Password",
     "update": "Update",
+    "edit" : "Edit",
+    "delete": "Delete",
+    "province": "Province/City",
+    "district": "District/Town",
+    "commune": "Commune/Ward",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -143,6 +148,17 @@
       "title": "{value} | ADFY",
       "description": "List of products in {value} | ADFY",
       "list": "List Categories"
+    },
+    "address": {
+      "title": "Address",
+      "description": "Manage your address",
+      "add": "Add address",
+      "list": "Address Book",
+      "no_address": "No address",
+      "company": "Company",
+      "home": "Home",
+      "default": "Default",
+      "type": "Address type"
     }
   }
 }

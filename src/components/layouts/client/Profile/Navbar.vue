@@ -21,7 +21,7 @@ const logout = () => {
       <NuxtLinkLocale
           active-class="bg-rose-50 text-rose-500"
           class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 items-center flex gap-2"
-          to="dashboard"
+          to="/account/dashboard"
       >
         <Icon class="h-6 w-6" name="lucide:chart-no-axes-combined"/>
         {{ $t('general.dashboard.dashboard') }}
@@ -29,7 +29,7 @@ const logout = () => {
       <NuxtLinkLocale
           active-class="bg-rose-50 text-rose-500"
           class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 items-center flex gap-2"
-          to="/order"
+          to="/account/order"
       >
         <Icon class="h-6 w-6" name="lucide:shopping-cart"/>
         {{ $t('general.dashboard.orders') }}
@@ -37,7 +37,7 @@ const logout = () => {
       <NuxtLinkLocale
           active-class="bg-rose-50 text-rose-500"
           class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 items-center flex gap-2"
-          to="/profile"
+          to="/account"
       >
         <Icon class="h-6 w-6" name="lucide:user-round-pen"/>
         {{ $t('general.dashboard.profile') }}
@@ -45,7 +45,7 @@ const logout = () => {
       <NuxtLinkLocale
           active-class="bg-rose-50 text-rose-500"
           class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 items-center flex gap-2"
-          to="/address"
+          to="/account/address"
       >
         <Icon class="h-6 w-6" name="lucide:notebook"/>
         {{ $t('general.dashboard.address') }}
@@ -53,7 +53,7 @@ const logout = () => {
       <NuxtLinkLocale
           active-class="bg-rose-50 text-rose-500"
           class="px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 items-center flex gap-2"
-          to="/password"
+          to="/account/password"
       >
         <Icon class="h-6 w-6" name="lucide:lock"/>
         {{ $t('general.dashboard.password') }}

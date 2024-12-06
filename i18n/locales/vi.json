@@ -37,6 +37,11 @@
     "tag": "Tags",
     "password": "Mật khẩu",
     "update": "Cập nhật",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "commune": "Phường/Xã",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -143,6 +148,17 @@
       "title": "{value} | ADFY",
       "description": "Danh sách sản phẩm {value} | ADFY",
       "list": "Danh sách danh mục"
+    },
+    "address": {
+      "title": "Địa chỉ",
+      "description": "Quản lý địa chỉ của bạn",
+      "add": "Thêm địa chỉ",
+      "list": "Sổ địa chỉ",
+      "no_address": "Chưa có địa chỉ",
+      "company": "Công ty",
+      "home": "Nhà riêng",
+      "default": "Mặc định",
+      "type": "Loại địa chỉ"
     }
   }
 }
