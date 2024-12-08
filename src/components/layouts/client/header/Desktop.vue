@@ -147,7 +147,7 @@ const cartCount = computed(() => {
                 placeholder="Tìm kiếm"
             />
           </div>
-          <NuxtLinkLocale class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600" to="/dashboard">
+          <NuxtLinkLocale class="hidden md:flex flex-col items-center text-gray-700 hover:text-red-600" to="/account">
             <el-icon :size="22" class="text-xl mb-0.5">
               <LazyElIconUser/>
             </el-icon>

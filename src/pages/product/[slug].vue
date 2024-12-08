@@ -239,7 +239,7 @@ useSeoMeta({
 })
 
 const isMobile = useCheckDeviceIsMobile()
-const isProductLayout = useState('deviceLayout').value === 'product'
+const isProductLayout = useState('deviceLayout').value === 'no-layout'
 definePageMeta({
   layout: false,
 });
