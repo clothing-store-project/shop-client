@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type {Color, Product, Size} from "~/types/product";
+import type {CartItem} from "~/types/cart";
 
 const props = defineProps<{
   product: Product;
@@ -8,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'add-to-cart', product: Product & { selectedSize: Size, selectColor: Color }): void
+  (e: 'add-to-cart', product: CartItem): void
 }>();
 
 const productDiscount = computed(() => Math.ceil((props.product.regular_price - props.product.price) / props.product.regular_price * 100));
@@ -16,8 +17,8 @@ const colors = computed(() => props.product.configurable_options.find(option => 
 const sizes = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
 const allImages = computed(() => props.product.configurable_children.map(child => child.media_gallery.find(media => media.pos === 1)).filter(Boolean));
 const imageSelect = ref(allImages.value[0]);
-const selectedColor = ref<Color>(props.product.configurable_children[0].color);
-const selectedSize = ref<Size>(props.product.configurable_children[0].size);
+const selectedColor = ref<Color>(props.product.configurable_children[0].color)
+const selectedSize = ref<Size>(props.product.configurable_children[0].size)
 
 const selectSize = (size: Size) => {
   selectedSize.value = size;
@@ -33,11 +34,12 @@ const handleSelectColor = (color: Color) => {
 };
 
 const addToCart = () => {
-  if (selectedSize.value) {
+  if (selectedSize.value && selectedColor.value) {
     emit('add-to-cart', {
       ...props.product,
-      selectColor: selectedColor.value,
-      selectedSize: selectedSize.value
+      selected_color: selectedColor.value,
+      selected_size: selectedSize.value,
+      quantity: 1
     });
   }
 };

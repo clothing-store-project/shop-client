@@ -49,6 +49,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     '@nuxt/icon',
+    'pinia-plugin-persistedstate/nuxt',
   ],
 
   plugins: [
@@ -100,6 +101,14 @@ export default defineNuxtConfig({
       }
     ],
   },
-  
+
+  piniaPluginPersistedstate: {
+    storage: 'cookies',
+    cookieOptions: {
+      sameSite: 'lax',
+    },
+    debug: true,
+  },
+
   compatibilityDate: '2024-10-30',
 })

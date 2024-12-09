@@ -227,17 +227,21 @@ const product = ref<ProductDetail>({
   ]
 })
 const suggestedProducts = ref<Product[]>(ProductData)
+const cartStore = useCartStore()
+const {data: cartItems} = await useAsyncData('cart', () => Promise.resolve(cartStore.cartItems))
 const addToCart = (product: CartItem) => {
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  const existingProduct = cart.find((item: CartItem) => item.id === product.id);
+  // const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  // const existingProduct = cart.find((item: CartItem) => item.id === product.id);
+  //
+  // if (existingProduct) {
+  //   existingProduct.quantity += 1;
+  // } else {
+  //   cart.push({ ...product, quantity: 1 });
+  // }
 
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
+  cartStore.addProductToCart({...product, quantity: 1})
 
-  localStorage.setItem('cart', JSON.stringify(cart));
+  // localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 useSeoMeta({

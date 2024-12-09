@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type {Product} from "~/types/product";
 import type {ProductCategory} from "~/types/category";
+import type {CartItem} from "~/types/cart";
 
 const isMobile = useCheckDeviceIsMobile();
-
-const addToCart = (product: Product) => {
-  console.log('Add to cart', product)
+const cartStore = useCartStore();
+const addToCart = (product: CartItem) => {
+  cartStore.addProductToCart(product);
+  console.log('add to cart', product);
 }
 
 defineProps({
@@ -34,9 +36,9 @@ defineProps({
           class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
       >
         <UiProductItem
+            :is-loading="isLoading"
             :is-mobile="isMobile"
             :product="product"
-            :is-loading="isLoading"
             @add-to-cart="addToCart"
         />
       </div>
@@ -58,9 +60,9 @@ defineProps({
             class="group relative rounded-3xl transition ease-in-out delay-150 animate__fadeInUp"
         >
           <UiProductItem
+              :is-loading="isLoading"
               :is-mobile="isMobile"
               :product="product"
-              :is-loading="isLoading"
               @add-to-cart="addToCart"
           />
         </div>

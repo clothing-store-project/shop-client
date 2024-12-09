@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type {CartItem} from "~/types/cart";
-import {CartData} from "~/data/cartData";
-import type {Color, Size} from "~/types/product";
+import {useCartStore} from "~/stores/cart";
 
 defineProps({
   isOpen: Boolean,
@@ -12,239 +11,9 @@ defineEmits<{
 }>()
 
 const promoCode = ref('')
-
-const cartItems = ref<CartItem[]>(CartData)
-
-const product = ref<CartItem | null>({
-  id: 1,
-  name: "Áo thun nam",
-  price: 179000,
-  regular_price: 200000,
-  status: 1,
-  slug: "ao-thun-nam",
-  stock: {
-    is_in_stock: true,
-    quantity: 50
-  },
-  season: 'Summer',
-  configurable_options: [
-    {
-      attribute_code: "color",
-      label: "Màu sắc",
-      values: [
-        {
-          id: 1,
-          label: "Đỏ",
-          swatch: {
-            swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
-            type: 1
-          }
-        },
-        {
-          id: 2,
-          label: "Xanh",
-          swatch: {
-            swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
-            type: 1
-          }
-        }
-      ]
-    },
-    {
-      attribute_code: "size",
-      label: "Kích cỡ",
-      values: [
-        {
-          id: 1,
-          label: "M"
-        },
-        {
-          id: 2,
-          label: "L"
-        }
-      ]
-    }
-  ],
-  configurable_children: [
-    {
-      id: 1,
-      name: "Áo thun nam - Đỏ - M",
-      sku: "ATN-001-RD-M",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 30
-      },
-      image: "https://example.com/images/product-variant-red-m.jpg",
-      thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
-      size: {
-        id: 1,
-        label: "M"
-      },
-      color: {
-        id: 1,
-        label: "Đỏ",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-red.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sk010-xl-2.webp",
-          pos: 2,
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Áo thun nam - Xanh - L",
-      sku: "ATN-001-BL-L",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 2,
-        label: "L"
-      },
-      color: {
-        id: 2,
-        label: "Xanh",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Áo thun nam - Đỏ - L",
-      sku: "ATN-001-RD-L",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 2,
-        label: "L"
-      },
-      color: {
-        id: 1,
-        label: "Đỏ",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    },
-    {
-      id: 4,
-      name: "Áo thun nam - Xanh - M",
-      sku: "ATN-001-BL-M",
-      price: 170000,
-      regular_price: 180000,
-      is_pre_order: false,
-      stock: {
-        is_in_stock: true,
-        quantity: 20
-      },
-      image: "https://example.com/images/product-variant-blue-l.jpg",
-      thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
-      size: {
-        id: 1,
-        label: "M"
-      },
-      color: {
-        id: 2,
-        label: "Xanh",
-        swatch: {
-          swatch_link: "https://example.com/images/color-swatch-blue.jpg",
-          type: 1
-        }
-      },
-      media_gallery: [
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-1-u.webp",
-          pos: 1
-        },
-        {
-          path: "https://canifa.com/img/1517/2000/resize/8/t/8ts25a001-sl302-xl-2.webp",
-          pos: 2
-        }
-      ]
-    }
-  ],
-  selected_size: {
-    "id": 1,
-    "label": "M"
-  },
-  selected_color: {
-    "id": 1,
-    "label": "Đỏ",
-    "swatch": {
-      "swatch_link": "https://media.canifa.com/attribute/swatch/images/sa476.webp",
-      "type": 1
-    }
-  },
-  quantity: 1
-})
-const selectedColor = ref<Color>(product.value.configurable_children[0].color)
-const selectedSize = ref<Size>(product.value.configurable_children[0].size)
-
-const allImages = computed(() => {
-  const uniqueImages = new Set<string>();
-  product.value.configurable_children.forEach(child => {
-    child.media_gallery.forEach(media => {
-      uniqueImages.add(media.path);
-    });
-  });
-  return Array.from(uniqueImages);
-});
-const colors = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
-const sizes = computed(() => product.value.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
-const selectedSku = computed(() => {
-  const child = product.value.configurable_children.find(
-      (child) => child.color.id === selectedColor.value.id && child.size.id === selectedSize.value.id
-  )
-  return child ? child.sku : ''
-})
+const cartStore = useCartStore()
+const cartItems = ref<CartItem[]>(cartStore.cartItems)
+const product = ref<CartItem | null>()
 
 const subtotal = computed(() => {
   return cartItems.value.reduce((total, item) => total + (item.price * item.quantity), 0)
@@ -255,33 +24,26 @@ const remainingForFreeShipping = computed(() => {
   return Math.max(0, freeShippingThreshold - subtotal.value)
 })
 
-const activeDropdown = ref<number | null>(null)
+const activeDropdown = ref<CartItem | null>(null)
 
-const toggleDropdown = (itemId: number) => {
-  activeDropdown.value = activeDropdown.value === itemId ? null : itemId
+const toggleDropdown = (item: CartItem) => {
+  activeDropdown.value = activeDropdown.value === item ? null : item
 }
 
 const closeDropdown = () => {
   activeDropdown.value = null
 }
 
-const isShowAdjustItem = ref(false)
+const isShowAdjustItem = ref<boolean>(false)
 
-
-const updateCart = () => {
-  // Implementation for updating cart
-  isShowAdjustItem.value = false
-}
-const adjustItem = (itemId: number) => {
-  // Implementation for adjusting item
-
-  product.value = cartItems.value.find(item => item.id === itemId)
+const adjustItem = (cartItem: CartItem) => {
+  product.value = cartItems.value.find((item) => item.id === cartItem.id && item.selected_size.id === cartItem.selected_size.id && item.selected_color.id === cartItem.selected_color.id);
   isShowAdjustItem.value = true
   closeDropdown()
 }
 
-const removeItem = (itemId: number) => {
-  cartItems.value = cartItems.value.filter(item => item.id !== itemId)
+const removeItem = (cartItem: CartItem) => {
+  cartStore.removeCartItem(cartItem)
   closeDropdown()
 }
 
@@ -374,7 +136,7 @@ const updateQuantity = (itemId: number, change: number) => {
                       {{ item.selected_size.label }} | {{ item.selected_color.label }}
                     </div>
                   </div>
-                  <button class="text-gray-400 hover:text-gray-500" @click.stop="toggleDropdown(item.id)">
+                  <button class="text-gray-400 hover:text-gray-500" @click.stop="toggleDropdown(item)">
                     <Icon class="w-5 h-5" name="lucide:more-vertical"/>
                   </button>
                 </div>
@@ -410,19 +172,19 @@ const updateQuantity = (itemId: number, change: number) => {
 
                   <Transition name="fade">
                     <div
-                        v-if="activeDropdown === item.id"
+                        v-if="activeDropdown === item"
                         class="absolute right-4 top-12 w-64 bg-white shadow-lg rounded-lg border py-1 z-10 dropdown-menu"
                     >
                       <button
                           class="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50"
-                          @click="adjustItem(item.id)"
+                          @click="adjustItem(item)"
                       >
                         <Icon class="w-4 h-4" name="lucide:align-vertical-distribute-center"/>
                         <span class="text-sm">Điều chỉnh màu sắc, số lượng</span>
                       </button>
                       <button
                           class="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 text-red-500"
-                          @click="removeItem(item.id)"
+                          @click="removeItem(item)"
                       >
                         <Icon class="w-4 h-4" name="lucide:trash"/>
                         <span class="text-sm">Xóa sản phẩm khỏi giỏ hàng</span>
@@ -484,90 +246,7 @@ const updateQuantity = (itemId: number, change: number) => {
 
   <UiCartPreviewEdit
       :isOpen="isShowAdjustItem"
-      @close="isShowAdjustItem = false"
+      :product="product"
+      @close-popup="isShowAdjustItem = false"
   />
-  <el-dialog
-      v-model="isShowAdjustItem"
-      title="Điều chỉnh sản phẩm"
-  >
-    <!-- Content -->
-    <div class="p-6">
-      <div class="flex gap-6">
-        <!-- Product Image -->
-        <div class="w-1/2 ">
-          <img
-              :alt="product.name"
-              :src="allImages[0]"
-              class="w-full max-h-[30rem] object-cover rounded-lg"
-          />
-        </div>
-
-        <!-- Product Details -->
-        <div class="flex-1 space-y-4">
-          <div>
-            <h2 class="font-bold text-2xl">{{ product.name }}</h2>
-            <p class="text-sm text-gray-500">Sku: {{ selectedSku }}</p>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <span class="text-2xl font-bold">{{ useFormatNumber(product.price) }}</span>
-            <div class="space-x-2">
-              <span class="text-sm text-gray-500 line-through">
-                  {{ useFormatNumber(product.regular_price) }}
-                </span>
-              <span class="text-red-500 text-sm font-bold">-{{
-                  Math.ceil((product.regular_price - product.price) / product.regular_price * 100)
-                }}%</span>
-            </div>
-          </div>
-
-          <!-- Color Selection -->
-          <div class="space-y-2">
-            <div class="flex items-center gap-2">
-              <p class="text-sm font-bold">Màu sắc:</p>
-              <p class="text-sm">{{ selectedColor.label }}</p>
-            </div>
-            <div class="flex gap-2">
-              <button
-                  v-for="color in colors"
-                  :key="color.id"
-                  :class="[{ 'ring-2 ring-[#f62f30] ring-offset-2 ': selectedColor.id === color.id }]"
-                  class="w-8 h-8 rounded-full transition-transform hover:scale-110"
-                  @click="()=>{selectedColor = color as Color}">
-                <img :src="color.swatch.swatch_link" alt="color" class="w-8 h-8 rounded-full"/>
-              </button>
-            </div>
-          </div>
-
-          <!-- Size Selection -->
-          <div class="space-y-2">
-            <div class="flex items-center gap-2">
-              <p class="text-sm font-bold">Kích cỡ:</p>
-              <p class="text-sm">{{ selectedSize.label }}</p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <button
-                  v-for="size in sizes"
-                  :key="size.id"
-                  :class="selectedSize.id === size.id ? 'border-[#f62f30] text-[#f62f30]' : 'border-gray-300'"
-                  class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"
-                  @click="() => { selectedSize = size }"
-              >
-                {{ size.label }}
-              </button>
-            </div>
-          </div>
-
-          <div class="border-t">
-            <button class="w-full h-10 text-md font-bold text-white bg-[#f62f30]" @click="updateCart">
-              Cập nhật vào giỏ hàng
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-
-  </el-dialog>
 </template>
