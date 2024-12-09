@@ -5,12 +5,12 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
   
   const routeProduct = computed(() => to.path.startsWith('/product'))
   if ((isMobile && url.pathname.startsWith('/product')) || (isMobile && routeProduct.value)) {
-    useState('deviceLayout').value = 'product';
+    useState('deviceLayout').value = 'no-layout';
     return
   }
   const categories = to.params.category
   if (isMobile && categories) {
-    useState('deviceLayout').value = 'category';
+    useState('deviceLayout').value = 'no-layout';
     return
   }
   

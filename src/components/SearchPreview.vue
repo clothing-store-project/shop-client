@@ -53,7 +53,7 @@ const close = () => {
       name="fade"
   >
     <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto border-x-blue-400">
-      <div class="mx-auto px-4 py-6 bg-white h-screen">
+      <div class="mx-auto px-4 py-6 bg-white">
         <!-- Header with close button -->
         <div class="flex justify-end mb-6">
           <button class="p-2 hover:bg-gray-100 rounded-full" @click="close">
@@ -120,7 +120,7 @@ const close = () => {
             </div>
           </div>
         </div>
-        <div v-if="searchResults.length === 0 && searchQuery" class="mb-8 flex justify-center align-center">
+        <div v-if="searchResults.length === 0 && searchQuery !== ''" class="mb-8 flex justify-center align-center">
           <p class="text-lg text-gray-600">{{ $t('general.no_result') }}</p>
         </div>
       </div>
