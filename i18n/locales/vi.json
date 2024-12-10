@@ -23,6 +23,8 @@
     "empty_cart": "Giỏ hàng trống",
     "continue_shopping": "Tiếp tục mua sắm",
     "checkout_info": "Thông tin thanh toán",
+    "new": "Mới",
+    "hint": "Gợi ý mua cùng",
     "name": "Tên",
     "email": "Email",
     "phone": "Điện thoại",
@@ -180,6 +182,20 @@
       "confirm_password": "Xác nhận mật khẩu",
       "change_password": "Đổi mật khẩu",
       "save": "Cập nhật mật khẩu"
+    }
+  },
+  "component": {
+    "view_all": "Xem tất cả sản phẩm",
+    "account": "Tài khoản",
+    "cart": {
+      "edit" : "Điều chỉnh màu sắc, số lượng",
+      "delete": "Xóa sản phẩm khỏi giỏ hàng",
+      "coupon": "Mã ưu đãi",
+      "total": "Tạm tính",
+      "save": "Tiết kiệm",
+      "checkout": "Thanh toán",
+      "edit_product": "Điều chỉnh sản phẩm",
+      "update": "Cập nhật giỏ hàng"
     }
   }
 }

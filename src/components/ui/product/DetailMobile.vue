@@ -276,7 +276,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <!--       Color Selection-->
       <div>
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium">Màu sắc: {{ selectedColor.label }}</span>
+          <span class="text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.label }}</span>
           <button class="text-blue-500 text-sm flex gap-1 items-center" @click="isShowSizeGuide=true">
             <el-icon>
               <LazyElIconQuestionFilled/>
@@ -299,7 +299,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
       <!-- Size Selection -->
       <div>
-        <span class="text-sm font-medium block mb-2">Kích cỡ:</span>
+        <span class="text-sm font-medium block mb-2">{{ $t('general.size') }}:</span>
         <div class="flex space-x-2">
           <button
               v-for="size in sizes"
@@ -320,7 +320,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-51"
       >
         <div class="grid gap-4">
-          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">Thêm vào giỏ</button>
+          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">{{ $t('general.add_to_cart')}}</button>
         </div>
       </div>
 

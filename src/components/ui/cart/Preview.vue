@@ -94,7 +94,7 @@ const updateQuantity = (item: CartItem, change: number) => {
   >
     <div v-if="isOpen" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-lg p-6 overflow-y-auto z-100">
       <div class="flex items-center justify-between p-4 border-b">
-        <h2 class="text-lg font-medium">Giỏ hàng ({{ cartItems.length }})</h2>
+        <h2 class="text-lg font-medium">{{ $t('general.cart') }} ({{ cartItems.length }})</h2>
         <button
             class="text-gray-400 hover:text-gray-500"
             @click="$emit('close')"
@@ -178,14 +178,14 @@ const updateQuantity = (item: CartItem, change: number) => {
                           @click="adjustItem(item)"
                       >
                         <Icon class="w-4 h-4" name="lucide:align-vertical-distribute-center"/>
-                        <span class="text-sm">Điều chỉnh màu sắc, số lượng</span>
+                        <span class="text-sm">{{ $t('component.cart.edit') }}</span>
                       </button>
                       <button
                           class="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 text-red-500"
                           @click="removeItem(item)"
                       >
                         <Icon class="w-4 h-4" name="lucide:trash"/>
-                        <span class="text-sm">Xóa sản phẩm khỏi giỏ hàng</span>
+                        <span class="text-sm">{{ $t('component.cart.delete') }}</span>
                       </button>
                     </div>
                   </Transition>
@@ -203,7 +203,7 @@ const updateQuantity = (item: CartItem, change: number) => {
             <el-input
                 v-model="promoCode"
                 class="w-full"
-                placeholder="Mã ưu đãi"
+                :placeholder="$t('component.cart.coupon')"
             >
               <template #prefix>
                 <div class="text-gray-400">
@@ -225,18 +225,18 @@ const updateQuantity = (item: CartItem, change: number) => {
 
         <!-- Order Summary -->
         <div class="flex items-center justify-between text-sm">
-          <span>Tạm tính</span>
+          <span>{{ $t('component.cart.total') }}</span>
           <div class="text-right">
             <div class="font-medium">{{ useFormatNumber(subtotal) }}</div>
             <div v-if="remainingForFreeShipping === 0" class="text-primary text-xs">
-              (Tiết kiệm {{ useFormatNumber(saveMoney) }})
+              ({{ $t('component.cart.save') }} {{ useFormatNumber(saveMoney) }})
             </div>
           </div>
         </div>
 
         <!-- Checkout Button -->
         <el-button class="w-full" size="large" type="primary">
-          Thanh toán
+          {{ $t('component.cart.checkout') }}
         </el-button>
       </div>
     </div>

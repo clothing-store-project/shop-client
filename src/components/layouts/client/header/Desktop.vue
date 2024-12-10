@@ -79,7 +79,7 @@ const toggleCart = () => {
                         class="mt-6 block w-full rounded-md bg-gray-900 px-4 py-2 text-center text-sm font-medium text-white hover:bg-gray-800"
                         to="#"
                     >
-                      View All Products
+                      {{ $t('component.view_all')}}
                     </NuxtLinkLocale>
                   </el-menu-item-group>
                 </template>
@@ -93,7 +93,7 @@ const toggleCart = () => {
                 <span>{{ item.name }}</span>
                 <span v-if="item.isNew"
                       class="ml-2 inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
-                  NEW
+                  {{ $t('general.new')}}
                 </span>
               </el-menu-item>
             </template>
@@ -112,7 +112,7 @@ const toggleCart = () => {
             <el-icon :size="22" class="text-xl mb-0.5">
               <LazyElIconUser/>
             </el-icon>
-            <span class="text-xs">Tài khoản</span>
+            <span class="text-xs">{{ $t('component.account') }}</span>
           </NuxtLinkLocale>
 
           <div class="hidden md:flex flex-col items-center text-gray-700 cursor-pointer hover:text-red-600 relative"
@@ -120,7 +120,7 @@ const toggleCart = () => {
             <el-icon :size="22" class="text-xl mb-0.5">
               <LazyElIconShoppingBag/>
             </el-icon>
-            <span class="text-xs">Giỏ hàng</span>
+            <span class="text-xs">{{ $t('general.cart') }}</span>
             <span
                 v-if="cartCount > 0"
                 class="absolute -top-1 right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"

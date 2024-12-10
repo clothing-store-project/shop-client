@@ -43,7 +43,7 @@ defineEmits<{
                     v-if="item.isNew"
                     class="ml-2 inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800"
                 >
-                  NEW
+                  {{ $t('general.new') }}
                 </span>
               </span>
               <Icon name="lucide:chevron-right" class="h-5 w-5"/>

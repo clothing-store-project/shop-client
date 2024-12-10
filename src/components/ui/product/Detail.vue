@@ -156,7 +156,7 @@ const setThumbsSwiper = (swiper: any) => {
         <!-- Color Selection -->
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <p class="text-sm">Màu sắc: {{ selectedColor.label }}</p>
+            <p class="text-sm">{{ $t('general.color') }}: {{ selectedColor.label }}</p>
 
           </div>
           <div class="flex gap-2">
@@ -174,7 +174,7 @@ const setThumbsSwiper = (swiper: any) => {
         <!-- Size Selection -->
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <p class="text-sm">Kích cỡ</p>
+            <p class="text-sm">{{ $t('general.size') }}</p>
             <el-link class="text-sm hover:!color-[#f62f30]" type="primary" @click="isShowSizeGuide=true">
               Gợi ý tìm size
               <Icon class="w-4 h-4" name="lucide:chevron-right"/>
@@ -198,7 +198,7 @@ const setThumbsSwiper = (swiper: any) => {
         <!-- Action Buttons -->
         <div class="flex gap-4">
           <button class="flex-1 bg-[#f62f30] h-10 text-white" @click="addToCart">
-            Thêm vào giỏ
+            {{ $t('general.add_to_cart') }}
           </button>
         </div>
 
@@ -242,7 +242,7 @@ const setThumbsSwiper = (swiper: any) => {
       </div>
     </div>
     <div class="mt-16">
-      <h2 class="text-xl font-semibold mb-6">Gợi ý mua cùng</h2>
+      <h2 class="text-xl font-semibold mb-6">{{ $t('general.hint') }}</h2>
       <UiProductList
           :is-loading="false"
           :products="suggestedProducts"

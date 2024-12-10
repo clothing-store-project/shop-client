@@ -23,6 +23,8 @@
     "empty_cart": "Empty cart",
     "continue_shopping": "Continue shopping",
     "checkout_info": "Checkout information",
+    "new": "New",
+    "hint": "You may also like",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
@@ -180,6 +182,20 @@
       "confirm_password": "Confirm password",
       "change_password": "Change password",
       "save": "Save password"
+    }
+  },
+  "component": {
+    "view_all": "View all Products",
+    "account": "Account",
+    "cart": {
+      "edit": "Edit color, quantity",
+      "delete": "Delete product from cart",
+      "coupon": "Coupon code",
+      "total": "Subtotal",
+      "save": "Save",
+      "checkout": "Checkout",
+      "edit_product": "Edit product",
+      "update": "Update Cart"
     }
   }
 }
