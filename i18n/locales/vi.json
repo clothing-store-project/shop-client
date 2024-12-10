@@ -39,9 +39,13 @@
     "update": "Cập nhật",
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
+    "reset": "Đặt lại",
     "province": "Tỉnh/Thành phố",
     "district": "Quận/Huyện",
     "commune": "Phường/Xã",
+    "oldPassword": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -104,6 +108,13 @@
     "birthday": {
       "required": "Ngày sinh không được để trống"
     },
+    "password": {
+      "required": "{name} không được để trống",
+      "min": "{name} phải có ít nhất {value} ký tự",
+      "max": "{name} phải không quá {value} ký tự",
+      "same": "{name} không được giống với {value}",
+      "confirm": "{name} không khớp"
+    },
     "required": "Trường {value} không được để trống"
   },
   "filter": {
@@ -160,6 +171,15 @@
       "home": "Nhà riêng",
       "default": "Mặc định",
       "type": "Loại địa chỉ"
+    },
+    "password": {
+      "title": "Mật khẩu",
+      "description": "Quản lý mật khẩu của bạn",
+      "current_password": "Mật khẩu hiện tại",
+      "new_password": "Mật khẩu mới",
+      "confirm_password": "Xác nhận mật khẩu",
+      "change_password": "Đổi mật khẩu",
+      "save": "Cập nhật mật khẩu"
     }
   }
 }

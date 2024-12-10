@@ -37,11 +37,15 @@
     "tags": "Tags",
     "password": "Password",
     "update": "Update",
-    "edit" : "Edit",
+    "edit": "Edit",
     "delete": "Delete",
+    "reset": "Reset",
     "province": "Province/City",
     "district": "District/Town",
     "commune": "Commune/Ward",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -104,6 +108,13 @@
     "birthday": {
       "required": "Birthday is required"
     },
+    "password": {
+      "required": "{name} is required",
+      "min": "{name} must be at least {value} characters",
+      "max": "{name} must be at most {value} characters",
+      "same": "{name} must not be the same as {value}",
+      "confirm": "{name} does not match"
+    },
     "required": "Field {value} is required"
   },
   "filter": {
@@ -160,6 +171,15 @@
       "home": "Home",
       "default": "Default",
       "type": "Address type"
+    },
+    "password": {
+      "title": "Change Password",
+      "description": "Change your password",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "confirm_password": "Confirm password",
+      "change_password": "Change password",
+      "save": "Save password"
     }
   }
 }
