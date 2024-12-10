@@ -1,63 +1,19 @@
 <script lang="ts" setup>
-import type {CartItem} from "~/types/cart";
 
 const router = useRouter()
 
-const isMobileMenuOpen = ref<boolean>(false)
 const isCartVisible = ref<boolean>(false)
 const isSearchVisible = ref<boolean>(false)
 
 const toggleCart = () => {
   isCartVisible.value = !isCartVisible.value
 }
-
-const items = ref<CartItem[]>([
-  {
-    id: 1,
-    name: 'Sophisticated Swagger Suit',
-    price: 50.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  },
-  {
-    id: 2,
-    name: 'Cozy Knit Cardigan Sweater',
-    price: 40.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  },
-  {
-    id: 3,
-    name: 'Athletic Mesh Sports Leggings',
-    price: 65.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  }
-])
-
-
-const removeItem = (id: number) => {
-  items.value = items.value.filter(item => item.id !== id)
-}
-
-const subtotal = computed(() => {
-  return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
-})
-
-
-const cartCount = computed(() => {
-  return items.value.reduce((sum, item) => sum + item.quantity, 0)
-})
+const cartStore = useCartStore()
+const cartCount = computed(() => cartStore.cartItems.length)
 </script>
 
 <template>
-  <Icon name="lucide:circle-chevron-left" class="h-6 w-6" @click="(() => {router.back()})"/>
+  <Icon class="h-6 w-6" name="lucide:circle-chevron-left" @click="(() => {router.back()})"/>
   <slot/>
   <div class="flex gap-2">
     <div class="flex items-center space-x-4">
@@ -85,12 +41,9 @@ const cartCount = computed(() => {
       @close="isSearchVisible = false"
   />
 
-  <CartPreview
+  <UiCartPreview
       :isOpen="isCartVisible"
-      :items="items"
-      :subtotal="subtotal"
       @close="toggleCart"
-      @removeItem="removeItem"
   />
 </template>
 

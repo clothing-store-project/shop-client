@@ -1,58 +1,19 @@
 <script lang="ts" setup>
 import {mainNavItems, megaMenu} from '~/data/navigationData'
-import type {CartItem} from "~/types/cart";
 
 const {days, hours} = useCountdown(new Date('2024-12-31T23:59:59'));
 
 const isMobileMenuOpen = ref<boolean>(false)
 const isCartVisible = ref<boolean>(false)
 const isSearchVisible = ref<boolean>(false)
+const cartStore = useCartStore()
+const cartCount = computed(() => cartStore.cartItems.length)
 
 const toggleCart = () => {
   isCartVisible.value = !isCartVisible.value
 }
 
-const items = ref<CartItem[]>([
-  {
-    id: 1,
-    name: 'Sophisticated Swagger Suit',
-    price: 50.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  },
-  {
-    id: 2,
-    name: 'Cozy Knit Cardigan Sweater',
-    price: 40.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  },
-  {
-    id: 3,
-    name: 'Athletic Mesh Sports Leggings',
-    price: 65.00,
-    quantity: 1,
-    image: 'https://pet-project-shop.github.io/template/images/shop/shop-cart/pic1.jpg',
-    color: 'Black',
-    size: 'M'
-  }
-])
 
-const removeItem = (id: number) => {
-  items.value = items.value.filter(item => item.id !== id)
-}
-
-const subtotal = computed(() => {
-  return items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
-})
-
-const cartCount = computed(() => {
-  return items.value.reduce((sum, item) => sum + item.quantity, 0)
-})
 </script>
 
 <template>
@@ -61,7 +22,7 @@ const cartCount = computed(() => {
   </div>
   <nav class="bg-white sticky top-0 z-50  border-b-1 border-gray-200">
     <div
-        class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        class="md:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl container mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="flex h-16 justify-between items-center">
         <NuxtLinkLocale class="flex-shrink-0" to="/">
           <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
@@ -182,12 +143,9 @@ const cartCount = computed(() => {
       @close="isSearchVisible = false"
   />
 
-  <CartPreview
+  <UiCartPreview
       :isOpen="isCartVisible"
-      :items="items"
-      :subtotal="subtotal"
       @close="toggleCart"
-      @removeItem="removeItem"
   />
   <LayoutsClientMenuMobileMenu
       :is-open="isMobileMenuOpen"
