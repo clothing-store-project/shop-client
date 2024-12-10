@@ -216,7 +216,7 @@ export const ProductData: Product[] = [
         label: "Màu sắc",
         values: [
           {
-            id: 1,
+            id: 3,
             label: "Đỏ",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
@@ -224,7 +224,7 @@ export const ProductData: Product[] = [
             }
           },
           {
-            id: 2,
+            id: 4,
             label: "Xanh",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
@@ -238,11 +238,11 @@ export const ProductData: Product[] = [
         label: "Kích cỡ",
         values: [
           {
-            id: 1,
+            id: 3,
             label: "M"
           },
           {
-            id: 2,
+            id: 4,
             label: "L"
           }
         ]
@@ -250,7 +250,7 @@ export const ProductData: Product[] = [
     ],
     configurable_children: [
       {
-        id: 1,
+        id: 5,
         name: "Áo thun nam - Đỏ - M",
         sku: "ATN-001-RD-M",
         price: 170000,
@@ -263,11 +263,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-red-m.jpg",
         thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
         size: {
-          id: 1,
+          id: 3,
           label: "M"
         },
         color: {
-          id: 1,
+          id: 3,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-red.jpg",
@@ -286,7 +286,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 2,
+        id: 6,
         name: "Áo thun nam - Xanh - L",
         sku: "ATN-001-BL-L",
         price: 170000,
@@ -299,11 +299,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 4,
           label: "L"
         },
         color: {
-          id: 2,
+          id: 4,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -322,7 +322,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 3,
+        id: 7,
         name: "Áo thun nam - Đỏ - L",
         sku: "ATN-001-RD-L",
         price: 170000,
@@ -335,11 +335,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 4,
           label: "L"
         },
         color: {
-          id: 1,
+          id: 3,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -358,7 +358,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 4,
+        id: 8,
         name: "Áo thun nam - Xanh - M",
         sku: "ATN-001-BL-M",
         price: 170000,
@@ -371,11 +371,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 1,
+          id: 3,
           label: "M"
         },
         color: {
-          id: 2,
+          id: 4,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -413,7 +413,7 @@ export const ProductData: Product[] = [
         label: "Màu sắc",
         values: [
           {
-            id: 1,
+            id: 5,
             label: "Đỏ",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
@@ -421,7 +421,7 @@ export const ProductData: Product[] = [
             }
           },
           {
-            id: 2,
+            id: 6,
             label: "Xanh",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
@@ -435,11 +435,11 @@ export const ProductData: Product[] = [
         label: "Kích cỡ",
         values: [
           {
-            id: 1,
+            id: 5,
             label: "M"
           },
           {
-            id: 2,
+            id: 6,
             label: "L"
           }
         ]
@@ -447,7 +447,7 @@ export const ProductData: Product[] = [
     ],
     configurable_children: [
       {
-        id: 1,
+        id: 9,
         name: "Áo thun nam - Đỏ - M",
         sku: "ATN-001-RD-M",
         price: 170000,
@@ -460,11 +460,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-red-m.jpg",
         thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
         size: {
-          id: 1,
+          id: 5,
           label: "M"
         },
         color: {
-          id: 1,
+          id: 6,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-red.jpg",
@@ -483,7 +483,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 2,
+        id: 10,
         name: "Áo thun nam - Xanh - L",
         sku: "ATN-001-BL-L",
         price: 170000,
@@ -496,11 +496,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 6,
           label: "L"
         },
         color: {
-          id: 2,
+          id: 6,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -519,7 +519,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 3,
+        id: 11,
         name: "Áo thun nam - Đỏ - L",
         sku: "ATN-001-RD-L",
         price: 170000,
@@ -532,11 +532,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 6,
           label: "L"
         },
         color: {
-          id: 1,
+          id: 5,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -555,7 +555,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 4,
+        id: 12,
         name: "Áo thun nam - Xanh - M",
         sku: "ATN-001-BL-M",
         price: 170000,
@@ -568,11 +568,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 1,
+          id: 5,
           label: "M"
         },
         color: {
-          id: 2,
+          id: 6,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -610,7 +610,7 @@ export const ProductData: Product[] = [
         label: "Màu sắc",
         values: [
           {
-            id: 1,
+            id: 7,
             label: "Đỏ",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sa476.webp",
@@ -618,7 +618,7 @@ export const ProductData: Product[] = [
             }
           },
           {
-            id: 2,
+            id: 8,
             label: "Xanh",
             swatch: {
               swatch_link: "https://media.canifa.com/attribute/swatch/images/sl302.webp",
@@ -632,11 +632,11 @@ export const ProductData: Product[] = [
         label: "Kích cỡ",
         values: [
           {
-            id: 1,
+            id: 7,
             label: "M"
           },
           {
-            id: 2,
+            id: 8,
             label: "L"
           }
         ]
@@ -644,7 +644,7 @@ export const ProductData: Product[] = [
     ],
     configurable_children: [
       {
-        id: 1,
+        id: 13,
         name: "Áo thun nam - Đỏ - M",
         sku: "ATN-001-RD-M",
         price: 170000,
@@ -657,11 +657,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-red-m.jpg",
         thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
         size: {
-          id: 1,
+          id: 7,
           label: "M"
         },
         color: {
-          id: 1,
+          id: 7,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-red.jpg",
@@ -680,7 +680,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 2,
+        id: 14,
         name: "Áo thun nam - Xanh - L",
         sku: "ATN-001-BL-L",
         price: 170000,
@@ -693,11 +693,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 8,
           label: "L"
         },
         color: {
-          id: 2,
+          id: 8,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -716,7 +716,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 3,
+        id: 15,
         name: "Áo thun nam - Đỏ - L",
         sku: "ATN-001-RD-L",
         price: 170000,
@@ -729,11 +729,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 2,
+          id: 8,
           label: "L"
         },
         color: {
-          id: 1,
+          id: 7,
           label: "Đỏ",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",
@@ -752,7 +752,7 @@ export const ProductData: Product[] = [
         ]
       },
       {
-        id: 4,
+        id: 16,
         name: "Áo thun nam - Xanh - M",
         sku: "ATN-001-BL-M",
         price: 170000,
@@ -765,11 +765,11 @@ export const ProductData: Product[] = [
         image: "https://example.com/images/product-variant-blue-l.jpg",
         thumbnail: "https://example.com/images/product-variant-blue-l-thumb.jpg",
         size: {
-          id: 1,
+          id: 7,
           label: "M"
         },
         color: {
-          id: 2,
+          id: 8,
           label: "Xanh",
           swatch: {
             swatch_link: "https://example.com/images/color-swatch-blue.jpg",

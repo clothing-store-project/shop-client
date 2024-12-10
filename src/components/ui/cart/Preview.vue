@@ -16,7 +16,11 @@ const cartItems = ref<CartItem[]>(cartStore.cartItems)
 const product = ref<CartItem | null>()
 
 const subtotal = computed(() => {
-  return cartItems.value.reduce((total, item) => total + (item.price * item.quantity), 0)
+  return cartItems.value?.reduce((total, item) => total + (item.price * item.quantity), 0)
+})
+
+const saveMoney = computed(() => {
+  return cartItems.value?.reduce((total, item) => total + ((item.regular_price - item.price) * item.quantity), 0)
 })
 
 const freeShippingThreshold = 599000
@@ -24,7 +28,7 @@ const remainingForFreeShipping = computed(() => {
   return Math.max(0, freeShippingThreshold - subtotal.value)
 })
 
-const activeDropdown = ref<CartItem | null>(null)
+const activeDropdown = ref<CartItem | null>()
 
 const toggleDropdown = (item: CartItem) => {
   activeDropdown.value = activeDropdown.value === item ? null : item
@@ -38,8 +42,8 @@ const isShowAdjustItem = ref<boolean>(false)
 
 const adjustItem = (cartItem: CartItem) => {
   product.value = cartItems.value.find((item) => item.id === cartItem.id && item.selected_size.id === cartItem.selected_size.id && item.selected_color.id === cartItem.selected_color.id);
-  isShowAdjustItem.value = true
   closeDropdown()
+  isShowAdjustItem.value = true
 }
 
 const removeItem = (cartItem: CartItem) => {
@@ -63,14 +67,8 @@ onUnmounted(() => {
   document.removeEventListener('click', handleGlobalClick)
 })
 
-const updateQuantity = (itemId: number, change: number) => {
-  const item = cartItems.value.find(item => item.id === itemId)
-  if (item) {
-    const newQuantity = item.quantity + change
-    if (newQuantity > 0) {
-      item.quantity = newQuantity
-    }
-  }
+const updateQuantity = (item: CartItem, change: number) => {
+  cartStore.updateProductQuantity(item, change)
 }
 </script>
 
@@ -157,14 +155,14 @@ const updateQuantity = (itemId: number, change: number) => {
                     <button
                         :disabled="item.quantity <= 1"
                         class="w-8 h-8 border flex items-center justify-center hover:bg-gray-50"
-                        @click="updateQuantity(item.id, -1)"
+                        @click="updateQuantity(item, -1)"
                     >
                       <ElIconMinus class="w-4 h-4"/>
                     </button>
                     <span class="w-8 text-center">{{ item.quantity }}</span>
                     <button
                         class="w-8 h-8 border flex items-center justify-center hover:bg-gray-50"
-                        @click="updateQuantity(item.id, 1)"
+                        @click="updateQuantity(item, 1)"
                     >
                       <ElIconPlus class="w-4 h-4"/>
                     </button>
@@ -229,9 +227,9 @@ const updateQuantity = (itemId: number, change: number) => {
         <div class="flex items-center justify-between text-sm">
           <span>Tạm tính</span>
           <div class="text-right">
-            <div class="font-medium">{{ subtotal.toLocaleString() }} đ</div>
+            <div class="font-medium">{{ useFormatNumber(subtotal) }}</div>
             <div v-if="remainingForFreeShipping === 0" class="text-primary text-xs">
-              (Tiết kiệm {{ (89700).toLocaleString() }} đ)
+              (Tiết kiệm {{ useFormatNumber(saveMoney) }})
             </div>
           </div>
         </div>
@@ -243,10 +241,13 @@ const updateQuantity = (itemId: number, change: number) => {
       </div>
     </div>
   </Transition>
-
-  <UiCartPreviewEdit
-      :isOpen="isShowAdjustItem"
+  <LazyUiCartPreviewEdit
+      v-if="product"
+      :isOpenPopup="isShowAdjustItem"
       :product="product"
-      @close-popup="isShowAdjustItem = false"
+      @close-popup="()=>{
+        isShowAdjustItem = false
+        product = null
+      }"
   />
 </template>

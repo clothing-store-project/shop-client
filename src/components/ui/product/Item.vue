@@ -39,7 +39,7 @@ const addToCart = () => {
       ...props.product,
       selected_color: selectedColor.value,
       selected_size: selectedSize.value,
-      quantity: 1
+      quantity: 1,
     });
   }
 };

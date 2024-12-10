@@ -7,7 +7,6 @@ const isMobile = useCheckDeviceIsMobile();
 const cartStore = useCartStore();
 const addToCart = (product: CartItem) => {
   cartStore.addProductToCart(product);
-  console.log('add to cart', product);
 }
 
 defineProps({
