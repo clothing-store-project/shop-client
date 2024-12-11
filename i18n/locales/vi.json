@@ -48,6 +48,14 @@
     "oldPassword": "Mật khẩu cũ",
     "newPassword": "Mật khẩu mới",
     "confirmPassword": "Xác nhận mật khẩu",
+    "cod": "Thanh toán khi nhận hàng (COD)",
+    "shipping": "Giao hàng toàn quốc.",
+    "free_delivery": "Miễn phí giao hàng",
+    "free_return": "Miễn phí trả hàng",
+    "u_may_also_like": "Có thể bạn cũng thích",
+    "kids": "Trẻ em",
+    "accessories": "Phụ kiện",
+    "explore": "Xem thêm",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -196,6 +204,22 @@
       "checkout": "Thanh toán",
       "edit_product": "Điều chỉnh sản phẩm",
       "update": "Cập nhật giỏ hàng"
+    },
+    "product": {
+      "free_delivery": "Với đơn hàng trên {value}",
+      "free_return": "Trong 30 ngày kể từ ngày mua",
+      "share": "Chia sẻ sản phẩm",
+      "sms": "Chia sẻ qua SMS",
+      "link": "Sao chép liên kết",
+      "size": {
+        "title": "Gợi ý tìm size"
+      }
+    },
+    "order": {
+      "total_price": "Tổng tiền",
+      "shipping": "Phí vận chuyển",
+      "tax": "Thuế",
+      "total": "Tổng cộng"
     }
   }
 }

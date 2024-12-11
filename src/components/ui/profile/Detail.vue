@@ -28,7 +28,7 @@ const rules = reactive<FormRules<Info>>({
     {pattern: /^(\+\d{1,3}[- ]?)?\d{10}$/, message: t('validate.phone.pattern'), trigger: 'blur'},
   ],
   birthday: [
-    {required: true, message: 'Please input birthday', trigger: 'blur'},
+    {required: true, message: t('validate.birthday.required'), trigger: 'blur'},
   ],
 })
 

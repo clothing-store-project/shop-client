@@ -48,6 +48,14 @@
     "oldPassword": "Old password",
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
+    "cod": "Cash on delivery (COD)",
+    "shipping": "Nationwide delivery.",
+    "free_delivery": "Free delivery",
+    "free_return": "Free return",
+    "u_may_also_like": "You may also like",
+    "kids": "Kids",
+    "accessories": "Accessories",
+    "explore": "View more",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -196,6 +204,22 @@
       "checkout": "Checkout",
       "edit_product": "Edit product",
       "update": "Update Cart"
+    },
+    "product": {
+      "free_delivery": "With order more than {value}",
+      "free_return": "Within 30 days from purchase",
+      "share": "Share product",
+      "sms": "Share via SMS",
+      "link": "Copy link",
+      "size": {
+        "title": "Select size hint"
+      }
+    },
+    "order": {
+      "total_price": "Total price",
+      "shipping": "Shipping fee",
+      "tax": "Tax",
+      "total": "Total"
     }
   }
 }

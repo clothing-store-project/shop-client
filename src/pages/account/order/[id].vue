@@ -294,19 +294,19 @@ onMounted(() => {
               <!-- Order Summary -->
               <div class="border-t pt-6 space-y-4">
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Total Price</span>
+                  <span class="text-gray-600">{{ $t('component.order.total_price') }}</span>
                   <span class="font-medium">+ ${{ order.total_amount - order.tax_amount - order.shipping_fee }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Shipping Fee</span>
+                  <span class="text-gray-600">{{ $t('component.order.shipping') }}</span>
                   <span class="font-medium">+ ${{ order.shipping_fee }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Tax</span>
+                  <span class="text-gray-600">{{ $t('component.order.tax') }}</span>
                   <span class="font-medium">+ ${{ order.tax_amount }}</span>
                 </div>
                 <div class="flex justify-between font-semibold text-lg">
-                  <span>Order Total</span>
+                  <span>{{ $t('component.order.total') }}</span>
                   <span>${{ order.total_amount }}</span>
                 </div>
               </div>
