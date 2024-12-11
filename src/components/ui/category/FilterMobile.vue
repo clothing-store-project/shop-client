@@ -152,7 +152,7 @@ const close = () => {
               class="w-1/2 !h-[40px] !border-gray-300 !text-gray-700 hover:!bg-gray-50"
               @click="resetFilters"
           >
-            Reset
+            {{ $t('general.reset') }}
           </el-button>
 
           <el-button
@@ -160,7 +160,7 @@ const close = () => {
               class="w-1/2 !h-[40px] !bg-[#f5a7a7] !border-[#f5a7a7] hover:!bg-[#f39595] hover:!border-[#f39595]"
               @click="updateQueryParams"
           >
-            Submit
+            {{ $t('general.update') }}
           </el-button>
         </div>
       </div>

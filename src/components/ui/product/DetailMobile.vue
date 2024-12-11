@@ -276,7 +276,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <!--       Color Selection-->
       <div>
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium">Màu sắc: {{ selectedColor.label }}</span>
+          <span class="text-sm font-medium">{{ $t('general.color') }}: {{ selectedColor.label }}</span>
           <button class="text-blue-500 text-sm flex gap-1 items-center" @click="isShowSizeGuide=true">
             <el-icon>
               <LazyElIconQuestionFilled/>
@@ -299,7 +299,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
       <!-- Size Selection -->
       <div>
-        <span class="text-sm font-medium block mb-2">Kích cỡ:</span>
+        <span class="text-sm font-medium block mb-2">{{ $t('general.size') }}:</span>
         <div class="flex space-x-2">
           <button
               v-for="size in sizes"
@@ -320,7 +320,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-51"
       >
         <div class="grid gap-4">
-          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">Thêm vào giỏ</button>
+          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">{{ $t('general.add_to_cart')}}</button>
         </div>
       </div>
 
@@ -352,8 +352,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </el-icon>
           </div>
           <div>
-            <h4 class="font-medium text-sm">Thanh toán khi nhận hàng (COD)</h4>
-            <p class="text-xs text-gray-500">Giao hàng toàn quốc.</p>
+            <h4 class="font-medium text-sm">{{ $t('general.cod')}}</h4>
+            <p class="text-xs text-gray-500">{{ $t('general.shipping') }}</p>
           </div>
         </div>
         <div class="flex items-center gap-3">
@@ -363,8 +363,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </el-icon>
           </div>
           <div>
-            <h4 class="font-medium text-sm">Miễn phí giao hàng</h4>
-            <p class="text-xs text-gray-500">Với đơn hàng trên 599.000 đ</p>
+            <h4 class="font-medium text-sm">{{ $t('general.free_delivery') }}</h4>
+            <p class="text-xs text-gray-500">{{ $t('component.product.free_delivery', {value: '599.000 đ'})}} </p>
           </div>
         </div>
         <div class="flex items-center gap-3">
@@ -374,14 +374,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </el-icon>
           </div>
           <div>
-            <h4 class="font-medium text-sm">Đổi hàng miễn phí</h4>
-            <p class="text-xs text-gray-500">Trong 30 ngày kể từ ngày mua</p>
+            <h4 class="font-medium text-sm">{{ $t('general.free_return') }}</h4>
+            <p class="text-xs text-gray-500">{{ $t('component.product.free_return') }}</p>
           </div>
         </div>
       </div>
     </div>
     <div class="space-y-4 mb-16">
-      <h2 class="px-4 text-lg font-medium mb-4">Có thể bạn cũng thích</h2>
+      <h2 class="px-4 text-lg font-medium mb-4">{{ $t('general.u_may_also_like') }}</h2>
       <UiProductList
           :is-loading="isLoading"
           :products="suggestedProducts"
@@ -394,7 +394,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         :modal="true"
         :show-close="true"
         custom-class="!rounded-t-xl md:!rounded-xl"
-        title="Chia sẻ sản phẩm"
+        :title="$t('component.product.share')"
         width="90%"
     >
       <div class="flex flex-col space-y-4">
@@ -402,13 +402,13 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           <el-icon class="text-xl">
             <LazyElIconMessage/>
           </el-icon>
-          <span>Chia sẻ qua tin nhắn</span>
+          <span>{{ $t('component.product.sms') }}</span>
         </button>
         <button class="flex items-center space-x-3 p-4 border rounded-lg">
           <el-icon class="text-xl">
             <LazyElIconLink/>
           </el-icon>
-          <span>Sao chép liên kết</span>
+          <span>{{ $t('component.product.link') }}</span>
         </button>
       </div>
     </el-dialog>
@@ -422,29 +422,29 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <div class="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl h-[80vh] overflow-hidden flex flex-col">
         <div class="flex items-center justify-between p-4 border-b">
           <div class="w-6 h-6"></div>
-          <h3 class="text-lg font-medium">Gợi ý tìm size</h3>
+          <h3 class="text-lg font-medium">{{ $t('component.product.size.title') }}</h3>
           <button class="text-gray-500 hover:text-gray-700" @click="isShowSizeGuide=false">
             <Icon class="w-6 h-6" name="lucide:x"/>
           </button>
         </div>
         <div class="flex-1 overflow-y-auto p-4">
           <el-tabs v-model="activeTabName" class="h-[68vh]">
-            <el-tab-pane label="Nam" name="first">
+            <el-tab-pane :label="$t('general.profile.sex.male')" name="first">
               <el-scrollbar height="40rem">
                 <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/nammobile.png"/>
               </el-scrollbar>
             </el-tab-pane>
-            <el-tab-pane label="Nữ" name="second">
+            <el-tab-pane :label="$t('general.profile.sex.female')" name="second">
               <el-scrollbar height="40rem">
                 <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/nu_mobile.png"/>
               </el-scrollbar>
             </el-tab-pane>
-            <el-tab-pane label="Trẻ em" name="third">
+            <el-tab-pane :label="$t('general.kid')" name="third">
               <el-scrollbar height="40rem">
                 <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/treemmb.png"/>
               </el-scrollbar>
             </el-tab-pane>
-            <el-tab-pane label="Phụ kiện" name="fourth">
+            <el-tab-pane :label="$t('general.accessories')" name="fourth">
               <el-scrollbar height="40rem">
                 <img alt="" class="w-full h-full" loading="lazy" src="~/assets/images/sizes/phukienmb.png"/>
               </el-scrollbar>

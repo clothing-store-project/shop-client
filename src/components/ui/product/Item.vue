@@ -84,7 +84,7 @@ const addToCart = () => {
                 class="py-3 flex-col gap-2 w-full  bg-[rgba(250,250,250,0.85)] text-[#333f48] text-xs font-semibold rounded-sm flex items-center justify-center invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200"
                 style="right: 8px; bottom: 8px; left: 8px; z-index: 2;"
             >
-              <span>Thêm nhanh vào giỏ</span>
+              <span>{{ $t('general.add_to_cart') }}</span>
               <div
                   class="grid grid-cols-6 gap-2 items-center px-2 w-full"
               >

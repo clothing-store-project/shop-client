@@ -64,7 +64,7 @@ const handleOutsideClick = (event: MouseEvent) => {
       >
         <!-- Header -->
         <div class="flex items-center justify-between p-4 border-b">
-          <h2 class="text-lg font-medium">Điều chỉnh sản phẩm</h2>
+          <h2 class="text-lg font-medium">{{ $t('component.cart.edit_product') }}</h2>
           <button
               class="text-gray-400 hover:text-gray-500"
               @click="$emit('close-popup')"
@@ -106,7 +106,7 @@ const handleOutsideClick = (event: MouseEvent) => {
               <!-- Color Selection -->
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
-                  <p class="text-sm font-bold">Màu sắc:</p>
+                  <p class="text-sm font-bold">{{ $t('general.color') }}:</p>
                   <p class="text-sm">{{ selectedColor?.label }}</p>
                 </div>
                 <div class="flex gap-2">
@@ -124,7 +124,7 @@ const handleOutsideClick = (event: MouseEvent) => {
               <!-- Size Selection -->
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
-                  <p class="text-sm font-bold">Kích cỡ:</p>
+                  <p class="text-sm font-bold">{{ $t('general.size') }}:</p>
                   <p class="text-sm">{{ selectedSize?.label }}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ const handleOutsideClick = (event: MouseEvent) => {
 
               <div class="border-t">
                 <button class="w-full h-10 text-md font-bold text-white bg-[#f62f30]" @click="updateCart">
-                  Cập nhật vào giỏ hàng
+                  {{ $t('component.cart.update') }}
                 </button>
               </div>
             </div>

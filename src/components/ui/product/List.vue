@@ -70,7 +70,7 @@ defineProps({
           :to="item.slug"
           class="border-[#ef3224] border w-50 h-10 mx-auto color-[#ef3224] flex justify-center items-center my-5 font-bold rounded-lg cursor-pointer"
       >
-        Xem thêm
+        {{ $t('general.explore') }}
       </NuxtLinkLocale>
     </div>
   </template>

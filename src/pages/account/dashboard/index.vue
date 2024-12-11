@@ -30,25 +30,6 @@ const stats = [
     <!-- Main Content -->
     <main class="w-full md:w-3/4 top-2 mb-8 px-1 sm:px-6 lg:px-8">
       <div class="md:p-1">
-        <!-- Welcome Section -->
-        <div class="rounded-xl border border-gray-200 shadow-sm p-6 mb-6">
-          <p class="text-gray-600">
-            Hello John Doe (not John Doe?
-            <a class="text-rose-500 hover:underline" href="#">Log out</a>)
-          </p>
-          <p class="text-gray-600 mt-2">
-            From your account dashboard you can view your
-            <a class="text-gray-800 hover:underline" href="#">recent orders</a>,
-            manage your
-            <a class="text-gray-800 hover:underline" href="#"
-            > billing addresses</a
-            >, and
-            <a class="text-gray-800 hover:underline" href="#"
-            >edit your password and account details</a
-            >.
-          </p>
-        </div>
-
         <!-- Stats Grid -->
         <div class="rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div
