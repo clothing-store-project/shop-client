@@ -16,6 +16,7 @@
     "color": "Màu sắc",
     "size": "Kích thước",
     "total": "Tổng cộng",
+    "done": "Hoàn tất",
     "checkout": "Thanh toán",
     "cart": "Giỏ hàng",
     "add_to_cart": "Thêm vào giỏ hàng",
@@ -190,6 +191,11 @@
       "confirm_password": "Xác nhận mật khẩu",
       "change_password": "Đổi mật khẩu",
       "save": "Cập nhật mật khẩu"
+    },
+    "checkout": {
+      "title": "Thanh toán",
+      "description": "Thanh toán đơn hàng của bạn",
+      "continue_shopping": "TIẾP TỤC MUA SẮM"
     }
   },
   "component": {

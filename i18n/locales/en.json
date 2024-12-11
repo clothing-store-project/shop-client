@@ -16,6 +16,7 @@
     "color": "Color",
     "size": "Size",
     "total": "Total",
+    "done": "Done",
     "checkout": "Checkout",
     "cart": "Cart",
     "add_to_cart": "Add to cart",
@@ -190,6 +191,11 @@
       "confirm_password": "Confirm password",
       "change_password": "Change password",
       "save": "Save password"
+    },
+    "checkout": {
+      "title": "Checkout",
+      "description": "Checkout your order",
+      "continue_shopping": "CONTINUE SHOPPING"
     }
   },
   "component": {
