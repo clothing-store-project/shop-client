@@ -1,48 +1,3 @@
-<!--<script setup lang="ts">-->
-<!--import { computed } from 'vue'-->
-<!--interface Props {-->
-<!--selected?: boolean-->
-<!--title: string-->
-<!--description: string-->
-<!--disabled?: boolean-->
-<!--}-->
-<!--const props = withDefaults(defineProps<Props>(), {-->
-<!--selected: false,-->
-<!--disabled: false-->
-<!--})-->
-<!--const emit = defineEmits<{-->
-<!--(e: 'select'): void-->
-<!--}>()-->
-<!--</script>-->
-<!--<template>-->
-<!--  <div-->
-<!--      class="border rounded-lg transition-colors"-->
-<!--      :class="[-->
-<!--      selected ? 'border-primary bg-primary/5' : 'border-gray-200',-->
-<!--      disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-primary/50'-->
-<!--    ]"-->
-<!--      @click="!disabled && emit('select')"-->
-<!--  >-->
-<!--    <div class="p-4 flex gap-3">-->
-<!--      <div-->
-<!--          class="w-5 h-5 rounded-full border-2 flex-shrink-0 mt-0.5 transition-colors"-->
-<!--          :class="[-->
-<!--          selected ? 'border-primary' : 'border-gray-300',-->
-<!--          disabled ? 'border-gray-200' : ''-->
-<!--        ]"-->
-<!--      >-->
-<!--        <div-->
-<!--            v-if="selected"-->
-<!--            class="w-full h-full rounded-full bg-primary transform scale-50"-->
-<!--        />-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <h3 class="font-medium text-gray-900">{{ title }}</h3>-->
-<!--        <p class="text-sm text-gray-500 mt-1">{{ description }}</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</template>-->
 <script lang="ts" setup>
 const shippingMethod = ref('standard')
 
@@ -108,71 +63,57 @@ const handleChangeAddress = () => {
             Phương thức vận chuyển
           </h2>
 
-          <div class="text-sm text-orange-500 mb-4">
+          <div class="text-sm text-orange-500 mb-4 ml-8">
             Mua thêm 350.000 đ để được miễn phí vận chuyển
           </div>
 
-          <el-radio-group v-model="shippingMethod" style="display: flex">
-<!--<template #default>-->
-  <div class="flex m-4 gap-4 flex-col">
+          <div class="flex">
+            <div class="flex m-4 gap-4 flex-col">
+              <div class="flex gap-2 items-center cursor-pointer border rounded-lg p-4">
+                <input type="radio" name="shippingMethod" value="standard" v-model="shippingMethod" class="ml-4"/>
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="font-medium mb-1">Giao tiêu chuẩn 2-5 ngày</div>
+                    <div class="text-sm text-gray-500">
+                      Thời gian giao hàng tùy thuộc vào điều kiện của đơn vị vận chuyển. Dự kiến giao hàng 2-5 ngày
+                    </div>
+                    <div class="flex gap-4 mt-3">
+                      <img alt="Shipping 1" src="~/assets/images/shipping/img.png"/>
+                    </div>
+                  </div>
+                  <div class="font-medium">20.000 đ</div>
+                </div>
+              </div>
 
-    <!--              <template v-slot:default>-->
-    <div class="flex items-center cursor-pointer border rounded-lg p-4" @click="shippingMethod='standard'">
-      <el-radio label="" value="standard" class="!m-0"/>
-<!--      <input name="shippingMethod" class="ml-4" type="radio">-->
-      <!--                  <div class="flex items-start justify-between">-->
-      <div>
-        <div class="font-medium mb-1">Giao tiêu chuẩn 2-5 ngày</div>
-        <div class="text-sm text-gray-500">
-          Thời gian giao hàng tùy thuộc vào điều kiện của đơn vị vận chuyển. Dự kiến giao hàng 2-5 ngày
-        </div>
-        <div class="flex gap-4 mt-3">
-          <img alt="Shipping 1" src="~/assets/images/shipping/img.png"/>
-        </div>
-      </div>
-      <div class="font-medium color-red">20.000 đ</div>
-      <!--                  </div>-->
-    </div>
-    <!--              </template>-->
-    <!--            </el-radio>-->
-
-
-    <!--              fffff-->
-    <!--              <template v-slot:default>-->
-    <div class="flex items-center cursor-pointer border rounded-lg p-4" @click="shippingMethod='standard1'">
-      <el-radio label="" value="standard1" class="!m-0"/>
-<!--      <input name="shippingMethod" class="ml-4" type="radio">-->
-      <div class="flex items-start justify-between">
-        <div>
-          <div class="font-medium mb-1">Giao tiêu chuẩn 2-5 ngày</div>
-          <div class="text-sm text-gray-500">
-            Thời gian giao hàng tùy thuộc vào điều kiện của đơn vị vận chuyển. Dự kiến giao hàng 2-5 ngày
+              <div class="flex gap-2 items-center cursor-pointer border rounded-lg p-4">
+                <input type="radio" name="shippingMethod" value="standard1" v-model="shippingMethod" class="ml-4"/>
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="font-medium mb-1">Giao tiêu chuẩn 2-5 ngày</div>
+                    <div class="text-sm text-gray-500">
+                      Thời gian giao hàng tùy thuộc vào điều kiện của đơn vị vận chuyển. Dự kiến giao hàng 2-5 ngày
+                    </div>
+                    <div class="flex gap-4 mt-3">
+                      <img alt="Shipping 1" src="~/assets/images/shipping/img.png"/>
+                    </div>
+                  </div>
+                  <div class="font-medium">20.000 đ</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="flex gap-4 mt-3">
-            <img alt="Shipping 1" src="~/assets/images/shipping/img.png"/>
-          </div>
-        </div>
-        <div class="font-medium">20.000 đ</div>
-      </div>
-    </div>
-    <!--              </template>-->
-    <!--            </el-radio>-->
-
-  </div>
-<!--</template>-->
-          </el-radio-group>
         </div>
       </div>
 
       <!-- Right Column - Order Summary -->
       <div class="w-1/3">
-        <div class="bg-gray-50 rounded-lg p-6">
+        <div class="shadow-lg rounded-lg p-6">
           <div class="mb-6">
             <div class="flex items-center justify-between mb-4">
               <span class="text-lg font-medium">Mã ưu đãi</span>
-              <el-button class="!text-blue-500" link type="primary">
+              <el-button class="!text-red-500 items-center" link type="primary">
                 Chọn hoặc nhập mã
-                <!--                <ChevronRight class="w-4 h-4" />-->
+                <Icon name="lucide:chevron-right" class="w-4 h-4 ml-2"/>
               </el-button>
             </div>
           </div>
@@ -202,7 +143,7 @@ const handleChangeAddress = () => {
               <div class="text-sm text-gray-500 text-right">(Đã bao gồm thuế VAT)</div>
             </div>
 
-            <el-button class="w-full !bg-blue-500" type="primary">
+            <el-button class="w-full !bg-red-500 pb-4" type="primary">
               Thanh toán
             </el-button>
           </div>
