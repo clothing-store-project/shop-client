@@ -88,6 +88,11 @@
         "phone": "Nhập số điện thoại",
         "birthday": "Chọn ngày sinh"
       }
+    },
+    "payment_method": {
+      "cod": "Thanh toán khi nhận hàng (COD)",
+      "vn_pay": "Thanh toán bằng VNPAY",
+      "shopee_pay": "Thanh toán bằng ShopeePay"
     }
   },
   "validate": {
@@ -195,7 +200,12 @@
     "checkout": {
       "title": "Thanh toán",
       "description": "Thanh toán đơn hàng của bạn",
-      "continue_shopping": "TIẾP TỤC MUA SẮM"
+      "continue_shopping": "TIẾP TỤC MUA SẮM",
+      "option": "Tùy chọn giao hàng",
+      "place_order": "Giao đến địa chỉ",
+      "place_order_desc": "Cập nhật thông tin giao hàng để xem chi phí và thời gian giao hàng. Thời gian giao hàng tùy thuộc vào điều kiện của đơn vị vận chuyển. Dự kiến giao hàng 2 - 5 ngày.",
+      "shipping_method": "Phương thức vận chuyển",
+      "payment_method": "Phương thức thanh toán"
     }
   },
   "component": {

@@ -16,13 +16,13 @@ const currentStep = computed(() => {
           <img alt="Pixio" class="h-8 w-auto" src="~/assets/images/logo.svg"/>
         </NuxtLinkLocale>
 
-        <div class="mx-auto mt-4 flex justify-center">
+        <div class="mx-auto mt-4 flex justify-center w-full">
           <el-steps
               :active="currentStep"
               align-center
               class="checkout-steps !text-xxl"
               finish-status="success"
-              style="min-width: 800px"
+              style="min-width: 80%"
           >
             <el-step
                 :title="$t('general.cart')"

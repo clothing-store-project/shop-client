@@ -25,7 +25,6 @@ const loading = ref(false)
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   overflow: hidden;
 
   .loader {
@@ -50,10 +49,6 @@ const loading = ref(false)
 
 .el-container {
   width: 100%;
-}
-
-.page-content {
-  min-height: 100vh;
 }
 
 @keyframes l24 {
