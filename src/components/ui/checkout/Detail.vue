@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import {usePaymentData} from "~/data/paymentData";
+import {useCartStore} from "~/stores/cart";
+import type {CartItem} from "~/types/cart";
 
 const {payments} = usePaymentData();
+const cartStore = useCartStore()
+const cartItems = ref<CartItem[]>(cartStore.cartItems)
 const shippingMethod = ref('standard')
 const paymentMethod = ref<number>(0)
 const handleChangeAddress = () => {
@@ -9,6 +13,23 @@ const handleChangeAddress = () => {
 }
 watch(() => shippingMethod.value, (value) => {
   console.log(value)
+})
+
+const totalAmount = computed(() => {
+  return cartItems.value?.reduce((total, item) => total + (item.regular_price * item.quantity), 0)
+})
+
+const subtotal = computed(() => {
+  return cartItems.value?.reduce((total, item) => total + (item.price * item.quantity), 0)
+})
+
+const saveMoney = computed(() => {
+  return cartItems.value?.reduce((total, item) => total + ((item.regular_price - item.price) * item.quantity), 0)
+})
+
+const freeShippingThreshold = 599000
+const remainingForFreeShipping = computed(() => {
+  return Math.max(0, freeShippingThreshold - subtotal.value)
 })
 </script>
 
@@ -58,7 +79,7 @@ watch(() => shippingMethod.value, (value) => {
                 @click="handleChangeAddress"
             >
               <Icon class="w-6 h-6 mr-2" name="lucide:square-pen"/>
-              Thay đổi
+              {{ $t('general.change') }}
             </el-button>
           </div>
         </div>
@@ -70,12 +91,16 @@ watch(() => shippingMethod.value, (value) => {
             {{ $t('page.checkout.shipping_method') }}
           </h2>
 
-          <div class="text-sm text-orange-500 mb-4 ml-8">
-            Mua thêm 350.000 đ để được miễn phí vận chuyển
-          </div>
+          <span v-if="remainingForFreeShipping > 0" class="text-sm text-orange-500 mb-4 ml-4">
+            Mua thêm {{ useFormatNumber(remainingForFreeShipping)}} để được miễn phí vận chuyển
+          </span>
+          <span v-else class="text-sm text-green-500 mb-4 ml-4">
+            Bạn được miễn phí vận chuyển
+          </span>
 
           <div class="flex p-4 gap-4 w-full">
-            <div class="flex gap-2 cursor-pointer border pt-4 pr-4 rounded-lg w-full" @click="shippingMethod='standard'">
+            <div class="flex gap-2 cursor-pointer border pt-4 pr-4 rounded-lg w-full"
+                 @click="shippingMethod='standard'">
               <input v-model="shippingMethod" class="ml-4 w-5 h-5" name="shippingMethod" type="radio"
                      value="standard"/>
               <div class="flex items-start justify-between w-full ml-4">
@@ -90,7 +115,7 @@ watch(() => shippingMethod.value, (value) => {
                          src="~/assets/images/shipping/img.png"/>
                   </div>
                 </div>
-                <div class="font-medium">20.000 đ</div>
+                <div class="font-medium">0 đ</div>
               </div>
             </div>
           </div>
@@ -119,15 +144,47 @@ watch(() => shippingMethod.value, (value) => {
             Sản phẩm
           </h2>
 
-<!--          <div v-for="payment in payments" :key="payment.id">-->
-<!--            <div class="flex m-4 gap-4 w-full items-center" @click="paymentMethod=payment.id">-->
-<!--              <input v-model="paymentMethod" :value="payment.id" class="ml-4 w-4 h-4" name="paymentMethod"-->
-<!--                     type="radio"/>-->
-<!--              <img :alt="payment.name" :src="payment.image"-->
-<!--                   class="w-[5rem] object-cover"/>-->
-<!--              <span>{{ payment.name }}</span>-->
-<!--            </div>-->
-<!--          </div>-->
+          <div
+              v-for="item in cartItems"
+              :key="item.id"
+              class="p-4 border-b relative"
+          >
+            <div class="flex gap-4">
+              <img
+                  :alt="item.name"
+                  class="w-20 h-20 object-cover rounded-lg"
+                  src="https://canifa.com/img/210/300/resize/2/t/2tl24w005-pg118-122-1-u.webp"
+              />
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <div>
+                    <h3 class="font-medium">{{ item.name }}</h3>
+                    <div class="text-sm text-gray-500 mt-1">
+                      {{ item.selected_size.label }} | {{ item.selected_color.label }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end mr-8">
+                <span>X {{
+                    item.quantity
+                  }}</span>
+              </div>
+              <div class="flexjustify-between">
+                <div class="flex flex-col gap-2">
+                  <span class="font-medium justify-end flex">{{ useFormatNumber(item.price * item.quantity) }}</span>
+                  <div class="space-x-4">
+                    <span class="text-red-500 text-sm">-{{
+                        Math.ceil((item.regular_price - item.price) / item.regular_price * 100)
+                      }}%</span>
+                    <span class="text-sm text-gray-500 line-through">
+                      {{ useFormatNumber(item.regular_price * item.quantity) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -149,28 +206,28 @@ watch(() => shippingMethod.value, (value) => {
             <div class="space-y-3 mb-4">
               <div class="flex justify-between">
                 <span class="text-gray-600">Giá trị đơn hàng</span>
-                <span>599.000 đ</span>
+                <span>{{ useFormatNumber(totalAmount) }}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-600">Chiết khấu</span>
-                <span class="text-red-500">-350.000 đ</span>
+                <span class="text-red-500">-{{ useFormatNumber(saveMoney) }}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-600">Phí giao hàng</span>
-                <span>20.000 đ</span>
+                <span>{{ useFormatNumber(remainingForFreeShipping) }}</span>
               </div>
             </div>
 
             <div class="border-t pt-4 mb-6">
               <div class="flex justify-between items-center mb-1">
                 <span class="font-medium">Tổng tiền thanh toán</span>
-                <span class="text-xl font-medium">269.000 đ</span>
+                <span class="text-xl font-medium">{{ useFormatNumber(subtotal) }}</span>
               </div>
               <div class="text-sm text-gray-500 text-right">(Đã bao gồm thuế VAT)</div>
             </div>
 
             <el-button class="!h-12 w-full !bg-red-500 !border-0 pb-4 !text-lg !text-white">
-              Thanh toán
+              {{ $t('general.checkout')}}
             </el-button>
           </div>
         </div>

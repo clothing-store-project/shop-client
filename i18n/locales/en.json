@@ -21,6 +21,7 @@
     "cart": "Cart",
     "add_to_cart": "Add to cart",
     "remove": "Remove",
+    "change": "Change",
     "empty_cart": "Empty cart",
     "continue_shopping": "Continue shopping",
     "checkout_info": "Checkout information",
@@ -203,7 +204,6 @@
       "continue_shopping": "CONTINUE SHOPPING",
       "option": "Order option",
       "place_order": "Place order",
-      "place_order_desc": "Update shipping information to see costs and delivery times. Delivery time depends on the conditions of the carrier. Estimated delivery time is 2 - 5 days.",
       "shipping_method": "Shipping method",
       "payment_method": "Payment method"
     }
