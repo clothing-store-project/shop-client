@@ -35,14 +35,15 @@ const isRouteActive = (path: string) => {
     <div class="max-w-screen-xl mx-auto">
       <ul class="flex justify-between items-center">
         <li v-for="(link, index) in routes" :key="index" class="flex-1">
-          <NuxtLinkLocale
-              :to="link.path"
+          <p
+
+              @click="navigateTo(link.path)"
               class="menu-item flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none"
               :class="{ 'router-link-active': isRouteActive(link.path) }"
           >
             <IconComponent class="icon" :name="link.icon" :size="24"/>
             <span class="text-xs">{{ link.label }}</span>
-          </NuxtLinkLocale>
+          </p>
         </li>
       </ul>
     </div>

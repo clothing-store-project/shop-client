@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-
-const router = useRouter()
-
 const isCartVisible = ref<boolean>(false)
 const isSearchVisible = ref<boolean>(false)
 
@@ -13,7 +10,7 @@ const cartCount = computed(() => cartStore.cartItems.length)
 </script>
 
 <template>
-  <Icon class="h-6 w-6" name="lucide:circle-chevron-left" @click="(() => {router.back()})"/>
+  <Icon class="h-6 w-6" name="lucide:circle-chevron-left" @click="(() => navigateTo('/'))"/>
   <slot/>
   <div class="flex gap-2">
     <div class="flex items-center space-x-4">

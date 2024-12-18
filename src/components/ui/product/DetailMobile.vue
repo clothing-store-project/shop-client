@@ -118,7 +118,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
               <LazyElIconShare/>
             </el-icon>
           </button>
-          <button class="p-2" @click="toggleBookmark">
+          <button class="p-2" @click="navigateTo('/cart')">
             <el-icon>
               <LazyElIconShoppingBag/>
             </el-icon>
@@ -153,7 +153,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <div class="absolute right-4 top-10 flex flex-col gap-4">
           <button
               class="-translate-y-1/2 bg-white rounded-full p-2"
-              @click="toggleBookmark"
+              @click="navigateTo('/cart')"
           >
             <el-icon :size="20">
               <LazyElIconShoppingBag/>

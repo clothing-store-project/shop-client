@@ -3,16 +3,13 @@ import {ref} from 'vue'
 import {ArrowLeft, ArrowRight, Bell, Ticket} from '@element-plus/icons-vue'
 import type {CartItem} from "~/types/cart";
 import {useCartStore} from "~/stores/cart";
-import {CartData, ProductData} from "~/data/productData";
-import type {Product} from "~/types/product";
-
-const quantity = ref(1)
+import {ProductData} from "~/data/productData";
+import type {Color, MediaGallery, Product} from "~/types/product";
+import type {DrawerProps} from "element-plus";
 
 const recommendations = ref<Product[]>(ProductData)
-
-
 const cartStore = useCartStore()
-const cartItems = ref<CartItem[]>(CartData)
+const cartItems = ref<CartItem[]>(cartStore.cartItems)
 const product = ref<CartItem | null>()
 
 const subtotal = computed(() => {
@@ -45,6 +42,9 @@ const adjustItem = (cartItem: CartItem) => {
   closeDropdown()
   isShowAdjustItem.value = true
 }
+
+const direction = ref<DrawerProps['direction']>('btt');
+// const drawer = ref<boolean>(false);
 
 const removeItem = (cartItem: CartItem) => {
   cartStore.removeCartItem(cartItem)
@@ -86,16 +86,21 @@ const updateQuantity = (item: CartItem, change: number) => {
         <h1 class="text-lg font-medium flex-1 text-center">Giỏ hàng ({{ cartItems.length }})</h1>
       </div>
       <!-- Free shipping notification -->
-      <div class="bg-red-50 text-red-600 p-3 text-sm flex items-center">
+      <div v-if="remainingForFreeShipping>0" class="bg-red-50 text-red-600 p-3 text-sm flex items-center">
         <el-icon class="mr-2">
           <Bell/>
         </el-icon>
-        <span>Mua thêm {{ useFormatNumber(599999 - subtotal) }} để được freeship.</span>
+        <span>Mua thêm {{ useFormatNumber(remainingForFreeShipping) }} để được miễn phí vận chuyển.</span>
       </div>
+    </div>
+
+    <div v-if="cartItems.length===0" class="p-4 border-b relative">
+      <p class="text-center">Không có sản phẩm </p>
     </div>
 
     <div
         v-for="item in cartItems"
+        v-else
         :key="item.id"
         :class="{ 'border-b-0': cartItems.indexOf(item) === cartItems.length - 1 }"
         class="p-4 border-b relative"
@@ -210,11 +215,112 @@ const updateQuantity = (item: CartItem, change: number) => {
             <div class="text-red-600 text-sm text-right">(Tiết kiệm {{ useFormatNumber(saveMoney) }})</div>
           </div>
         </div>
-        <el-button class="w-full !h-12 !bg-red-600 !text-white">
+        <button
+            :class="cartItems.length === 0 ? 'bg-red-400' : ''"
+            class="w-full h-12 bg-red-600 text-white"
+        >
           Thanh toán
-        </el-button>
+        </button>
       </div>
     </div>
   </div>
+
+  <el-drawer
+      v-model="isShowAdjustItem"
+      :direction="direction"
+      :size="'65%'"
+      destroy-on-close
+  >
+    <template #header>
+      <h3 class="text-md font-bold text-center mx-auto">Chọn màu sắc và kích thước</h3>
+    </template>
+    <div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
+      <img
+          v-for="(image, index) in allImages"
+          :key="index"
+          :alt="product.name"
+          :src="(image as MediaGallery).path"
+          class="w-30 h-30 object-cover rounded-md flex-shrink-0"
+      />
+    </div>
+    <div class="mb-4 flex justify-between">
+      <h3 class="text-base font-medium text-gray-900">{{ product.name }}</h3>
+      <p class="text-sm text-gray-500">Mã: {{ selectedSku }}</p>
+    </div>
+
+    <!-- Price -->
+    <div class="flex justify-between items-center">
+      <div class="flex flex-col gap-2 mb-4">
+        <div>
+        <span v-if="product.regular_price" class="text-md text-gray-500 line-through">
+          {{ useFormatNumber(product.regular_price) }}
+        </span>
+          <span v-if="productDiscount" class="text-xs text-red-600 font-bold">
+          -{{ productDiscount }}%
+        </span>
+        </div>
+        <span class="text-xl font-bold">{{ useFormatNumber(product.price) }}</span>
+      </div>
+      <div
+          class="flex gap-1 items-center justify-items-center"
+          @click="navigateTo(`/product/${product.slug}`)"
+      >
+        <span class="my-auto text-sm">Xem chi tiết</span>
+        <ElIconDArrowRight class="w-4 h-4 flex my-auto text-red-600"/>
+      </div>
+    </div>
+
+    <!-- Color Selection -->
+    <div class="mb-4">
+      <p class="text-sm text-gray-700 mb-2">{{ $t('general.color') + ': ' + selectedColor.label }}</p>
+      <div class="flex gap-2">
+        <button
+            v-for="color in colors"
+            :key="color.id"
+            :aria-label="`Select ${color.label} color`"
+            :class="color.id === selectedColor.id ? 'border-black' : 'border-gray-200'"
+            class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 transition-all duration-200  bg-beige"
+            @click="handleSelectColor(color as Color)"
+        >
+          <img :src="color.swatch.swatch_link" alt="color" class="w-6 h-6 md:w-8 md:h-8 rounded-full mx-auto"/>
+        </button>
+      </div>
+    </div>
+
+    <!-- Size Selection -->
+    <div class="mb-6">
+      <p class="text-sm text-gray-700 mb-2">{{ $t('general.size') + ': ' + selectedSize.label }}</p>
+      <div class="grid grid-cols-5 gap-2">
+        <button
+            v-for="size in sizes"
+            :key="size.id"
+            :class="[
+              selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500 bg-red-50 text-red-500'
+                : ' text-gray-700',
+              availableSizes.some(item => item.id === size.id)
+                ? 'border-gray-500'
+                : 'border-gray-200'
+            ]"
+            class="py-2 px-3 rounded border text-sm transition-all duration-200"
+            @click="availableSizes.find((item)=>item.id===size.id)?selectSize(size):null"
+        >
+          <span
+              :class="[
+              availableSizes.find((item)=>item.id===size.id) ? 'text-black' : 'line-through text-gray-400 '
+          ]"
+          >{{ size.label }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="fixed bottom-0 left-0 w-full h-12">
+      <button
+          class="w-full h-12 bg-red-500 text-white font-semibold text-md"
+          @click="addToCart"
+      >
+        {{ $t('general.add_to_cart') }}
+      </button>
+    </div>
+  </el-drawer>
 </template>
 

@@ -61,8 +61,8 @@ export const ProductData: Product[] = [
         regular_price: 180000,
         is_pre_order: false,
         stock: {
-          is_in_stock: true,
-          quantity: 30
+          is_in_stock: false,
+          quantity: 0
         },
         image: "https://example.com/images/product-variant-red-m.jpg",
         thumbnail: "https://example.com/images/product-variant-red-m-thumb.jpg",
