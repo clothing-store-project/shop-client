@@ -10,7 +10,8 @@ const cartItems = ref<CartItem[]>(cartStore.cartItems)
 const shippingMethod = ref('standard')
 const paymentMethod = ref<number>(0)
 const addressDialogVisible = ref(false)
-const updateAddress = (newAddress) => {
+const couponDialogVisible = ref(false)
+const updateAddress = (newAddress: Address) => {
   address.value = newAddress
   addressDialogVisible.value = false
 }
@@ -36,7 +37,11 @@ const remainingForFreeShipping = computed(() => {
   return Math.max(0, freeShippingThreshold - subtotal.value)
 })
 const shippingCost = computed(() => {
-  return remainingForFreeShipping.value > 0 ? shippingFee : 0
+  if (cartItems.length > 0) {
+    return remainingForFreeShipping.value > 0 ? shippingFee : 0
+  }
+
+  return 0
 })
 
 const address = ref<Address>({
@@ -217,7 +222,7 @@ const address = ref<Address>({
               </div>
             </div>
           </div>
-          <span v-else class="text-center p-4">Chưa có sản phẩm để thanh toán</span>
+          <span v-else class="flex justify-center text-center p-4">Chưa có sản phẩm để thanh toán</span>
         </div>
       </div>
 
@@ -227,7 +232,12 @@ const address = ref<Address>({
           <div class="mb-6 w-full">
             <div class="flex items-center justify-between mb-4 md:gap-12 lg:gap-20">
               <span class="text-lg font-medium">Mã ưu đãi</span>
-              <el-button class="!text-red-500 items-center" link type="primary">
+              <el-button
+                  class="!text-red-500 items-center"
+                  link
+                  type="primary"
+                  @click="couponDialogVisible = true"
+              >
                 Chọn hoặc nhập mã
                 <Icon class="w-4 h-4 ml-2" name="lucide:chevron-right"/>
               </el-button>
@@ -272,11 +282,16 @@ const address = ref<Address>({
   </div>
 
   <UiAddressDialogDetail
-      :isOpenPopup="addressDialogVisible"
       :address="address"
+      :isOpenPopup="addressDialogVisible"
       @close-popup="()=>{
-        addressDialogVisible = false
+        addressDialogVisible = !addressDialogVisible
       }"
+      @update-address="updateAddress"
+  />
+  <UiCouponList
+      :isOpen="couponDialogVisible"
+      @close-popup="couponDialogVisible = !couponDialogVisible"
   />
 </template>
 
@@ -287,8 +302,9 @@ input[type='radio'] {
 
 .checkout-btn {
   background-color: #f62f30;
+
   &.is-disabled {
-    background-color: #fca5a5 ;
+    background-color: #fca5a5;
   }
 }
 </style>

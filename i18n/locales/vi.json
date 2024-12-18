@@ -40,10 +40,12 @@
     "filter": "Lọc",
     "tag": "Tags",
     "password": "Mật khẩu",
+    "add": "Thêm mới",
     "update": "Cập nhật",
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
     "reset": "Đặt lại",
+    "cancel": "Hủy",
     "province": "Tỉnh/Thành phố",
     "district": "Quận/Huyện",
     "commune": "Phường/Xã",
@@ -186,7 +188,7 @@
       "no_address": "Chưa có địa chỉ",
       "company": "Công ty",
       "home": "Nhà riêng",
-      "default": "Mặc định",
+      "default": "Đặt làm địa chỉ mặc định",
       "type": "Loại địa chỉ"
     },
     "password": {

@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import type {Address, Commune, District, Province} from "~/types/address";
+<script lang="ts" setup>
+import type {Address} from "~/types/address";
 
 const props = defineProps({
   isOpenPopup: Boolean,
@@ -11,6 +11,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'close-popup'): void,
+  (e: 'update-address', address: Address): void,
 }>()
 
 const handleOutsideClick = (event: MouseEvent) => {
@@ -43,8 +44,8 @@ const addresses = ref<Address[]>([
   },
   {
     id: 3,
-    address: 'số 1 trường công giải, Quận Cầu Giấy, Hà Nội',
-    name: 'Nguyễn Văn A',
+    address: 'số 1 thành thái, Quận Cầu Giấy, Hà Nội',
+    name: 'Hồ Thị Tứ',
     province: 1,
     district: 1,
     commune: 1,
@@ -54,8 +55,30 @@ const addresses = ref<Address[]>([
   },
   {
     id: 4,
-    address: 'số 1 trường công giải, Quận Cầu Giấy, Hà Nội',
-    name: 'Nguyễn Văn A',
+    address: 'C+ office thành thái, Quận Cầu Giấy, Hà Nội',
+    name: 'Phạm Văn Ba',
+    province: 1,
+    district: 1,
+    commune: 1,
+    phone: '0988888888',
+    type: 0,
+    isDefault: false
+  },
+  {
+    id: 5,
+    address: 'Quận Cầu Giấy, Hà Nội',
+    name: 'Trương Công Giải',
+    province: 1,
+    district: 1,
+    commune: 1,
+    phone: '0988888888',
+    type: 0,
+    isDefault: false
+  },
+  {
+    id: 6,
+    address: 'số 1 trường công giải',
+    name: 'Nguyễn Văn B',
     province: 1,
     district: 1,
     commune: 1,
@@ -64,97 +87,57 @@ const addresses = ref<Address[]>([
     isDefault: false
   }
 ])
-const provinces = ref<Province[]>([
-  {
-    id: 1,
-    name: 'Hà Nội'
-  },
-  {
-    id: 2,
-    name: 'Hồ Chí Minh'
-  },
-  {
-    id: 3,
-    name: 'Đà Nẵng'
-  },
-  {
-    id: 4,
-    name: 'Hải Phòng'
-  },
-  {
-    id: 5,
-    name: 'Cần Thơ'
+
+const dialogVisible = ref(false)
+const isNew = ref(false)
+const dialogAddress = ref<Address>({} as Address)
+
+
+const handleAddAddress = () => {
+  isNew.value = true
+  dialogAddress.value = {} as Address
+  dialogVisible.value = true
+  emit('close-popup')
+  // Implement add address logic here
+}
+
+const handleEditAddress = (address: Address) => {
+  isNew.value = false
+  dialogAddress.value = address
+  dialogVisible.value = true
+  emit('close-popup')
+  // Implement edit address logic here
+}
+
+const handleDialogCancel = () => {
+  dialogAddress.value = {} as Address
+  dialogVisible.value = false
+}
+
+const handleDialogConfirm = (address: Address, isNew: boolean) => {
+  if (isNew) {
+    // addAddress()
+  } else {
+    // updateAddress()
   }
-])
-const districts = ref<District[]>([
-  {
-    id: 1,
-    name: 'Quận Cầu Giấy',
-    provinceId: 1
-  },
-  {
-    id: 2,
-    name: 'Quận Ba Đình',
-    provinceId: 1
-  },
-  {
-    id: 3,
-    name: 'Quận Hoàn Kiếm',
-    provinceId: 1
-  },
-  {
-    id: 4,
-    name: 'Quận Thanh Xuân',
-    provinceId: 1
-  },
-  {
-    id: 5,
-    name: 'Quận Hai Bà Trưng',
-    provinceId: 1
-  }
-])
-const communes = ref<Commune[]>([
-  {
-    id: 1,
-    name: 'Phường Dịch Vọng',
-    districtId: 1
-  },
-  {
-    id: 2,
-    name: 'Phường Dịch Vọng Hậu',
-    districtId: 1
-  },
-  {
-    id: 3,
-    name: 'Phường Quan Hoa',
-    districtId: 1
-  },
-  {
-    id: 4,
-    name: 'Phường Yên Hòa',
-    districtId: 1
-  },
-  {
-    id: 5,
-    name: 'Phường Trung Hòa',
-    districtId: 1
-  }
-])
+  dialogAddress.value = {} as Address
+  dialogVisible.value = false
+}
 </script>
 
 <template>
-  <Transition name="fade" class="w-full md:min-w-[450px]">
+  <Transition name="fade">
     <div
         v-if="isOpenPopup"
-        class="fixed inset-0 bg-black bg-opacity-50 z-999 flex items-center justify-center p-4"
+        class="fixed inset-0 bg-black bg-opacity-50 z-999 flex items-center justify-center p-4 overflow-y-auto"
         @click="handleOutsideClick"
     >
       <div
-          class="bg-white w-96 rounded-lg p-4"
+          class="bg-white rounded-lg overflow-hidden flex flex-col w-2/3"
           @click.stop
       >
         <!-- Header -->
-        <div class="flex items-center justify-between p-4">
+        <div class="flex items-center justify-between p-4 shrink-0">
           <h2 class="text-lg font-medium">{{ $t('page.address.list') }}</h2>
           <button
               class="text-gray-400 hover:text-gray-500"
@@ -164,40 +147,71 @@ const communes = ref<Commune[]>([
           </button>
         </div>
 
-        <div class="flex flex-col gap-4">
-          <div v-for="address in addresses" class="p-4 border-1 rounded-lg flex justify-between">
-            <div class="items-center gap-2 mb-1">
-              <span class="font-medium">{{ address.name }}</span><br/>
-              <span>{{ address.phone }}</span>
-              <div class="text-gray-600 mb-1">{{ address.address }}</div>
-              <el-tag
-                  v-if="address.type"
-                  effect="dark"
-                  size="large"
-                  type="primary"
-              >
-                {{ $t('page.address.company') }}
-              </el-tag>
-              <el-tag
-                  v-else
-                  effect="dark"
-                  size="large"
-                  type="success"
-              >
-                {{ $t('page.address.home') }}
-              </el-tag>
-            </div>
-            <el-button>
-              Hello
-            </el-button>
-          </div>
+        <!-- Content with scrollable area -->
+        <el-scrollbar max-height="55vh">
+          <div class="w-full grid grid-cols-2 gap-4 flex-grow overflow-y-auto px-4 pb-4">
+            <div
+                v-for="address in addresses"
+                class="cursor-pointer p-4 border-1 rounded-lg flex justify-between mb-4"
+                @click="!dialogVisible ? $emit('update-address', address) : null"
 
+            >
+              <div class="items-center gap-2 mb-1">
+                <span class="font-medium">{{ address.name }}</span><br/>
+                <span>{{ address.phone }}</span>
+                <div class="text-gray-600 mb-1">{{ address.address }}</div>
+                <el-tag
+                    v-if="address.type"
+                    effect="dark"
+                    size="large"
+                    type="primary"
+                >
+                  {{ $t('page.address.company') }}
+                </el-tag>
+                <el-tag
+                    v-else
+                    effect="dark"
+                    size="large"
+                    type="success"
+                >
+                  {{ $t('page.address.home') }}
+                </el-tag>
+              </div>
+              <el-button
+                  class="!hover:bg-red-200 hover:border-none"
+                  @click="handleEditAddress(address)"
+              >
+                <Icon name="lucide:square-pen"/>
+              </el-button>
+            </div>
+          </div>
+        </el-scrollbar>
+        <!-- Footer -->
+        <div class="p-4 bg-white shrink-0 flex justify-between w-full">
+          <el-button
+              class="w-full my-4 !bg-[#dd4b39] !border-[#dd4b39] hover:!bg-[#c9301c] hover:!border-[#c9301c]"
+              type="danger"
+              @click="handleAddAddress"
+          >
+            <Icon class="mr-2" name="lucide:house-plus"/>
+            {{ $t('page.address.add') }}
+          </el-button>
         </div>
       </div>
     </div>
   </Transition>
+  <UiAddressForm
+      :dialog-address="dialogAddress"
+      :is-new="isNew"
+      :is-open="dialogVisible"
+      @confirm="handleDialogConfirm"
+      @close-popup="()=>{
+        dialogVisible = false
+        $emit('close-popup')
+      }"
+  />
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
