@@ -13,6 +13,16 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     useState('deviceLayout').value = 'no-layout';
     return
   }
+
+  const routeCheckout = computed(() => to.path.startsWith('/checkout'))
+  if (isMobile && url.pathname.startsWith('/checkout')) {
+    useState('deviceLayout').value = 'no-layout';
+    return
+  }
+  if (routeCheckout.value) {
+    useState('deviceLayout').value = 'checkout';
+    return
+  }
   
   useState('deviceLayout').value = isMobile ? 'mobile' : 'default';
 });

@@ -16,10 +16,12 @@
     "color": "Màu sắc",
     "size": "Kích thước",
     "total": "Tổng cộng",
+    "done": "Hoàn tất",
     "checkout": "Thanh toán",
     "cart": "Giỏ hàng",
     "add_to_cart": "Thêm vào giỏ hàng",
     "remove": "Xóa",
+    "change": "Thay đổi",
     "empty_cart": "Giỏ hàng trống",
     "continue_shopping": "Tiếp tục mua sắm",
     "checkout_info": "Thông tin thanh toán",
@@ -38,10 +40,12 @@
     "filter": "Lọc",
     "tag": "Tags",
     "password": "Mật khẩu",
+    "add": "Thêm mới",
     "update": "Cập nhật",
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
     "reset": "Đặt lại",
+    "cancel": "Hủy",
     "province": "Tỉnh/Thành phố",
     "district": "Quận/Huyện",
     "commune": "Phường/Xã",
@@ -87,6 +91,11 @@
         "phone": "Nhập số điện thoại",
         "birthday": "Chọn ngày sinh"
       }
+    },
+    "payment_method": {
+      "cod": "Thanh toán khi nhận hàng (COD)",
+      "vn_pay": "Thanh toán bằng VNPAY",
+      "shopee_pay": "Thanh toán bằng ShopeePay"
     }
   },
   "validate": {
@@ -179,7 +188,7 @@
       "no_address": "Chưa có địa chỉ",
       "company": "Công ty",
       "home": "Nhà riêng",
-      "default": "Mặc định",
+      "default": "Đặt làm địa chỉ mặc định",
       "type": "Loại địa chỉ"
     },
     "password": {
@@ -190,6 +199,15 @@
       "confirm_password": "Xác nhận mật khẩu",
       "change_password": "Đổi mật khẩu",
       "save": "Cập nhật mật khẩu"
+    },
+    "checkout": {
+      "title": "Thanh toán",
+      "description": "Thanh toán đơn hàng của bạn",
+      "continue_shopping": "TIẾP TỤC MUA SẮM",
+      "option": "Tùy chọn giao hàng",
+      "place_order": "Giao đến địa chỉ",
+      "shipping_method": "Phương thức vận chuyển",
+      "payment_method": "Phương thức thanh toán"
     }
   },
   "component": {

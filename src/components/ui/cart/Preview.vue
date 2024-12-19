@@ -235,9 +235,16 @@ const updateQuantity = (item: CartItem, change: number) => {
         </div>
 
         <!-- Checkout Button -->
-        <el-button class="w-full" size="large" type="primary">
-          {{ $t('component.cart.checkout') }}
-        </el-button>
+        <NuxtLinkLocale
+            v-if="cartItems.length"
+            to="/checkout"
+            class="w-full"
+        >
+          <el-button class="w-full" size="large" type="primary">
+            {{ $t('component.cart.checkout') }}
+          </el-button>
+        </NuxtLinkLocale>
+
       </div>
     </div>
   </Transition>
