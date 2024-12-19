@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import type {Product} from "~/types/product";
 import {ProductData} from "~/data/productData";
+import {Navigation, Pagination} from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import type {NavigationOptions} from "swiper/types";
 
 const banner = ref([
   {
@@ -24,38 +30,7 @@ const banner = ref([
     alt: 'Planet',
   },
 ])
-
-const slideHeight = ref<string>('38rem')
-
-const setHeight = () => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  if (width > 1200) {
-    slideHeight.value = `${width * 0.325}px`;
-  } else if (width > 1024) {
-    slideHeight.value = `${height * 0.425}px`;
-  } else if (width > 768) {
-    slideHeight.value = `${height * 0.225}px`;
-  } else if (width > 538) {
-    slideHeight.value = `${height * 0.28}px`;
-  } else if (width > 389) {
-    slideHeight.value = `${height * 0.15}px`;
-  } else {
-    slideHeight.value = `${height * 0.16}px`;
-  }
-};
-
-onMounted(() => {
-  setHeight();
-  window.addEventListener('resize', setHeight);
-})
-onUnmounted(() => {
-  window.removeEventListener('resize', setHeight);
-})
-
-watch(() => window.innerWidth, setHeight);
-
+const navigationOption = ref<NavigationOptions>({enabled: true});
 const products = ref<Product[]>(ProductData)
 const category = ref([
   {
@@ -78,18 +53,32 @@ const category = ref([
 </script>
 
 <template>
-  <el-carousel :height="slideHeight" arrow="always" motion-blur>
-    <el-carousel-item v-for="item in banner" :key="item.id">
+  <swiper
+      :loop="true"
+      :modules="[Pagination, Navigation]"
+      :navigation="navigationOption as any"
+      :pagination="{
+      dynamicBullets: true ,
+    } as any"
+      :style="{
+              '--swiper-navigation-color': '#fff',
+              '--swiper-pagination-color': '#fff',
+              '--swiper-navigation-size': '15px',
+            }"
+  >
+    <swiper-slide v-for="item in banner" :key="item.id">
       <img :alt="item.alt" :src="item.src" class="w-full object-cover" loading="lazy">
-    </el-carousel-item>
-  </el-carousel>
-  <UiCategoryList :category="category"
-                  class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto"/>
-  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl max-w-screen-2xl mx-auto m-auto">
+    </swiper-slide>
+  </swiper>
+  <UiCategoryList
+      :category="category"
+      class="container md:max-w-screen-lg  xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto"
+  />
+  <div class="container md:max-w-screen-lg  xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto m-auto">
     <UiProductList
         :category="category"
-        :products="products"
         :is-loading="false"
+        :products="products"
     />
   </div>
 </template>

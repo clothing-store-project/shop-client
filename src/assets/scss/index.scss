@@ -1,4 +1,4 @@
-:root{
+:root {
   --el-color-primary: #f62f30 !important;
 }
 
@@ -15,9 +15,10 @@ html.dark {
   color: white;
 }
 
-.el-popper.is-pure.is-light.mega-menu{
+.el-popper.is-pure.is-light.mega-menu {
   border-radius: 0.5rem;
-  .el-menu{
+
+  .el-menu {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2rem;
@@ -47,6 +48,10 @@ html.dark {
   border-radius: 2rem;
 }
 
-.el-popup-parent--hidden{
+.el-popup-parent--hidden {
   width: 100% !important;
+}
+
+.el-drawer__header {
+  margin: 0 !important;
 }

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {Color, Product, Size} from "~/types/product";
 import type {CartItem} from "~/types/cart";
+import {getProductProperty} from "~/utils";
 
 const props = defineProps<{
   product: Product;
@@ -13,18 +14,23 @@ const emit = defineEmits<{
 }>();
 
 const productDiscount = computed(() => Math.ceil((props.product.regular_price - props.product.price) / props.product.regular_price * 100));
-const colors = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'color')?.values as Color[] || []);
-const sizes = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const {colors, sizes} = getProductProperty(props.product);
 const allImages = computed(() => props.product.configurable_children.map(child => child.media_gallery.find(media => media.pos === 1)).filter(Boolean));
 const imageSelect = ref(allImages.value[0]);
 const selectedColor = ref<Color>(props.product.configurable_children[0].color)
 const selectedSize = ref<Size>(props.product.configurable_children[0].size)
-
+const availableSizes = computed(() => {
+  return props.product.configurable_children
+      .filter(child => child.color.id === selectedColor.value.id && child.stock.is_in_stock)
+      .map(child => child.size);
+});
+const drawer = ref<boolean>(false);
 const selectSize = (size: Size) => {
   selectedSize.value = size;
-  addToCart();
+  if (!props.isMobile) {
+    addToCart();
+  }
 };
-
 const handleSelectColor = (color: Color) => {
   selectedColor.value = color;
   const variant = props.product.configurable_children.find(child => child.color.id === color.id);
@@ -32,19 +38,23 @@ const handleSelectColor = (color: Color) => {
     imageSelect.value = variant.media_gallery.find(media => media.pos === 1) || {path: '', pos: 0};
   }
 };
-
 const addToCart = () => {
-  if (selectedSize.value && selectedColor.value) {
+  if (selectedSize.value && selectedColor.value && availableSizes.value.find(item => item.id === selectedSize.value.id)) {
     emit('add-to-cart', {
       ...props.product,
       selected_color: selectedColor.value,
       selected_size: selectedSize.value,
       quantity: 1,
     });
+    drawer.value = false;
+    ElNotification({
+      title: 'Thông báo',
+      message: 'Sản phẩm đã được thêm vào giỏ hàng',
+      type: 'success'
+    });
   }
 };
 </script>
-
 <template>
   <el-skeleton :loading="isLoading" animated>
     <template #template>
@@ -92,17 +102,31 @@ const addToCart = () => {
                     v-for="size in sizes"
                     :key="size.id"
                     :class="[
-            selectedSize.id === size.id
-              ? 'border-black bg-black'
-              : 'border-gray-200 hover:border-gray-300'
-          ]"
+              selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+              availableSizes.some(item => item.id === size.id)
+                ? 'border-gray-500'
+                : 'border-gray-200'
+            ]"
                     class=" rounded border text-center transition-all duration-200 bg-white py-1"
-                    @click="selectSize(size)"
+                    @click="availableSizes.find((item)=>item.id===size.id)?selectSize(size):null"
                 >
-                  {{ size.label }}
+                   <span
+                       :class="[
+              availableSizes.find((item)=>item.id===size.id) ? 'text-black' : 'line-through text-gray-400 ',
+               selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+          ]"
+                   >{{ size.label }}</span>
                 </button>
               </div>
             </div>
+          </div>
+          <div v-else
+               class="absolute right-3 bottom-3 z-10 w-8 border-gray-50 bg-[#ffffff80] rounded-full p-2 items-center">
+            <ElIconHandbag class="w-4 h-4 flex mx-auto" @click="()=>drawer = true"/>
           </div>
         </div>
 
@@ -145,5 +169,10 @@ const addToCart = () => {
       </div>
     </template>
   </el-skeleton>
-</template>
 
+  <UiCartPopupMobile
+      :is-show="drawer"
+      :product="product"
+      @close-popup="()=>drawer = false"
+  />
+</template>

@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type {NavigationOptions} from "swiper/types";
 import type {CartItem} from "~/types/cart";
+import {getProductProperty} from "~/utils";
 
 const props = defineProps<{
   product: ProductDetail,
@@ -43,7 +44,6 @@ const activeTabName = ref<string>('first')
 const navigationOption = ref<NavigationOptions>({enabled: true});
 const selectedColor = ref<Color>(props.product.configurable_children[0].color)
 const selectedSize = ref<Size>(props.product.configurable_children[0].size)
-
 const allImages = computed(() => {
   const uniqueImages = new Set<string>();
   props.product.configurable_children.forEach(child => {
@@ -53,23 +53,26 @@ const allImages = computed(() => {
   });
   return Array.from(uniqueImages);
 });
-const colors = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
-const sizes = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const {colors, sizes} = getProductProperty(props.product);
 const selectedSku = computed(() => {
   const child = props.product.configurable_children.find(
       (child) => child.color.id === selectedColor.value.id && child.size.id === selectedSize.value.id
   )
   return child ? child.sku : ''
 })
-
+const availableSizes = computed(() => {
+  return props.product.configurable_children
+      .filter(child => child.color.id === selectedColor.value.id && child.stock.is_in_stock)
+      .map(child => child.size);
+});
 const addToCart = () => {
   if (selectedSize.value && selectedColor.value) {
-    const { short_description, materials, instructions, description, ...productDetails } = props.product;
+    const {short_description, materials, instructions, description, ...productDetails} = props.product;
     emit('add-to-cart', {
       ...productDetails,
       selected_color: selectedColor.value,
       selected_size: selectedSize.value,
-      quantity:1
+      quantity: 1
     });
   }
 };
@@ -142,7 +145,7 @@ const setThumbsSwiper = (swiper: any) => {
           <p class="text-sm text-gray-600">Mã sp: {{ selectedSku }}</p>
         </div>
 
-        <p class="text-xl font-bold text-primary">{{ product.price.toLocaleString() }} đ</p>
+        <p class="text-xl font-bold text-primary">{{ useFormatNumber(product.price) }}</p>
 
         <!-- Promotional Banner -->
         <div class="rounded-lg">
@@ -185,11 +188,25 @@ const setThumbsSwiper = (swiper: any) => {
               <button
                   v-for="size in sizes"
                   :key="size.id"
-                  :class="selectedSize.id === size.id ? 'border-red-500 text-red-500' : 'border-gray-300'"
-                  class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"
-                  @click="() => { selectedSize = size }"
+                  :class="[
+              selectedSize === size && availableSizes.find(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+              availableSizes.find(item => item.id === size.id)
+                ? 'border-gray-500'
+                : 'border-gray-200'
+            ]"
+                  class=" rounded border text-center transition-all duration-200 bg-white py-1 min-w-[48px] h-12"
+                  @click="availableSizes.find((item)=>item.id===size.id)?selectedSize = size:null"
               >
-                {{ size.label }}
+                   <span
+                       :class="[
+              availableSizes.find((item)=>item.id===size.id) ? 'text-black' : 'line-through text-gray-400 ',
+               selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+          ]"
+                   >{{ size.label }}</span>
               </button>
             </div>
           </div>

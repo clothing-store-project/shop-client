@@ -18,7 +18,7 @@ export default {
       'lg': '1025px',
       'xl': '1225px',
       '2xl': '1824px',
-    },
+    }
   },
   plugins: [],
 }

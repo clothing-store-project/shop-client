@@ -20,6 +20,7 @@
     "checkout": "Thanh toán",
     "cart": "Giỏ hàng",
     "add_to_cart": "Thêm vào giỏ hàng",
+    "update_cart": "Cập nhật giỏ hàng",
     "remove": "Xóa",
     "change": "Thay đổi",
     "empty_cart": "Giỏ hàng trống",
@@ -60,6 +61,7 @@
     "kids": "Trẻ em",
     "accessories": "Phụ kiện",
     "explore": "Xem thêm",
+    "back_to_home": "Quay lại trang chủ",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -200,6 +202,14 @@
       "change_password": "Đổi mật khẩu",
       "save": "Cập nhật mật khẩu"
     },
+    "404": {
+      "title": "Trang không tồn tại",
+      "description": "Xin lỗi, trang bạn đang tìm kiếm không thể tìm thấy."
+    },
+    "500": {
+        "title": "Lỗi máy chủ",
+        "description": "Ồ, có lỗi xảy ra trên máy chủ của chúng tôi."
+    },
     "checkout": {
       "title": "Thanh toán",
       "description": "Thanh toán đơn hàng của bạn",
@@ -214,7 +224,7 @@
     "view_all": "Xem tất cả sản phẩm",
     "account": "Tài khoản",
     "cart": {
-      "edit" : "Điều chỉnh màu sắc, số lượng",
+      "edit" : "Điều chỉnh màu sắc, kích thước",
       "delete": "Xóa sản phẩm khỏi giỏ hàng",
       "coupon": "Mã ưu đãi",
       "total": "Tạm tính",

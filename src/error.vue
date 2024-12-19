@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type {NuxtError} from '#app'
 
 useSeoMeta({
@@ -21,10 +21,8 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <h1>Page not found</h1>
-    <p>We are sorry but this page could not be found.</p>
-  </div>
+  <UiError404 v-if="error.statusCode===404"/>
+  <UiError500 v-else/>
 </template>
 
 <style scoped>

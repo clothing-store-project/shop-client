@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {CartItem} from "~/types/cart";
 import {useCartStore} from "~/stores/cart";
+import {Bell} from "@element-plus/icons-vue";
 
 defineProps({
   isOpen: Boolean,
@@ -104,12 +105,12 @@ const updateQuantity = (item: CartItem, change: number) => {
       </div>
 
       <!-- Free Shipping Progress -->
-      <!--      <div v-if="remainingForFreeShipping > 0" class="p-4 bg-primary/5 flex items-start gap-2">-->
-      <!--&lt;!&ndash;        <div class="w-4 h-4 rounded-full bg-primary/20 flex-shrink-0 mt-0.5"/>&ndash;&gt;-->
-      <!--        <p class="text-sm">-->
-      <!--          Mua thêm {{ remainingForFreeShipping.toLocaleString() }} đ để được freeship.-->
-      <!--        </p>-->
-      <!--      </div>-->
+      <div v-if="cartItems.length>0" class="bg-red-50 text-red-600 p-3 text-sm flex items-center w-full">
+        <el-icon class="mr-2">
+          <Bell/>
+        </el-icon>
+        <span>Mua thêm {{ useFormatNumber(remainingForFreeShipping) }} để được miễn phí vận chuyển.</span>
+      </div>
 
       <!-- Cart Items -->
       <div class="flex-1 overflow-y-auto">
@@ -143,13 +144,17 @@ const updateQuantity = (item: CartItem, change: number) => {
                   <div class="flex flex-col gap-2">
                     <div class="space-x-1">
                       <span class="font-medium">{{ useFormatNumber(item.price) }}</span>
-                      <span class="text-red-500 text-sm">-{{
-                          Math.ceil((item.regular_price - item.price) / item.regular_price * 100)
-                        }}%</span>
-                    </div>
-                    <span class="text-sm text-gray-500 line-through">
+                      <div v-if="item.price<item.regular_price" class="flex gap-2">
+                         <span class="text-sm text-gray-500 line-through">
                         {{ useFormatNumber(item.regular_price) }}
                       </span>
+                        <span class="text-red-500 text-sm">
+                          -{{
+                            Math.ceil((item.regular_price - item.price) / item.regular_price * 100)
+                          }}%
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div class="flex items-center gap-3 border-1">
                     <button
@@ -202,8 +207,8 @@ const updateQuantity = (item: CartItem, change: number) => {
           <div class="flex-1">
             <el-input
                 v-model="promoCode"
-                class="w-full"
                 :placeholder="$t('component.cart.coupon')"
+                class="w-full"
             >
               <template #prefix>
                 <div class="text-gray-400">
@@ -228,7 +233,7 @@ const updateQuantity = (item: CartItem, change: number) => {
           <span>{{ $t('component.cart.total') }}</span>
           <div class="text-right">
             <div class="font-medium">{{ useFormatNumber(subtotal) }}</div>
-            <div v-if="remainingForFreeShipping === 0" class="text-primary text-xs">
+            <div v-if="saveMoney !== 0" class="text-primary text-xs">
               ({{ $t('component.cart.save') }} {{ useFormatNumber(saveMoney) }})
             </div>
           </div>
