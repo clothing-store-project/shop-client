@@ -91,21 +91,21 @@ const resetFilters = () => {
 }
 
 const menuItems = ref([
-  { id: 1, label: 'Áo nỉ & Áo Hoodie', href: 'nam/ao-ni-ao-hoodie' },
-  { id: 2, label: 'Áo khoác', href: 'nam/ao-khoac' },
-  { id: 3, label: 'Áo/ Quần giữ nhiệt', href: 'nam/ao-quan-giu-nhiet' },
-  { id: 4, label: 'Áo len', href: 'nam/ao-len' },
-  { id: 5, label: 'Quần nỉ', href: 'nam/quan-ni' },
-  { id: 6, label: 'Quần áo mặc nhà/ Đồ ngủ', href: 'nu/quan-ao-mac-nha-do-ngu' },
-  { id: 7, label: 'Bộ nỉ/ Bộ quần áo', href: 'nu/bo-ni-bo-quan-ao' },
-  { id: 8, label: 'Quần dài & Quần Jean', href: 'nu/quan-dai-quan-jean' },
-  { id: 9, label: 'Quần áo thể thao', href: 'nam/quan-ao-the-thao' },
-  { id: 10, label: 'Áo polo', href: 'nam/ao-polo' },
-  { id: 11, label: 'Áo sơ mi', href: 'nam/ao-so-mi' },
-  { id: 12, label: 'Áo chống nắng', href: 'hang-moi-ve/ao-chong-nang' },
-  { id: 13, label: 'Quần soóc/ Quần short', href: 'nam/quan-short' },
-  { id: 14, label: 'Đồ lót', href: 'hang-moi-ve/do-lot' },
-  { id: 15, label: 'Tất/Vớ', href: 'hang-moi-ve/tat-vo' }
+  { id: 1, label: 'Áo nỉ & Áo Hoodie', href: 'category/nam/ao-ni-ao-hoodie' },
+  { id: 2, label: 'Áo khoác', href: 'category/nam/ao-khoac' },
+  { id: 3, label: 'Áo/ Quần giữ nhiệt', href: 'category/nam/ao-quan-giu-nhiet' },
+  { id: 4, label: 'Áo len', href: 'category/nam/ao-len' },
+  { id: 5, label: 'Quần nỉ', href: 'category/nam/quan-ni' },
+  { id: 6, label: 'Quần áo mặc nhà/ Đồ ngủ', href: 'category/nu/quan-ao-mac-nha-do-ngu' },
+  { id: 7, label: 'Bộ nỉ/ Bộ quần áo', href: 'category/nu/bo-ni-bo-quan-ao' },
+  { id: 8, label: 'Quần dài & Quần Jean', href: 'category/nu/quan-dai-quan-jean' },
+  { id: 9, label: 'Quần áo thể thao', href: 'category/nam/quan-ao-the-thao' },
+  { id: 10, label: 'Áo polo', href: 'category/nam/ao-polo' },
+  { id: 11, label: 'Áo sơ mi', href: 'category/nam/ao-so-mi' },
+  { id: 12, label: 'Áo chống nắng', href: 'category/hang-moi-ve/ao-chong-nang' },
+  { id: 13, label: 'Quần soóc/ Quần short', href: 'category/nam/quan-short' },
+  { id: 14, label: 'Đồ lót', href: 'category/hang-moi-ve/do-lot' },
+  { id: 15, label: 'Tất/Vớ', href: 'category/hang-moi-ve/tat-vo' }
 ])
 
 onMounted(() => {

@@ -17,6 +17,9 @@ const emit = defineEmits<{
 const cartStore = useCartStore()
 const selectedColor = ref<Color>(props.product?.selected_color)
 const selectedSize = ref<Size>(props.product?.selected_size)
+const selectSize = (size: Size) => {
+  selectedSize.value = size;
+};
 const allImages = computed(() => {
   const uniqueImages = new Set<string>();
   props.product.configurable_children.forEach(child => {
@@ -34,7 +37,11 @@ const selectedSku = computed(() => {
   )
   return child ? child.sku : ''
 })
-
+const availableSizes = computed(() => {
+  return props.product.configurable_children
+      .filter(child => child.color.id === selectedColor.value.id && child.stock.is_in_stock)
+      .map(child => child.size);
+});
 const updateCart = () => {
   cartStore.updateCartItem({
     ...props.product,
@@ -128,20 +135,43 @@ const handleOutsideClick = (event: MouseEvent) => {
                   <p class="text-sm">{{ selectedSize?.label }}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
+                  <!--                  <button-->
+                  <!--                      v-for="size in sizes"-->
+                  <!--                      :key="size.id"-->
+                  <!--                      :class="selectedSize?.id === size.id ? 'border-[#f62f30] text-[#f62f30]' : 'border-gray-300'"-->
+                  <!--                      class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"-->
+                  <!--                      @click="() => { selectedSize = size }"-->
+                  <!--                  >-->
+                  <!--                    {{ size.label }}-->
+                  <!--                  </button>-->
                   <button
                       v-for="size in sizes"
                       :key="size.id"
-                      :class="selectedSize?.id === size.id ? 'border-[#f62f30] text-[#f62f30]' : 'border-gray-300'"
-                      class="min-w-[48px] h-12 border rounded-md flex items-center justify-center"
-                      @click="() => { selectedSize = size }"
+                      :class="[
+              selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+              availableSizes.some(item => item.id === size.id)
+                ? 'border-gray-500'
+                : 'border-gray-200'
+            ]"
+                      class="py-2 px-3 rounded border text-sm transition-all duration-200 min-w-[48px] h-12"
+                      @click="availableSizes.find((item)=>item.id===size.id)?selectSize(size):null"
                   >
-                    {{ size.label }}
+          <span
+              :class="[
+              availableSizes.find((item)=>item.id===size.id) ? 'text-black' : 'line-through text-gray-400 ',
+               selectedSize === size && availableSizes.some(item => item.id === selectedSize.id)
+                ? 'border-red-500  text-red-500'
+                : ' text-gray-700',
+          ]"
+          >{{ size.label }}</span>
                   </button>
                 </div>
               </div>
 
               <div class="border-t">
-                <button class="w-full h-10 text-md font-bold text-white bg-[#f62f30]" @click="updateCart">
+                <button class="w-full h-10 text-sm font-bold text-white bg-[#f62f30]" @click="updateCart">
                   {{ $t('component.cart.update') }}
                 </button>
               </div>

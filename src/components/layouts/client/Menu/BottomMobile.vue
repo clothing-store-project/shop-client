@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 const route = useRoute()
 const routes = [
   {
@@ -22,6 +22,8 @@ const routes = [
     icon: 'User'
   }
 ];
+const cartStore = useCartStore()
+const cartCount = computed(() => cartStore.cartItems.length)
 const isRouteActive = (path: string) => {
   if (path === '/') {
     return route.path === path;
@@ -37,12 +39,18 @@ const isRouteActive = (path: string) => {
         <li v-for="(link, index) in routes" :key="index" class="flex-1">
           <p
 
-              @click="navigateTo(link.path)"
-              class="menu-item flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none"
               :class="{ 'router-link-active': isRouteActive(link.path) }"
+              class="menu-item flex flex-col items-center gap-1 text-gray-500 hover:text-primary-500 focus:outline-none relative"
+              @click="navigateTo(link.path)"
           >
-            <IconComponent class="icon" :name="link.icon" :size="24"/>
+            <IconComponent :name="link.icon" :size="24" class="icon"/>
             <span class="text-xs">{{ link.label }}</span>
+            <span
+                v-if="link.path === '/cart' && cartCount > 0"
+                class="absolute -top-1 right-6 bg-red-600 text-white text-xs rounded-full text-center  w-4 h-4 my-auto p-0"
+            >
+              {{ cartCount }}
+            </span>
           </p>
         </li>
       </ul>
@@ -50,7 +58,7 @@ const isRouteActive = (path: string) => {
   </nav>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .router-link-active {
   .el-icon {
     color: #ff0000;

@@ -105,7 +105,7 @@ const updateQuantity = (item: CartItem, change: number) => {
       </div>
 
       <!-- Free Shipping Progress -->
-      <div v-if="remainingForFreeShipping>0" class="bg-red-50 text-red-600 p-3 text-sm flex items-center w-full">
+      <div v-if="cartItems.length>0" class="bg-red-50 text-red-600 p-3 text-sm flex items-center w-full">
         <el-icon class="mr-2">
           <Bell/>
         </el-icon>

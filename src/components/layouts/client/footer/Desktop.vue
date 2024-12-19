@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 const companyInfo = {
   name: 'CÔNG TY CỔ PHẦN ADFY',
   registration: {
@@ -21,22 +21,22 @@ const companyInfo = {
 }
 
 const brandLinks = [
-  { title: 'Giới thiệu', href: '#' },
-  { title: 'Tin tức', href: '#' },
-  { title: 'Tuyển dụng', href: '#' },
-  { title: 'Với công đồng', href: '#' },
-  { title: 'Liên hệ', href: '#' }
+  {title: 'Giới thiệu', href: '#'},
+  {title: 'Tin tức', href: '#'},
+  {title: 'Tuyển dụng', href: '#'},
+  {title: 'Với công đồng', href: '#'},
+  {title: 'Liên hệ', href: '#'}
 ]
 
 const supportLinks = [
-  { title: 'Hỏi đáp', href: '#' },
-  { title: 'Chính sách KHTT', href: '#' },
-  { title: 'Điều kiện - Điều khoản Chính sách KHTT', href: '#' },
-  { title: 'Chính sách vận chuyển', href: '#' },
-  { title: 'Gợi ý tìm size', href: '#' },
-  { title: 'Kiểm tra đơn hàng', href: '#' },
-  { title: 'Tra cứu điểm thẻ', href: '#' },
-  { title: 'Chính sách bảo mật thông tin KH', href: '#' }
+  {title: 'Hỏi đáp', href: '#'},
+  {title: 'Chính sách KHTT', href: '#'},
+  {title: 'Điều kiện - Điều khoản Chính sách KHTT', href: '#'},
+  {title: 'Chính sách vận chuyển', href: '#'},
+  {title: 'Gợi ý tìm size', href: '#'},
+  {title: 'Kiểm tra đơn hàng', href: '#'},
+  {title: 'Tra cứu điểm thẻ', href: '#'},
+  {title: 'Chính sách bảo mật thông tin KH', href: '#'}
 ]
 </script>
 
@@ -74,16 +74,16 @@ const supportLinks = [
             </p>
           </div>
           <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-600 hover:text-red-600">
+            <a class="text-gray-600 hover:text-red-600" href="#">
               <i class="fab fa-facebook-f text-xl"></i>
             </a>
-            <a href="#" class="text-gray-600 hover:text-red-600">
+            <a class="text-gray-600 hover:text-red-600" href="#">
               <i class="fab fa-instagram text-xl"></i>
             </a>
-            <a href="#" class="text-gray-600 hover:text-red-600">
+            <a class="text-gray-600 hover:text-red-600" href="#">
               <i class="fab fa-youtube text-xl"></i>
             </a>
-            <a href="#" class="text-gray-600 hover:text-red-600">
+            <a class="text-gray-600 hover:text-red-600" href="#">
               <i class="fab fa-tiktok text-xl"></i>
             </a>
           </div>
@@ -94,9 +94,9 @@ const supportLinks = [
           <h3 class="font-medium text-base mb-4">THƯƠNG HIỆU</h3>
           <ul class="space-y-2">
             <li v-for="link in brandLinks" :key="link.href">
-              <NuxtLink :to="link.href" class="text-sm text-gray-600 hover:text-red-600">
+              <NuxtLinkLocale :to="link.href" class="text-sm text-gray-600 hover:text-red-600 cursor-pointer">
                 {{ link.title }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
           </ul>
         </div>
@@ -106,9 +106,9 @@ const supportLinks = [
           <h3 class="font-medium text-base mb-4">HỖ TRỢ</h3>
           <ul class="space-y-2">
             <li v-for="link in supportLinks" :key="link.href">
-              <NuxtLink :to="link.href" class="text-sm text-gray-600 hover:text-red-600">
+              <NuxtLinkLocale :to="link.href" class="text-sm text-gray-600 hover:text-red-600 cursor-pointer">
                 {{ link.title }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
           </ul>
         </div>
@@ -117,13 +117,13 @@ const supportLinks = [
         <div>
           <h3 class="font-medium text-base mb-4">TẢI ỨNG DỤNG</h3>
           <div class="flex items-start space-x-4">
-            <img src="https://canifa.com/assets/images/bancode.png" alt="QR Code" class="w-24 h-24" />
+            <img alt="QR Code" class="w-24 h-24" src="https://canifa.com/assets/images/bancode.png"/>
             <div class="space-y-2">
-              <a href="#" class="block">
-                <img src="https://canifa.com/assets/images/googleplay.png" alt="Get it on Google Play" class="h-10" />
+              <a class="block" href="#">
+                <img alt="Get it on Google Play" class="h-10" src="https://canifa.com/assets/images/googleplay.png"/>
               </a>
-              <a href="#" class="block">
-                <img src="https://canifa.com/assets/images/appstore.png" alt="Download on App Store" class="h-10" />
+              <a class="block" href="#">
+                <img alt="Download on App Store" class="h-10" src="https://canifa.com/assets/images/appstore.png"/>
               </a>
             </div>
           </div>
@@ -131,15 +131,13 @@ const supportLinks = [
           <!-- Payment Methods -->
           <div class="mt-8">
             <h3 class="font-medium text-base mb-4">PHƯƠNG THỨC THANH TOÁN</h3>
-              <img src="https://canifa.com/assets/images/pay.svg" alt="" class="w-full object-contain">
+            <img alt="" class="w-full object-contain" src="https://canifa.com/assets/images/pay.svg">
           </div>
         </div>
       </div>
-
-      <!-- Bottom Bar -->
-      <div class="mt-8 pt-4 border-t flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
-        <p class="text-sm text-gray-600">© 2024 ADFY. All rights reserved.</p>
-      </div>
+    </div>
+    <div class="mt-8 pt-4 border-t flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
+      <p class="text-sm text-gray-600">© 2024 ADFY. All rights reserved.</p>
     </div>
   </footer>
 </template>

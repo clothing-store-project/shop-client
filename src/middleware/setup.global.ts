@@ -12,5 +12,10 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     useState('deviceLayout').value = 'no-layout';
   } else {
     useState('deviceLayout').value = isMobile ? 'mobile' : 'default';
+    if (!isMobile && to.path === '/cart') {
+      throw createError({
+        statusCode: 404
+      })
+    }
   }
 });

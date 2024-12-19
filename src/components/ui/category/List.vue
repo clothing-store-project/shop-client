@@ -66,7 +66,7 @@ onMounted(() => {
   <section class="max-w-screen-2xl mx-auto px-4 py-6 md:py-12 overflow-hidden">
     <div
         ref="containerRef"
-        class="grid  grid-flow-col md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-x-visible snap-x md:snap-none scrollbar-hide"
+        class="grid  grid-flow-col md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-x-visible snap-x md:snap-none no-scrollbar"
     >
       <NuxtLink
           v-for="category in categories"

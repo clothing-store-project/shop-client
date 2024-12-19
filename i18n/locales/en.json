@@ -19,6 +19,7 @@
     "checkout": "Checkout",
     "cart": "Cart",
     "add_to_cart": "Add to cart",
+    "update_cart": "Update cart",
     "remove": "Remove",
     "empty_cart": "Empty cart",
     "continue_shopping": "Continue shopping",
@@ -56,6 +57,7 @@
     "kids": "Kids",
     "accessories": "Accessories",
     "explore": "View more",
+    "back_to_home": "Back to home",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -190,6 +192,14 @@
       "confirm_password": "Confirm password",
       "change_password": "Change password",
       "save": "Save password"
+    },
+    "404": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you are looking for could not be found."
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Whoops, something went wrong on our servers."
     }
   },
   "component": {

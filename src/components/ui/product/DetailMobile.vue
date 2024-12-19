@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type {Color, Product, ProductDetail, Size} from "~/types/product";
 import type {CartItem} from "~/types/cart";
+import {getProductProperty} from "~/utils";
 
 const props = defineProps<{
   product: ProductDetail,
@@ -32,17 +33,16 @@ const allImages = computed(() => {
   });
   return Array.from(uniqueImages);
 });
-const colors = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'color')?.values || []);
-const sizes = computed(() => props.product.configurable_options.find(option => option.attribute_code === 'size')?.values || []);
+const {colors, sizes,productDiscount} = getProductProperty(props.product);
 
 const addToCart = () => {
   if (selectedSize.value && selectedColor.value) {
-    const { short_description, materials, instructions, description, ...productDetails } = props.product;
+    const {short_description, materials, instructions, description, ...productDetails} = props.product;
     emit('add-to-cart', {
       ...productDetails,
       selected_color: selectedColor.value,
       selected_size: selectedSize.value,
-      quantity:1
+      quantity: 1
     });
   }
 };
@@ -261,10 +261,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
       <div class="flex items-baseline space-x-4">
         <span class="text-xl md:text-2xl font-bold">{{ useFormatNumber(product.price) }}</span>
-        <span class="text-gray-500 line-through">{{ useFormatNumber(product.regular_price) }}</span>
-        <span class="text-red-500">{{
-            ((product.regular_price - product.price) / product.price * 100).toFixed(0)
-          }}%</span>
+        <span class="text-gray-500 line-through" v-if="productDiscount>0">{{ useFormatNumber(product.regular_price) }}</span>
+        <span class="text-red-500" v-if="productDiscount>0">{{productDiscount}}%</span>
       </div>
 
       <!-- Promotion Banner -->
@@ -320,7 +318,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           class=" bottom-0 left-0 right-0 bg-white border-t md:relative md:border-t-0 z-51"
       >
         <div class="grid gap-4">
-          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">{{ $t('general.add_to_cart')}}</button>
+          <button class="bg-[#dc2626] text-white py-3" @click="addToCart">{{ $t('general.add_to_cart') }}</button>
         </div>
       </div>
 
@@ -352,7 +350,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
             </el-icon>
           </div>
           <div>
-            <h4 class="font-medium text-sm">{{ $t('general.cod')}}</h4>
+            <h4 class="font-medium text-sm">{{ $t('general.cod') }}</h4>
             <p class="text-xs text-gray-500">{{ $t('general.shipping') }}</p>
           </div>
         </div>
@@ -364,7 +362,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           </div>
           <div>
             <h4 class="font-medium text-sm">{{ $t('general.free_delivery') }}</h4>
-            <p class="text-xs text-gray-500">{{ $t('component.product.free_delivery', {value: '599.000 đ'})}} </p>
+            <p class="text-xs text-gray-500">{{ $t('component.product.free_delivery', {value: '599.000 đ'}) }} </p>
           </div>
         </div>
         <div class="flex items-center gap-3">
@@ -393,8 +391,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         :append-to-body="true"
         :modal="true"
         :show-close="true"
-        custom-class="!rounded-t-xl md:!rounded-xl"
         :title="$t('component.product.share')"
+        custom-class="!rounded-t-xl md:!rounded-xl"
         width="90%"
     >
       <div class="flex flex-col space-y-4">
