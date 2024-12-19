@@ -3,6 +3,7 @@ import {usePaymentData} from "~/data/paymentData";
 import {useCartStore} from "~/stores/cart";
 import type {CartItem} from "~/types/cart";
 import type {Address} from "~/types/address";
+import type {Coupon} from "~/types/coupon";
 
 const {payments} = usePaymentData();
 const cartStore = useCartStore()
@@ -37,11 +38,18 @@ const remainingForFreeShipping = computed(() => {
   return Math.max(0, freeShippingThreshold - subtotal.value)
 })
 const shippingCost = computed(() => {
-  if (cartItems.length > 0) {
+  if (cartItems.value.length > 0) {
     return remainingForFreeShipping.value > 0 ? shippingFee : 0
   }
 
   return 0
+})
+const couponDiscount = computed(() => {
+  if (!coupon.value.id) return 0
+
+  return coupon.value?.type === 'percentage'
+      ? subtotal.value * coupon.value.value / 100
+      : coupon.value?.value
 })
 
 const address = ref<Address>({
@@ -55,6 +63,21 @@ const address = ref<Address>({
   type: 1,
   isDefault: true
 })
+
+//Coupon
+const coupon = ref<Coupon>({} as Coupon)
+
+const toggleCoupon = (appliedCoupon : Coupon) => {
+  if (coupon.value !== appliedCoupon) {
+    coupon.value = appliedCoupon
+  } else {
+    coupon.value = {} as Coupon
+  }
+}
+
+const addCoupon = (addCoupon: Coupon) => {
+  coupon.value = addCoupon
+}
 </script>
 
 <template>
@@ -242,6 +265,15 @@ const address = ref<Address>({
                 <Icon class="w-4 h-4 ml-2" name="lucide:chevron-right"/>
               </el-button>
             </div>
+            <div v-if="coupon && coupon.id" class="border-1 border-[#63B1BC] bg-[#e0eff2] flex justify-around items-center w-full py-4">
+              <div class="flex  flex-col">
+                <span class="font-bold">{{ coupon.code }}</span>
+                <span>{{ coupon.description }}</span>
+              </div>
+              <div class="flex justify-center w-6 h-6 rounded-full items-center border-1 border-gray-400 bg-[#63b1bc]">
+                <Icon class="w-4 h-4 text-white" name="lucide:check"/>
+              </div>
+            </div>
           </div>
 
           <div class="border-t pt-6 w-full">
@@ -255,6 +287,10 @@ const address = ref<Address>({
                 <span class="text-gray-600">Chiết khấu</span>
                 <span class="text-red-500">-{{ useFormatNumber(saveMoney) }}</span>
               </div>
+              <div v-if="coupon && coupon.id" class="flex justify-between">
+                <span class="text-gray-600">Ưu đãi</span>
+                <span class="text-red-500">-{{ useFormatNumber(couponDiscount) }}</span>
+              </div>
               <div class="flex justify-between">
                 <span class="text-gray-600">Phí giao hàng</span>
                 <span>{{ useFormatNumber(shippingCost) }}</span>
@@ -264,7 +300,7 @@ const address = ref<Address>({
             <div class="border-t pt-4 mb-6">
               <div class="flex justify-between items-center mb-1">
                 <span class="font-medium">Tổng tiền thanh toán</span>
-                <span class="text-xl font-medium">{{ useFormatNumber(subtotal + shippingCost) }}</span>
+                <span class="text-xl font-medium">{{ useFormatNumber(subtotal + shippingCost - couponDiscount) }}</span>
               </div>
               <div class="text-sm text-gray-500 text-right">(Đã bao gồm thuế VAT)</div>
             </div>
@@ -291,7 +327,10 @@ const address = ref<Address>({
   />
   <UiCouponList
       :isOpen="couponDialogVisible"
+      :applyCoupon="coupon"
       @close-popup="couponDialogVisible = !couponDialogVisible"
+      @toggle-coupon="toggleCoupon"
+      @add-coupon="addCoupon"
   />
 </template>
 

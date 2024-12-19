@@ -109,11 +109,6 @@ const handleEditAddress = (address: Address) => {
   // Implement edit address logic here
 }
 
-const handleDialogCancel = () => {
-  dialogAddress.value = {} as Address
-  dialogVisible.value = false
-}
-
 const handleDialogConfirm = (address: Address, isNew: boolean) => {
   if (isNew) {
     // addAddress()
