@@ -14,6 +14,12 @@ useSeoMeta({
   ogImage: 'https://example.com/image.png',
   ogType: 'website',
 })
+
+useHead({
+  htmlAttrs: {
+    lang: 'vn'
+  }
+})
 </script>
 
 <template>

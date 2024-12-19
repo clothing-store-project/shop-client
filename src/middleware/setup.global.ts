@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
   const categories = to.params.category;
 
   useState('deviceLayout').value = isMobile ? 'mobile' : 'default';
-
+  const routeCheckout = computed(() => to.path.startsWith('/checkout'))
   if (isMobile && (routeProduct.value || routeCart.value || categories)) {
     useState('deviceLayout').value = 'no-layout';
   } else {
@@ -16,6 +16,10 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
       throw createError({
         statusCode: 404
       })
+    }
+    if (routeCheckout.value) {
+      useState('deviceLayout').value = 'checkout';
+      return
     }
   }
 });

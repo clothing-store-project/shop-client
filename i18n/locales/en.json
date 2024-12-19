@@ -16,11 +16,12 @@
     "color": "Color",
     "size": "Size",
     "total": "Total",
+    "done": "Done",
     "checkout": "Checkout",
     "cart": "Cart",
     "add_to_cart": "Add to cart",
-    "update_cart": "Update cart",
     "remove": "Remove",
+    "change": "Change",
     "empty_cart": "Empty cart",
     "continue_shopping": "Continue shopping",
     "checkout_info": "Checkout information",
@@ -39,10 +40,12 @@
     "filter": "Filter",
     "tags": "Tags",
     "password": "Password",
+    "add": "Add",
     "update": "Update",
     "edit": "Edit",
     "delete": "Delete",
     "reset": "Reset",
+    "cancel": "Cancel",
     "province": "Province/City",
     "district": "District/Town",
     "commune": "Commune/Ward",
@@ -57,7 +60,6 @@
     "kids": "Kids",
     "accessories": "Accessories",
     "explore": "View more",
-    "back_to_home": "Back to home",
     "dashboard": {
       "dashboard": "Dashboard",
       "account_setting": "Account setting",
@@ -89,6 +91,11 @@
         "phone": "Enter your phone",
         "birthday": "Enter your birthday"
       }
+    },
+    "payment_method": {
+      "cod": "Cash on delivery",
+      "vn_pay": "Pay with VNPAY",
+      "shopee_pay": "Pay with ShopeePay"
     }
   },
   "validate": {
@@ -193,13 +200,14 @@
       "change_password": "Change password",
       "save": "Save password"
     },
-    "404": {
-      "title": "Page Not Found",
-      "description": "Sorry, the page you are looking for could not be found."
-    },
-    "500": {
-      "title": "Server Error",
-      "description": "Whoops, something went wrong on our servers."
+    "checkout": {
+      "title": "Checkout",
+      "description": "Checkout your order",
+      "continue_shopping": "CONTINUE SHOPPING",
+      "option": "Order option",
+      "place_order": "Place order",
+      "shipping_method": "Shipping method",
+      "payment_method": "Payment method"
     }
   },
   "component": {
