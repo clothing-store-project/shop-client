@@ -55,7 +55,8 @@ const close = () => {
     <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto border-x-blue-400">
       <div class="mx-auto px-4 py-6 bg-white">
         <!-- Header with close button -->
-        <div class="flex justify-end mb-6">
+        <div class="flex justify-between items-center mb-6">
+          <span class="font-bold">Tìm kiếm sản phẩm</span>
           <button class="p-2 hover:bg-gray-100 rounded-full" @click="close">
             <Icon name="lucide:circle-x" class="w-6 h-6"/>
           </button>
@@ -113,7 +114,7 @@ const close = () => {
                 </div>
               </div>
             </div>
-            <div class="flex justify-center items-center w-full pt-2">
+            <div class="flex justify-center items-center w-full py-4">
               <button class="w-60 h-10 px-8 py-2 bg-black text-white rounded-full hover:bg-pink-500" @click="viewAll">
                 {{ $t('general.view_all') }}
               </button>

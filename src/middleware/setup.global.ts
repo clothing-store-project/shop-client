@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
   useState('deviceLayout').value = isMobile ? 'mobile' : 'default';
   const routeCheckout = computed(() => to.path.startsWith('/checkout'))
-  if (isMobile && (routeProduct.value || routeCart.value || categories)) {
+  if (isMobile && (routeProduct.value || routeCart.value || categories || routeCheckout.value)) {
     useState('deviceLayout').value = 'no-layout';
   } else {
     useState('deviceLayout').value = isMobile ? 'mobile' : 'default';

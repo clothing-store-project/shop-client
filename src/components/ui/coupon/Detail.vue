@@ -83,7 +83,7 @@ const copyToClipboard = (text: string) => {
               type="danger"
               @click="handleAddCoupon(coupon)"
           >
-            Sử dụng
+            {{ $t('general.use') }}
           </el-button>
         </div>
       </div>
