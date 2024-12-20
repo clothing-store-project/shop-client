@@ -58,7 +58,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
     <div :class="['bg-white transition-shadow duration-300', isScrolled ? 'shadow-md' : '']">
       <div v-if="isScrolled" class="px-4 py-3 flex items-center justify-between border-b">
-        <div class="flex-1 max-w-md">
+        <div class="flex-1 max-w-md" @click="isSearchVisible = true">
           <div class="relative">
             <el-input
                 :prefix-icon="LazyElIconSearch"

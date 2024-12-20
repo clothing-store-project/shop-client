@@ -165,9 +165,9 @@ onUnmounted(() => {
     <!-- Recommendations -->
     <div class="bg-white p-4 mb-48">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="font-medium">Có thể bạn sẽ thích</h2>
+        <h2 class="font-medium">{{ $t('general.u_may_also_like') }}</h2>
         <el-button class="text-red-600" link>
-          Xem tất cả
+          {{ $t('component.view_all')}}
           <ElIconDArrowRight class="w-4 h-4 ml-1 text-red-500"/>
         </el-button>
       </div>
@@ -192,12 +192,17 @@ onUnmounted(() => {
             <div class="text-red-600 text-sm text-right">(Tiết kiệm {{ useFormatNumber(saveMoney) }})</div>
           </div>
         </div>
-        <button
-            :class="cartItems.length === 0 ? 'bg-red-400' : ''"
-            class="w-full h-12 bg-red-600 text-white"
+        <NuxtLinkLocale
+            class="w-full h-12"
+            to="/checkout"
         >
-          Thanh toán
-        </button>
+          <button
+              :class="cartItems.length === 0 ? 'bg-red-400' : ''"
+              class="w-full h-12 bg-red-600 text-white"
+          >
+            {{ $t('general.checkout') }}
+          </button>
+        </NuxtLinkLocale>
       </div>
     </div>
   </div>

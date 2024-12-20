@@ -46,6 +46,7 @@
     "edit": "Chỉnh sửa",
     "delete": "Xóa",
     "reset": "Đặt lại",
+    "continue": "Tiếp tục",
     "cancel": "Hủy",
     "province": "Tỉnh/Thành phố",
     "district": "Quận/Huyện",
@@ -62,6 +63,7 @@
     "accessories": "Phụ kiện",
     "explore": "Xem thêm",
     "back_to_home": "Quay lại trang chủ",
+    "use" : "Sử dụng",
     "dashboard": {
       "dashboard": "Bảng điều khiển",
       "account_setting": "Tài khoản",
@@ -248,6 +250,10 @@
       "shipping": "Phí vận chuyển",
       "tax": "Thuế",
       "total": "Tổng cộng"
+    },
+    "coupon" : {
+      "detail" : "Chi tiết mã ưu đãi",
+      "name" : "Mã giảm giá"
     }
   }
 }

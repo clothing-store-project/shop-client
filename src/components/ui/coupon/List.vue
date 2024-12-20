@@ -130,7 +130,7 @@ const addCoupon = (coupon: Coupon) => {
       >
         <!-- Header -->
         <div class="flex items-center justify-between p-4 shrink-0">
-          <h2 class="text-lg font-medium">Mã giảm giá</h2>
+          <h2 class="text-lg font-medium">{{ $t('component.coupon.name') }}</h2>
           <button
               class="text-gray-400 hover:text-gray-500"
               @click="$emit('close-popup')"
@@ -143,13 +143,12 @@ const addCoupon = (coupon: Coupon) => {
           <div class="flex gap-2 mb-6">
             <el-input
                 v-model="voucherCode"
-                placeholder="Nhập mã ưu đãi"
                 type="text"
             />
             <el-button
                 type="primary"
                 @click="applyVoucher">
-              Sử dụng
+              {{ $t('general.use') }}
             </el-button>
           </div>
         </div>
@@ -222,7 +221,7 @@ const addCoupon = (coupon: Coupon) => {
               type="danger"
               @click="$emit('close-popup')"
           >
-            Tiếp tục
+            {{ $t('general.continue') }}
           </el-button>
         </div>
       </div>
