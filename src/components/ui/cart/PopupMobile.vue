@@ -144,7 +144,7 @@ const handleUpdateCart = () => {
     </div>
 
     <!-- Size Selection -->
-    <div class="mb-6">
+    <div class="mb-14">
       <p class="text-sm text-gray-700 mb-2">{{ $t('general.size') + ': ' + selectedSize.label }}</p>
       <div class="grid grid-cols-5 gap-2">
         <button
