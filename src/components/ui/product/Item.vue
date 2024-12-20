@@ -125,7 +125,7 @@ const addToCart = () => {
             </div>
           </div>
           <div v-else
-               class="absolute right-3 bottom-3 z-10 w-8 border-gray-50 bg-[#ffffff80] rounded-full p-2 items-center">
+               class="absolute right-3 bottom-3 z-10 w-8 border-gray-50 bg-[#ffffff80] rounded-full p-2 items-center flex h-8">
             <ElIconHandbag class="w-4 h-4 flex mx-auto" @click="()=>drawer = true"/>
           </div>
         </div>

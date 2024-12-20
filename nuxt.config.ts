@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   
   nitro: {
-    preset: "node_server"
+    preset: "cloudflare_module",
   },
   
   runtimeConfig: {

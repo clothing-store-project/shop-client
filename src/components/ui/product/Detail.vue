@@ -74,6 +74,11 @@ const addToCart = () => {
       selected_size: selectedSize.value,
       quantity: 1
     });
+    ElNotification({
+      title: 'Thông báo',
+      message: 'Sản phẩm đã được thêm vào giỏ hàng',
+      type: 'success'
+    });
   }
 };
 

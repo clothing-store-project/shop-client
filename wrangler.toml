@@ -1,0 +1,7 @@
+account_id = "647ab336c3fb487f6fc11639ae7313a6"
+name = "shop-client"
+compatibility_date = "2024-09-19"
+main = "./.output/server/index.mjs"
+assets = { directory = "./.output/public/", binding = "ASSETS" }
+[observability.logs]
+enabled = true
