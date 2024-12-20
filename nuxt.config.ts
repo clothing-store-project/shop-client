@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   
   nitro: {
-    preset: "stormkit"
+    preset: "node_server"
   },
   
   runtimeConfig: {
