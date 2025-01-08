@@ -33,7 +33,7 @@ const toggleCart = () => {
               :ellipsis="false"
               menu-trigger="hover"
               mode="horizontal"
-              popper-class="mega-menu"
+              popper-class="mega-menu !left-0"
           >
             <template v-for="(item,index) in mainNavItems" :key="item.name">
               <el-sub-menu
@@ -50,7 +50,7 @@ const toggleCart = () => {
                 </template>
                 <template #default>
                   <el-menu-item-group v-for="(data,index) in megaMenu" :key="index">
-                    <h3 class="text-base font-medium text-gray-900 ">{{ data.sectionName }}</h3>
+                    <h3 class="text-base font-medium text-gray-900">{{ data.sectionName }}</h3>
                     <ul class="mt-4 space-y-3">
                       <li v-for="item in data.data" :key="item.name">
                         <NuxtLinkLocale :to="item.href" class="text-sm text-gray-500 hover:text-[#ef3224]">
